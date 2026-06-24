@@ -30,7 +30,7 @@ export default function AdminHeader() {
           </div>
 
           <div className="flex items-center space-x-4">
-            <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+            <button className="relative p-2 text-gray-600 hover:bg-[#FAF9F5] rounded-none transition-colors">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
@@ -38,23 +38,23 @@ export default function AdminHeader() {
             <div className="relative">
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
-                className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="flex items-center space-x-3 p-2 hover:bg-[#FAF9F5] rounded-none transition-colors"
               >
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-[#1C1917] rounded-full flex items-center justify-center">
                   <User className="w-4 h-4 text-white" />
                 </div>
                 <span className="text-gray-700 hidden sm:inline">{user?.name}</span>
               </button>
 
               {showDropdown && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-none shadow-lg border border-gray-200 py-2 z-50">
                   <div className="px-4 py-2 border-b">
                     <p className="text-sm font-medium">{user?.name}</p>
                     <p className="text-xs text-gray-500">{user?.email}</p>
                   </div>
                   <button
                     onClick={logout}
-                    className="w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100 flex items-center space-x-2"
+                    className="w-full px-4 py-2 text-left text-red-600 hover:bg-[#FAF9F5] flex items-center space-x-2"
                   >
                     <LogOut className="w-4 h-4" />
                     <span>Logout</span>

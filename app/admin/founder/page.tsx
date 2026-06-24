@@ -198,9 +198,9 @@ export default function FounderManagementPage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
+            className={`mb-6 p-4 rounded-none flex items-center gap-3 ${
               message.type === 'success'
-                ? 'bg-green-50 border border-green-200 text-green-800'
+                ? 'bg-stone-50 border border-green-200 text-green-800'
                 : 'bg-red-50 border border-red-200 text-red-800'
             }`}
           >
@@ -212,7 +212,7 @@ export default function FounderManagementPage() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6 p-4 bg-[#EFF5FF] border border-[#2660A2]/20 rounded-lg"
+          className="mb-6 p-4 bg-[#EFF5FF] border border-[#2660A2]/20 rounded-none"
         >
           <p className="text-[#1F3E7D] text-sm font-light">
             <strong>Disclaimer:</strong> Please ensure all information provided is accurate and up-to-date. Image uploads should be high-quality and relevant to the founder's profile. Changes will be reflected immediately on the public website.
@@ -223,7 +223,7 @@ export default function FounderManagementPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-lg shadow-sm border border-[#2660A2]/20"
+          className="bg-white rounded-none shadow-sm border border-[#2660A2]/20"
         >
           {!isEditing ? (
             // View Mode
@@ -231,7 +231,7 @@ export default function FounderManagementPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 {/* Founder Image */}
                 <div className="md:col-span-1">
-                  <div className="relative aspect-square rounded-lg overflow-hidden bg-[#EFF5FF] shadow-md">
+                  <div className="relative aspect-square rounded-none overflow-hidden bg-[#EFF5FF] shadow-md">
                     {formData.image && (
                       <img
                         src={formData.image}
@@ -281,7 +281,7 @@ export default function FounderManagementPage() {
                   <div className="pt-4">
                     <button
                       onClick={() => setIsEditing(true)}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-[#2660A2] text-white rounded-lg hover:bg-[#1F3E7D] transition-colors font-semibold"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-[#2660A2] text-white rounded-none hover:bg-[#1F3E7D] transition-colors font-semibold"
                     >
                       <Edit className="w-4 h-4" />
                       Edit Details
@@ -298,19 +298,19 @@ export default function FounderManagementPage() {
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {formData.linkedin && (
-                      <div className="p-3 bg-[#EFF5FF] rounded-lg">
+                      <div className="p-3 bg-[#EFF5FF] rounded-none">
                         <p className="text-xs text-[#4A6E9A] uppercase mb-1">LinkedIn</p>
                         <p className="text-sm text-[#1D325E] truncate">{formData.linkedin}</p>
                       </div>
                     )}
                     {formData.twitter && (
-                      <div className="p-3 bg-[#EFF5FF] rounded-lg">
+                      <div className="p-3 bg-[#EFF5FF] rounded-none">
                         <p className="text-xs text-[#4A6E9A] uppercase mb-1">Twitter</p>
                         <p className="text-sm text-[#1D325E] truncate">{formData.twitter}</p>
                       </div>
                     )}
                     {formData.instagram && (
-                      <div className="p-3 bg-[#EFF5FF] rounded-lg">
+                      <div className="p-3 bg-[#EFF5FF] rounded-none">
                         <p className="text-xs text-[#4A6E9A] uppercase mb-1">Instagram</p>
                         <p className="text-sm text-[#1D325E] truncate">{formData.instagram}</p>
                       </div>
@@ -329,7 +329,7 @@ export default function FounderManagementPage() {
                     Founder Image
                   </label>
                   <div className="flex flex-col lg:flex-row gap-4">
-                    <div className="flex-1 border-2 border-dashed border-[#2660A2]/30 rounded-lg p-6 bg-[#EFF5FF]">
+                    <div className="flex-1 border-2 border-dashed border-[#2660A2]/30 rounded-none p-6 bg-[#EFF5FF]">
                       <div className="flex flex-col items-center justify-center gap-4 text-center">
                         {uploading ? (
                           <>
@@ -345,7 +345,7 @@ export default function FounderManagementPage() {
                               <button
                                 type="button"
                                 onClick={() => uploadImageToCloudinary(selectedFile)}
-                                className="px-4 py-2 bg-[#2660A2] text-white rounded-lg hover:bg-[#1F3E7D] transition-colors text-sm"
+                                className="px-4 py-2 bg-[#2660A2] text-white rounded-none hover:bg-[#1F3E7D] transition-colors text-sm"
                               >
                                 Upload Image
                               </button>
@@ -353,7 +353,7 @@ export default function FounderManagementPage() {
                                 type="button"
                                 onClick={handleSelectImage}
                                 disabled={uploading}
-                                className="px-4 py-2 border border-[#2660A2]/30 rounded-lg text-sm text-[#1D325E] hover:bg-[#F7FBFF] transition-colors"
+                                className="px-4 py-2 border border-[#2660A2]/30 rounded-none text-sm text-[#1D325E] hover:bg-[#F7FBFF] transition-colors"
                               >
                                 Choose Different File
                               </button>
@@ -367,7 +367,7 @@ export default function FounderManagementPage() {
                             <button
                               type="button"
                               onClick={handleSelectImage}
-                              className="mt-2 px-4 py-2 bg-[#2660A2] text-white rounded-lg hover:bg-[#1F3E7D] transition-colors text-sm"
+                              className="mt-2 px-4 py-2 bg-[#2660A2] text-white rounded-none hover:bg-[#1F3E7D] transition-colors text-sm"
                             >
                               Choose Image
                             </button>
@@ -385,7 +385,7 @@ export default function FounderManagementPage() {
                     </div>
 
                     {(formData.image || imagePreview) && (
-                      <div className="w-full lg:w-32 h-32 rounded-lg overflow-hidden bg-[#EFF5FF] flex-shrink-0">
+                      <div className="w-full lg:w-32 h-32 rounded-none overflow-hidden bg-[#EFF5FF] flex-shrink-0">
                         <img
                           src={imagePreview || formData.image}
                           alt="Preview"
@@ -418,7 +418,7 @@ export default function FounderManagementPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-none focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
                     placeholder="Founder name"
                   />
                 </div>
@@ -433,7 +433,7 @@ export default function FounderManagementPage() {
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-none focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
                     placeholder="e.g., Principal Architect & CEO"
                   />
                 </div>
@@ -448,7 +448,7 @@ export default function FounderManagementPage() {
                     value={formData.quote}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-none focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
                     placeholder="Founder's quote"
                   />
                 </div>
@@ -463,7 +463,7 @@ export default function FounderManagementPage() {
                     value={formData.bio}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-none focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
                     placeholder="Additional biography information"
                   />
                 </div>
@@ -482,7 +482,7 @@ export default function FounderManagementPage() {
                         name="linkedin"
                         value={formData.linkedin}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
+                        className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-none focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
                         placeholder="https://linkedin.com/in/..."
                       />
                     </div>
@@ -496,7 +496,7 @@ export default function FounderManagementPage() {
                         name="twitter"
                         value={formData.twitter}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
+                        className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-none focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
                         placeholder="https://twitter.com/..."
                       />
                     </div>
@@ -510,7 +510,7 @@ export default function FounderManagementPage() {
                         name="instagram"
                         value={formData.instagram}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
+                        className="w-full px-4 py-3 border border-[#2660A2]/30 rounded-none focus:outline-none focus:ring-2 focus:ring-[#2660A2] focus:border-transparent"
                         placeholder="https://instagram.com/..."
                       />
                     </div>
@@ -522,7 +522,7 @@ export default function FounderManagementPage() {
                   <button
                     onClick={handleSave}
                     disabled={saving || (!!selectedFile && !uploadCompleted)}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#2660A2] text-white rounded-lg hover:bg-[#1F3E7D] transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#2660A2] text-white rounded-none hover:bg-[#1F3E7D] transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Save className="w-4 h-4" />
                     {saving ? 'Saving...' : 'Save Changes'}
@@ -530,7 +530,7 @@ export default function FounderManagementPage() {
                   <button
                     onClick={handleCancel}
                     disabled={saving}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-[#2660A2]/30 text-[#1D325E] rounded-lg hover:bg-[#EFF5FF] transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-[#2660A2]/30 text-[#1D325E] rounded-none hover:bg-[#EFF5FF] transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <X className="w-4 h-4" />
                     Cancel

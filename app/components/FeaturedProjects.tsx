@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { MapPin, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 const fallbackProjects = [
   {
@@ -30,14 +30,6 @@ const fallbackProjects = [
     year: '2023',
     image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80',
   },
-  {
-    id: 'lumina-center',
-    title: 'Lumina Art Center',
-    category: 'Cultural',
-    location: 'Copenhagen',
-    year: '2022',
-    image: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=1200&q=80',
-  },
 ];
 
 export default function FeaturedProjects() {
@@ -48,11 +40,11 @@ export default function FeaturedProjects() {
     const fetchProjects = async () => {
       try {
         const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-        const res = await fetch(`${API_URL}/api/projects?limit=4`);
+        const res = await fetch(`${API_URL}/api/projects?limit=3`);
         if (!res.ok) throw new Error('failed');
         const data = await res.json();
         if (data.success && Array.isArray(data.data) && data.data.length > 0) {
-          setProjects(data.data.slice(0, 4));
+          setProjects(data.data.slice(0, 3));
         } else {
           setProjects(fallbackProjects);
         }
@@ -69,205 +61,86 @@ export default function FeaturedProjects() {
 
   if (loading) {
     return (
-      <section className="bg-[#EFF5FF] py-32 flex items-center justify-center border-t border-[#5B96D1]/20">
-        <div className="flex items-center gap-4 text-[#5B7FBB]/50">
-          <div className="w-5 h-5 border-2 border-[#5B96D1]/20 border-t-[#5B96D1] rounded-full animate-spin" />
-          <span className="text-[10px] uppercase tracking-[0.3em] font-bold">Loading Portfolio</span>
+      <section className="bg-[#FAF9F5] py-24 flex items-center justify-center border-t border-stone-200">
+        <div className="flex items-center gap-4 text-[#878076]">
+          <div className="w-4 h-4 border border-stone-300 border-t-[#1C1917] rounded-full animate-spin" />
+          <span className="text-[9px] uppercase tracking-[0.3em] font-bold text-stone-500">Loading Portfolio</span>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="bg-[#EFF5FF] border-t border-[#5B96D1]/20 relative">
-      {/* ── HEADER SECTION ── */}
-      <div className="max-w-[1700px] mx-auto px-6 lg:px-14 pt-28 pb-16">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-[1px] bg-[#5B96D1]" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5A7BC1]">Featured Works</span>
+    <section className="bg-[#FAF9F5] border-t border-stone-200 py-24">
+      <div className="max-w-[1800px] mx-auto px-8 lg:px-20">
+
+        {/* ── HEADER ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14 pb-8 border-b border-stone-200"
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-6 h-[1px] bg-stone-400" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Selected Works</span>
             </div>
-            <h2 className="text-4xl lg:text-6xl font-bold text-[#1D325E] tracking-tight font-serif mb-6 leading-[1.1]">
-              Our Creations & <br className="hidden sm:block" />
-              <span className="italic font-normal text-[#9A7840]">Concepts.</span>
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-[#1C1917]">
+              Our Portfolio
             </h2>
-            <p className="text-[#4A6E9A] text-lg font-light leading-relaxed">
-              Designing spaces that inspire and endure. Step into a curated gallery of our most prestigious architectural and interior transformations.
-            </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="hidden lg:block pb-2"
+          <Link
+            href="/portfolio"
+            className="group inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#1C1917] hover:text-stone-500 transition-colors"
           >
-            <Link
-              href="/portfolio"
-              className="group flex items-center gap-4 px-8 py-4 bg-[#1D325E] text-[#F7FBFF] text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-[#5B96D1] hover:text-[#1D325E] transition-all duration-500 shadow-lg"
-            >
-              View Full Portfolio
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </Link>
-          </motion.div>
-        </div>
-      </div>
+            <span className="border-b border-[#1C1917]/20 group-hover:border-stone-500 pb-0.5 transition-colors">View All Projects</span>
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </Link>
+        </motion.div>
 
-      {/* ── PROJECTS GRID ── */}
-      <div className="max-w-[1700px] mx-auto px-6 lg:px-14 pb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        {/* ── GALLERY GRID (clean, no card boxes) ── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+          {displayed.map((project, idx) => {
+            const projectImg = project.image || project.featuredImage;
+            const projectYear = project.year || project.completionYear;
+            const projectId = project._id || project.id;
 
-          {/* Large Feature — first project */}
-          {displayed[0] && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-7"
-            >
-              <Link
-                href={`/portfolio/${displayed[0]._id || displayed[0].id}`}
-                className="group block relative aspect-[4/3] overflow-hidden bg-[#1D325E]"
-              >
-                <img
-                  src={displayed[0].image || displayed[0].featuredImage}
-                  alt={displayed[0].title}
-                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1500ms] ease-out"
-                />
-                {/* Elegant Inner Frame */}
-                <div className="absolute inset-5 border border-[#F7FBFF]/20 z-10 pointer-events-none transition-colors duration-700 group-hover:border-[#5B96D1]/50" />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1205] via-[#1A1205]/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-                
-                {/* Content Box */}
-                <div className="absolute bottom-10 left-10 right-10 z-20 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-                  <div>
-                    <span className="flex items-center gap-2 text-[#5B96D1] text-[9px] font-bold uppercase tracking-[0.3em] mb-4">
-                      <div className="w-4 h-[1px] bg-[#5B96D1]" />
-                      {displayed[0].category}
-                    </span>
-                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#F7FBFF] font-serif group-hover:text-[#5B96D1] transition-colors duration-500">
-                      {displayed[0].title}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-4 text-[#F7FBFF]/60 text-xs font-light tracking-widest uppercase">
-                      <MapPin className="w-3.5 h-3.5 text-[#5B96D1]" /> {displayed[0].location}
-                    </div>
-                  </div>
-                  {/* Hover Button */}
-                  <div className="w-14 h-14 rounded-full border border-[#F7FBFF]/30 flex items-center justify-center text-[#F7FBFF] group-hover:bg-[#5B96D1] group-hover:text-[#1D325E] group-hover:border-[#5B96D1] transition-all duration-500 flex-shrink-0 backdrop-blur-sm">
-                    <ArrowUpRight className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          )}
-
-          {/* Right column — 2 smaller projects */}
-          <div className="lg:col-span-5 flex flex-col gap-5">
-            {displayed.slice(1, 3).map((project, index) => (
+            return (
               <motion.div
-                key={project._id || project.id}
-                initial={{ opacity: 0, y: 30 }}
+                key={projectId}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: (index + 1) * 0.15 }}
+                transition={{ duration: 0.7, delay: idx * 0.1 }}
               >
-                <Link
-                  href={`/portfolio/${project._id || project.id}`}
-                  className="group block relative aspect-[16/9] overflow-hidden bg-[#1D325E]"
-                >
-                  <img
-                    src={project.image || project.featuredImage}
-                    alt={project.title}
-                    className="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1500ms]"
-                  />
-                  {/* Elegant Inner Frame */}
-                  <div className="absolute inset-4 border border-[#F7FBFF]/15 z-10 pointer-events-none transition-colors duration-700 group-hover:border-[#5B96D1]/50" />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1205]/95 via-[#1A1205]/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  {/* Content Box */}
-                  <div className="absolute bottom-8 left-8 right-8 z-20 flex items-end justify-between gap-4">
-                    <div>
-                      <span className="block text-[#5B96D1] text-[8px] font-bold uppercase tracking-[0.3em] mb-2">
-                        {project.category}
+                <Link href={`/portfolio/${projectId}`} className="group block">
+                  {/* Image */}
+                  <div className="relative w-full aspect-[4/3] overflow-hidden border border-stone-200 mb-4">
+                    <img
+                      src={projectImg}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-105"
+                    />
+                  </div>
+
+                  {/* Text — no card, clean typography */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[8px] font-bold uppercase tracking-[0.25em] text-stone-400">
+                        {project.category} · {projectYear}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-bold text-[#F7FBFF] font-serif group-hover:text-[#5B96D1] transition-colors duration-500">
-                        {project.title}
-                      </h3>
                     </div>
-                    {/* Hover Button */}
-                    <div className="w-10 h-10 rounded-full border border-[#F7FBFF]/20 flex items-center justify-center text-[#F7FBFF] group-hover:bg-[#5B96D1] group-hover:text-[#1D325E] group-hover:border-[#5B96D1] transition-all duration-500 flex-shrink-0 backdrop-blur-sm">
-                      <ArrowUpRight className="w-4 h-4" />
-                    </div>
+                    <h3 className="text-xl font-serif font-bold text-[#1C1917] group-hover:text-stone-500 transition-colors leading-snug">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-stone-500 font-light mt-1">{project.location}</p>
                   </div>
                 </Link>
               </motion.div>
-            ))}
-          </div>
-
-          {/* Wide panoramic — 4th project */}
-          {displayed[3] && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="lg:col-span-12"
-            >
-              <Link
-                href={`/portfolio/${displayed[3]._id || displayed[3].id}`}
-                className="group block relative h-[280px] lg:h-[380px] overflow-hidden bg-[#1D325E]"
-              >
-                <img
-                  src={displayed[3].image || displayed[3].featuredImage}
-                  alt={displayed[3].title}
-                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1500ms]"
-                />
-                {/* Elegant Inner Frame */}
-                <div className="absolute inset-5 border border-[#F7FBFF]/20 z-10 pointer-events-none transition-colors duration-700 group-hover:border-[#5B96D1]/50" />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#1A1205]/95 via-[#1A1205]/50 to-transparent transition-opacity duration-500" />
-                
-                {/* Content Box */}
-                <div className="absolute inset-0 z-20 flex flex-col justify-center p-10 lg:p-16 w-full md:w-2/3">
-                  <span className="flex items-center gap-2 text-[#5B96D1] text-[9px] font-bold uppercase tracking-[0.3em] mb-4">
-                    <div className="w-6 h-[1px] bg-[#5B96D1]" />
-                    {displayed[3].category}
-                  </span>
-                  <h3 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-[#F7FBFF] font-serif mb-6 group-hover:text-[#5B96D1] transition-colors duration-500">
-                    {displayed[3].title}
-                  </h3>
-                  
-                  <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2 text-[#F7FBFF]/70 text-xs font-light tracking-widest uppercase">
-                      <MapPin className="w-3.5 h-3.5 text-[#5B96D1]" /> {displayed[3].location}
-                    </div>
-                    
-                    <div className="flex items-center gap-2 text-[#5B96D1] text-[10px] font-bold uppercase tracking-[0.2em] opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
-                      View Project <ArrowUpRight className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          )}
-        </div>
-
-        {/* Mobile view all CTA */}
-        <div className="mt-10 lg:hidden">
-          <Link
-            href="/portfolio"
-            className="flex items-center justify-center w-full bg-[#1D325E] text-[#F7FBFF] hover:bg-[#5B96D1] hover:text-[#1D325E] gap-3 text-[10px] font-bold uppercase tracking-[0.3em] py-5 transition-all duration-300 shadow-lg"
-          >
-            View Full Portfolio <ArrowUpRight className="w-4 h-4" />
-          </Link>
+            );
+          })}
         </div>
       </div>
     </section>

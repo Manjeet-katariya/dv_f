@@ -124,7 +124,7 @@ export default function ManageAdminsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-[#FAF9F5] p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8 flex justify-between items-center">
@@ -134,7 +134,7 @@ export default function ManageAdminsPage() {
           </div>
           <button
             onClick={() => setShowAddForm(!showAddForm)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-colors"
+            className="bg-[#1C1917] hover:bg-stone-800 text-white px-6 py-3 rounded-none font-medium flex items-center gap-2 transition-colors"
           >
             <Plus className="w-5 h-5" />
             Add New Admin
@@ -143,9 +143,9 @@ export default function ManageAdminsPage() {
 
         {/* Alert */}
         {alert && (
-          <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
+          <div className={`mb-6 p-4 rounded-none flex items-center gap-3 ${
             alert.type === 'success'
-              ? 'bg-green-50 text-green-800 border border-green-200'
+              ? 'bg-stone-50 text-green-800 border border-green-200'
               : 'bg-red-50 text-red-800 border border-red-200'
           }`}>
             {alert.type === 'success' ? (
@@ -159,7 +159,7 @@ export default function ManageAdminsPage() {
 
         {/* Add Admin Form */}
         {showAddForm && (
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 mb-8">
+          <div className="bg-white rounded-none border border-gray-200 shadow-sm p-6 mb-8">
             <h2 className="text-lg font-bold text-gray-900 mb-6">Create New Admin Account</h2>
             
             <form onSubmit={handleAddAdmin} className="space-y-4">
@@ -171,7 +171,7 @@ export default function ManageAdminsPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Admin Full Name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600 focus:outline-none"
                     required
                   />
                 </div>
@@ -183,7 +183,7 @@ export default function ManageAdminsPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="admin@example.com"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600 focus:outline-none"
                     required
                   />
                 </div>
@@ -195,7 +195,7 @@ export default function ManageAdminsPage() {
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     placeholder="Secure password"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600 focus:outline-none"
                     required
                   />
                 </div>
@@ -205,7 +205,7 @@ export default function ManageAdminsPage() {
                 <button
                   type="submit"
                   disabled={creating}
-                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors disabled:opacity-50"
+                  className="bg-[#1C1917] hover:bg-stone-800 text-white px-6 py-2 rounded-none font-medium flex items-center gap-2 transition-colors disabled:opacity-50"
                 >
                   {creating && <Loader2 className="w-4 h-4 animate-spin" />}
                   {creating && 'Creating...'}
@@ -215,7 +215,7 @@ export default function ManageAdminsPage() {
                 <button
                   type="button"
                   onClick={() => setShowAddForm(false)}
-                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg font-medium transition-colors"
+                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-none font-medium transition-colors"
                 >
                   Cancel
                 </button>
@@ -225,8 +225,8 @@ export default function ManageAdminsPage() {
         )}
 
         {/* Admin List */}
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-          <div className="p-6 border-b border-gray-100 bg-gray-50">
+        <div className="bg-white rounded-none border border-gray-200 shadow-sm overflow-hidden">
+          <div className="p-6 border-b border-gray-100 bg-[#FAF9F5]">
             <h2 className="text-lg font-bold text-gray-900">All Admins ({admins.length})</h2>
           </div>
 
@@ -243,10 +243,10 @@ export default function ManageAdminsPage() {
           ) : (
             <div className="divide-y divide-gray-100">
               {admins.map((admin) => (
-                <div key={admin._id} className="p-6 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                <div key={admin._id} className="p-6 flex items-center justify-between hover:bg-[#FAF9F5] transition-colors">
                   <div className="flex-1">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-semibold text-sm">
+                      <div className="w-10 h-10 bg-blue-100 text-[#1C1917] rounded-full flex items-center justify-center font-semibold text-sm">
                         {admin.name.charAt(0).toUpperCase()}
                       </div>
                       <div>
@@ -262,7 +262,7 @@ export default function ManageAdminsPage() {
                   <div className="flex items-center gap-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                       admin.role === 'superadmin'
-                        ? 'bg-purple-100 text-purple-800'
+                        ? 'bg-stone-100 text-stone-800'
                         : 'bg-blue-100 text-blue-800'
                     }`}>
                       {admin.role === 'superadmin' ? '👑 Superadmin' : '👤 Admin'}
@@ -274,7 +274,7 @@ export default function ManageAdminsPage() {
                       <button
                         onClick={() => handleDeleteAdmin(admin._id)}
                         disabled={deleting === admin._id}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                        className="p-2 text-red-600 hover:bg-red-50 rounded-none transition-colors disabled:opacity-50"
                         title="Delete admin"
                       >
                         {deleting === admin._id ? (
@@ -293,7 +293,7 @@ export default function ManageAdminsPage() {
 
         {/* Back Link */}
         <div className="mt-6">
-          <Link href="/admin/dashboard" className="text-blue-600 hover:text-blue-800 font-medium">
+          <Link href="/admin/dashboard" className="text-[#1C1917] hover:text-blue-800 font-medium">
             ← Back to Dashboard
           </Link>
         </div>

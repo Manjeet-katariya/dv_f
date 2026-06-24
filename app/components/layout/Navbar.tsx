@@ -1,29 +1,29 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Menu } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const FacebookIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
   </svg>
 );
 const InstagramIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
   </svg>
 );
 const TwitterIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
   </svg>
 );
 const LinkedInIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
     <rect x="2" y="9" width="4" height="12" />
     <circle cx="4" cy="4" r="2" />
@@ -38,24 +38,17 @@ interface SocialLinks {
 }
 
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Portfolio', href: '/portfolio' },
-  { name: 'Services', href: '/services' },
-  { name: 'About', href: '/about' },
-  { name: 'Calculator', href: '/calculator' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Home', href: '/', num: '01' },
+  { name: 'Portfolio', href: '/portfolio', num: '02' },
+  { name: 'Services', href: '/services', num: '03' },
+  { name: 'About', href: '/about', num: '04' },
+  { name: 'Calculator', href: '/calculator', num: '05' },
+  { name: 'Contact', href: '/contact', num: '06' },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [socialLinks, setSocialLinks] = useState<SocialLinks>({});
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     if (isOpen) document.body.style.overflow = 'hidden';
@@ -98,164 +91,187 @@ export default function Navbar() {
   return (
     <>
       {/* ── NAVBAR ── */}
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'bg-[#F7FBFF]/98 shadow-[0_2px_40px_rgba(25,42,72,0.12)] border-b border-[#2660A2]/20'
-            : 'bg-[#F7FBFF]/90 border-b border-[#2660A2]/10'
-        } backdrop-blur-xl`}
-      >
-        {/* Top gold accent bar */}
-        <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#5B96D1] to-transparent opacity-60" />
-
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
-          <div className="flex items-center justify-between h-[72px]">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-stone-100 shadow-sm">
+        <div className="max-w-[1800px] mx-auto px-8 lg:px-16">
+          <div className="flex items-center justify-between h-20">
 
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0 flex items-center group">
+            <Link href="/" className="group z-10 relative">
               <img
-                src="/logo2.png"
-                alt="SP Architects"
-                className="h-12 object-contain transition-opacity duration-300 group-hover:opacity-75"
+                src="/logo-dvl.png"
+                alt="DVL Architects"
+                className="h-10 w-10 object-cover rounded-full border border-stone-200 shadow-sm opacity-90 group-hover:opacity-100 transition-opacity"
               />
             </Link>
 
-            {/* Desktop Nav Links */}
-            <div className="hidden lg:flex items-center gap-10">
-              {navLinks.map(link => (
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+              {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="relative text-[10.5px] font-bold uppercase tracking-[0.18em] text-[#162A48] hover:text-[#2660A2] transition-colors duration-300 group py-1"
+                  className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#57534E] hover:text-[#1C1917] transition-colors relative group py-2"
                 >
                   {link.name}
-                  <span className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-[#5B96D1] group-hover:w-full transition-all duration-300 rounded-full" />
+                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#1C1917] transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </div>
 
-            {/* Right: CTA Button */}
-            <div className="flex items-center gap-6">
-              {/* CTA Button */}
+            {/* Right actions */}
+            <div className="flex items-center gap-6 z-10">
+              {/* Desktop Start Project Button */}
               <Link
                 href="/contact"
-                className="hidden lg:inline-flex items-center justify-center text-[9.5px] font-black uppercase tracking-[0.22em] px-7 py-[11px] bg-[#2660A2] text-[#F7FBFF] hover:bg-[#162A48] transition-all duration-300 shadow-[0_2px_18px_rgba(20,42,72,0.25)] hover:shadow-[0_4px_24px_rgba(20,42,72,0.3)]"
+                className="hidden lg:inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] px-6 py-2.5 rounded-full border border-[#1C1917] text-[#1C1917] hover:bg-[#1C1917] hover:text-[#FAF9F5] transition-all duration-300"
               >
                 Start Project
               </Link>
 
-              {/* Mobile Hamburger */}
+              {/* Mobile Menu trigger */}
               <button
                 onClick={() => setIsOpen(true)}
-                className="lg:hidden p-2 text-[#1F3E7D] hover:text-[#5B96D1] transition-colors"
-                aria-label="Open menu"
+                className="lg:hidden flex items-center gap-3 group relative"
+                aria-label="Open navigation"
               >
-                <Menu className="w-5 h-5" />
+                <div className="flex flex-col gap-[5px]">
+                  <span className="block w-7 h-[1px] bg-[#1C1917] transition-all duration-300 group-hover:w-9" />
+                  <span className="block w-5 h-[1px] bg-[#1C1917] transition-all duration-300 group-hover:w-9" />
+                  <span className="block w-7 h-[1px] bg-[#1C1917] transition-all duration-300 group-hover:w-9" />
+                </div>
               </button>
             </div>
 
           </div>
         </div>
-
-        {/* Bottom gold line */}
-        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#5B96D1]/25 to-transparent" />
       </nav>
 
-      {/* ── MOBILE MENU ── */}
+      {/* ── FULLSCREEN OVERLAY MENU ── */}
       <AnimatePresence>
         {isOpen && (
-          <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-[100] flex"
+          >
+            {/* Left: Nav content */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-[#2A1E06]/50 backdrop-blur-sm z-[60] lg:hidden"
-            />
-
-            <motion.div
-              initial={{ x: '100%' }}
+              initial={{ x: '-100%' }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 28, stiffness: 220 }}
-              className="fixed top-0 right-0 h-full w-[82%] max-w-[360px] bg-[#F7FBFF] z-[70] flex flex-col shadow-[−8px_0_60px_rgba(140,100,20,0.2)]"
+              exit={{ x: '-100%' }}
+              transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+              className="relative w-full lg:w-[58%] bg-[#FAF9F5] flex flex-col px-10 lg:px-20 py-8 overflow-y-auto border-r border-stone-200"
             >
-              {/* Header */}
-              <div className="flex items-center justify-between px-8 py-6 border-b border-[#5B96D1]/20">
-                <img src="/logo2.png" alt="Logo" className="h-9 object-contain" />
+              {/* Top row */}
+              <div className="flex items-center justify-between mb-16 flex-shrink-0">
+                <img src="/logo-dvl.png" alt="DVL Architects" className="h-9 w-9 object-cover rounded-full border border-stone-200 shadow-sm" />
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 text-[#5B7FBB] hover:text-[#3D2E0A] transition-colors"
+                  className="flex items-center gap-3 group"
                 >
-                  <X className="w-5 h-5" />
+                  <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#878076] group-hover:text-[#1C1917] transition-colors">Close</span>
+                  <div className="w-9 h-9 border border-stone-200 flex items-center justify-center group-hover:border-stone-400 transition-colors">
+                    <X className="w-4 h-4 text-[#57534E] group-hover:text-[#1C1917] transition-colors" />
+                  </div>
                 </button>
               </div>
 
-              {/* Links */}
-              <div className="flex flex-col px-8 py-10 gap-1 flex-1 overflow-y-auto">
+              {/* Nav links */}
+              <nav className="flex-1">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.name}
-                    initial={{ opacity: 0, x: 24 }}
+                    initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.07 }}
+                    transition={{ delay: 0.15 + i * 0.07, duration: 0.4 }}
                   >
                     <Link
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-between group py-4 border-b border-[#5B96D1]/10 hover:border-[#5B96D1]/40 transition-colors"
+                      className="group flex items-baseline gap-6 py-5 border-b border-stone-200/60 hover:border-stone-400 transition-all"
                     >
-                      <span className="text-[22px] font-bold text-[#3D2E0A] group-hover:text-[#2660A2] transition-colors leading-none tracking-tight font-serif">
+                      <span className="text-[10px] font-mono text-[#1C1917]/30 group-hover:text-[#1C1917]/80 transition-colors w-6 flex-shrink-0">
+                        {link.num}
+                      </span>
+                      <span className="text-[clamp(2.5rem,6vw,4.5rem)] font-serif font-bold text-[#1C1917] group-hover:text-stone-500 transition-colors leading-none tracking-tight">
                         {link.name}
                       </span>
-                      <span className="w-5 h-5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-[#5B96D1]">
-                        →
-                      </span>
+                      <span className="ml-auto text-[#1C1917] opacity-0 group-hover:opacity-100 transition-opacity text-lg">↗</span>
                     </Link>
                   </motion.div>
                 ))}
+              </nav>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="mt-10"
+              {/* Bottom row */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.65 }}
+                className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pt-10 mt-6 border-t border-stone-200/80 flex-shrink-0"
+              >
+                {/* Social */}
+                {socials.length > 0 && (
+                  <div>
+                    <p className="text-[8px] font-bold uppercase tracking-[0.4em] text-[#878076] mb-4">Follow Us</p>
+                    <div className="flex gap-5">
+                      {socials.map(({ key, href, Icon }) => (
+                        <a key={key} href={href} target="_blank" rel="noopener noreferrer"
+                          onClick={() => trackSocialClick(key)}
+                          className="text-[#57534E] hover:text-[#1C1917] transition-colors">
+                          <Icon />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <Link
+                  href="/contact"
+                  onClick={() => setIsOpen(false)}
+                  className="inline-flex items-center gap-3 text-[9px] font-bold uppercase tracking-[0.3em] px-7 py-3 bg-[#1C1917] text-[#FAF9F5] hover:bg-stone-800 transition-colors"
                 >
-                  <Link
-                    href="/contact"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-center w-full bg-[#2660A2] text-[#F7FBFF] text-[10px] font-black uppercase tracking-[0.25em] py-5 hover:bg-[#3D2E0A] transition-colors"
-                  >
-                    Start Your Project
-                  </Link>
-                </motion.div>
-              </div>
-
-              {/* Footer / Social */}
-              <div className="px-8 py-6 border-t border-[#5B96D1]/20 bg-[#EFF5FF]/60">
-                <p className="text-[8px] font-bold uppercase tracking-[0.35em] text-[#5B7FBB] mb-4">Follow Us</p>
-                <div className="flex gap-5">
-                  {socials.map(({ key, href, Icon }) => (
-                    <a
-                      key={key}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => trackSocialClick(key)}
-                      className="text-[#2660A2] hover:text-[#2660A2] transition-colors"
-                    >
-                      <Icon />
-                    </a>
-                  ))}
-                </div>
-              </div>
+                  Start Project
+                </Link>
+              </motion.div>
             </motion.div>
-          </>
+
+            {/* Right: Architecture image panel (desktop only) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="hidden lg:block flex-1 relative overflow-hidden bg-[#F4F3EE]"
+              onClick={() => setIsOpen(false)}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1400&q=80"
+                alt=""
+                className="w-full h-full object-cover opacity-45 grayscale hover:grayscale-0 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#FAF9F5] via-[#FAF9F5]/40 to-transparent" />
+
+              {/* Contact info on right panel */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="absolute bottom-16 left-16"
+              >
+                <p className="text-[8px] font-bold uppercase tracking-[0.4em] text-[#1C1917]/60 mb-5">Get In Touch</p>
+                <p className="text-[#57534E] text-sm mb-2">+91-8619633247</p>
+                <p className="text-[#57534E] text-sm">sparchitects93@gmail.com</p>
+                <p className="text-[#878076] text-xs mt-3">Jaipur, Rajasthan, India</p>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
 
       {/* Spacer */}
-      <div className="h-[74px]" />
+      <div className="h-20" />
     </>
   );
 }

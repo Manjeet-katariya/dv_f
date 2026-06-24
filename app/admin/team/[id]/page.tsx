@@ -127,7 +127,7 @@ const TeamMemberDetailPage = () => {
   if (loading) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center p-6">
-        <Loader2 className="w-10 h-10 text-blue-600 animate-spin mb-4" />
+        <Loader2 className="w-10 h-10 text-[#1C1917] animate-spin mb-4" />
         <p className="text-sm font-medium text-gray-500 uppercase tracking-widest">Loading Profile...</p>
       </div>
     );
@@ -138,7 +138,7 @@ const TeamMemberDetailPage = () => {
       <div className="min-h-[60vh] flex flex-col items-center justify-center p-6">
         <User className="w-16 h-16 text-gray-300 mb-4" />
         <p className="text-lg font-medium text-gray-900">Team member not found.</p>
-        <Link href="/admin/team" className="mt-4 text-blue-600 hover:underline">Return to Team Roster</Link>
+        <Link href="/admin/team" className="mt-4 text-[#1C1917] hover:underline">Return to Team Roster</Link>
       </div>
     );
   }
@@ -163,7 +163,7 @@ const TeamMemberDetailPage = () => {
         {!isEditing && (
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-white border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:text-gray-900 shadow-sm transition-all"
+            className="inline-flex items-center gap-2 rounded-none bg-white border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:bg-[#FAF9F5] hover:text-gray-900 shadow-sm transition-all"
             onClick={() => router.push(`/admin/team/${id}?mode=edit`)}
           >
             <Edit className="w-4 h-4" />
@@ -178,9 +178,9 @@ const TeamMemberDetailPage = () => {
         className="grid gap-8 lg:grid-cols-[350px_1fr]"
       >
         {/* Left Column: Preview Card */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm h-fit">
+        <div className="rounded-none border border-gray-200 bg-white p-8 shadow-sm h-fit">
           <div className="mb-6 flex flex-col items-center text-center">
-            <div className="mb-5 h-32 w-32 overflow-hidden rounded-full bg-gray-100 ring-4 ring-gray-50 relative shadow-inner">
+            <div className="mb-5 h-32 w-32 overflow-hidden rounded-full bg-[#FAF9F5] ring-4 ring-gray-50 relative shadow-inner">
               {member.image ? (
                 <Image src={member.image} alt={member.name} fill className="object-cover" unoptimized />
               ) : (
@@ -191,10 +191,10 @@ const TeamMemberDetailPage = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h2>
-              <p className="text-sm font-medium text-blue-600 uppercase tracking-wider">{member.position}</p>
+              <p className="text-sm font-medium text-[#1C1917] uppercase tracking-wider">{member.position}</p>
             </div>
             
-            <div className={`mt-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${member.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+            <div className={`mt-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${member.isActive ? 'bg-green-100 text-stone-850' : 'bg-[#FAF9F5] text-gray-600'}`}>
               {member.isActive ? <CheckCircle className="w-3 h-3" /> : <X className="w-3 h-3" />}
               {member.isActive ? 'Active Member' : 'Inactive'}
             </div>
@@ -202,22 +202,22 @@ const TeamMemberDetailPage = () => {
 
           <div className="space-y-4 text-sm text-gray-600 pt-6 border-t border-gray-100">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gray-50 rounded-lg text-gray-400"><Mail className="h-4 w-4" /></div>
+              <div className="p-2 bg-[#FAF9F5] rounded-none text-gray-400"><Mail className="h-4 w-4" /></div>
               <span className="truncate">{member.email || 'No email provided'}</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gray-50 rounded-lg text-gray-400"><LinkedinIcon className="h-4 w-4" /></div>
+              <div className="p-2 bg-[#FAF9F5] rounded-none text-gray-400"><LinkedinIcon className="h-4 w-4" /></div>
               <span className="truncate">{member.linkedin || 'No LinkedIn'}</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gray-50 rounded-lg text-gray-400"><TwitterIcon className="h-4 w-4" /></div>
+              <div className="p-2 bg-[#FAF9F5] rounded-none text-gray-400"><TwitterIcon className="h-4 w-4" /></div>
               <span className="truncate">{member.twitter || 'No Twitter'}</span>
             </div>
           </div>
         </div>
 
         {/* Right Column: Edit Form */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+        <div className="rounded-none border border-gray-200 bg-white p-8 shadow-sm">
           <div className="mb-8">
             <h3 className="text-lg font-bold text-gray-900">Profile Details</h3>
             <p className="text-sm text-gray-500">Update personal information, biography, and social links.</p>
@@ -232,7 +232,7 @@ const TeamMemberDetailPage = () => {
                   value={formData?.name || ''}
                   onChange={(event) => handleChange('name', event.target.value)}
                   disabled={!isEditing}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500 outline-none transition-all"
+                  className="w-full rounded-none border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-stone-600 focus:ring-1 focus:ring-stone-600 disabled:bg-[#FAF9F5] disabled:text-gray-500 outline-none transition-all"
                 />
               </div>
               <div>
@@ -242,7 +242,7 @@ const TeamMemberDetailPage = () => {
                   value={formData?.position || ''}
                   onChange={(event) => handleChange('position', event.target.value)}
                   disabled={!isEditing}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500 outline-none transition-all"
+                  className="w-full rounded-none border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-stone-600 focus:ring-1 focus:ring-stone-600 disabled:bg-[#FAF9F5] disabled:text-gray-500 outline-none transition-all"
                 />
               </div>
             </div>
@@ -254,7 +254,7 @@ const TeamMemberDetailPage = () => {
                 value={formData?.bio || ''}
                 onChange={(event) => handleChange('bio', event.target.value)}
                 disabled={!isEditing}
-                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500 outline-none transition-all resize-none"
+                className="w-full rounded-none border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-stone-600 focus:ring-1 focus:ring-stone-600 disabled:bg-[#FAF9F5] disabled:text-gray-500 outline-none transition-all resize-none"
               />
             </div>
 
@@ -268,7 +268,7 @@ const TeamMemberDetailPage = () => {
                     value={formData?.email || ''}
                     onChange={(event) => handleChange('email', event.target.value)}
                     disabled={!isEditing}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500 outline-none transition-all"
+                    className="w-full rounded-none border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-stone-600 focus:ring-1 focus:ring-stone-600 disabled:bg-[#FAF9F5] disabled:text-gray-500 outline-none transition-all"
                   />
                 </div>
                 <div>
@@ -281,7 +281,7 @@ const TeamMemberDetailPage = () => {
                       onChange={(event) => handleChange('image', event.target.value)}
                       disabled={!isEditing}
                       placeholder="https://..."
-                      className="w-full rounded-lg border border-gray-300 bg-white pl-10 pr-4 py-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500 outline-none transition-all"
+                      className="w-full rounded-none border border-gray-300 bg-white pl-10 pr-4 py-2.5 text-sm text-gray-900 focus:border-stone-600 focus:ring-1 focus:ring-stone-600 disabled:bg-[#FAF9F5] disabled:text-gray-500 outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -292,7 +292,7 @@ const TeamMemberDetailPage = () => {
                     value={formData?.linkedin || ''}
                     onChange={(event) => handleChange('linkedin', event.target.value)}
                     disabled={!isEditing}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500 outline-none transition-all"
+                    className="w-full rounded-none border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-stone-600 focus:ring-1 focus:ring-stone-600 disabled:bg-[#FAF9F5] disabled:text-gray-500 outline-none transition-all"
                   />
                 </div>
                 <div>
@@ -302,7 +302,7 @@ const TeamMemberDetailPage = () => {
                     value={formData?.twitter || ''}
                     onChange={(event) => handleChange('twitter', event.target.value)}
                     disabled={!isEditing}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500 outline-none transition-all"
+                    className="w-full rounded-none border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-stone-600 focus:ring-1 focus:ring-stone-600 disabled:bg-[#FAF9F5] disabled:text-gray-500 outline-none transition-all"
                   />
                 </div>
               </div>
@@ -322,7 +322,7 @@ const TeamMemberDetailPage = () => {
                   disabled={!isEditing}
                   onChange={(e) => handleChange('isActive', e.target.checked)}
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 disabled:opacity-50"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1C1917] disabled:opacity-50"></div>
               </label>
             </div>
           </div>
@@ -334,7 +334,7 @@ const TeamMemberDetailPage = () => {
                 type="button"
                 onClick={handleSave}
                 disabled={isSaving}
-                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-70 transition-all shadow-sm"
+                className="inline-flex items-center justify-center rounded-none bg-[#1C1917] px-6 py-2.5 text-sm font-semibold text-white hover:bg-stone-800 disabled:opacity-70 transition-all shadow-sm"
               >
                 {isSaving ? (
                   <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</>
@@ -346,7 +346,7 @@ const TeamMemberDetailPage = () => {
                 type="button"
                 onClick={() => router.push(`/admin/team/${id}`)}
                 disabled={isSaving}
-                className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-6 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-all"
+                className="inline-flex items-center justify-center rounded-none border border-gray-300 bg-white px-6 py-2.5 text-sm font-semibold text-gray-700 hover:bg-[#FAF9F5] transition-all"
               >
                 <X className="mr-2 h-4 w-4" /> Cancel
               </button>

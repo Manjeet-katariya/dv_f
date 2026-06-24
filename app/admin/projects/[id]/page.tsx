@@ -231,7 +231,7 @@ export default function AdminProjectDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAF9F5] flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
@@ -239,10 +239,10 @@ export default function AdminProjectDetail() {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAF9F5] flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Project Not Found</h1>
-          <Link href="/admin/projects" className="text-blue-600 hover:text-blue-800">
+          <Link href="/admin/projects" className="text-[#1C1917] hover:text-blue-800">
             Back to Projects
           </Link>
         </div>
@@ -256,7 +256,7 @@ export default function AdminProjectDetail() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-center bg-white p-12 rounded-xl shadow-lg"
+          className="text-center bg-white p-12 rounded-none shadow-lg"
         >
           <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Project Updated!</h1>
@@ -267,7 +267,7 @@ export default function AdminProjectDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#FAF9F5]">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -289,10 +289,10 @@ export default function AdminProjectDetail() {
                 <>
                   <button
                     onClick={handleToggleActive}
-                    className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium ${
+                    className={`flex items-center px-3 py-2 rounded-none text-sm font-medium ${
                       project.isActive 
-                        ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' 
-                        : 'bg-green-100 text-green-700 hover:bg-green-200'
+                        ? 'bg-[#FAF9F5] text-gray-700 hover:bg-gray-200' 
+                        : 'bg-green-100 text-stone-850 hover:bg-green-200'
                     }`}
                   >
                     {project.isActive ? (
@@ -309,14 +309,14 @@ export default function AdminProjectDetail() {
                   </button>
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+                    className="flex items-center px-3 py-2 bg-[#1C1917] text-white rounded-none hover:bg-stone-800 text-sm"
                   >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="flex items-center px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm"
+                    className="flex items-center px-3 py-2 bg-red-600 text-white rounded-none hover:bg-red-700 text-sm"
                   >
                     <Trash2 className="w-4 h-4 mr-2" />
                     Delete
@@ -333,7 +333,7 @@ export default function AdminProjectDetail() {
                       setNewGalleryImages([]);
                     }}
                     disabled={isUploadingImages}
-                    className="flex items-center px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm disabled:opacity-50"
+                    className="flex items-center px-3 py-2 bg-[#FAF9F5] text-gray-700 rounded-none hover:bg-gray-200 text-sm disabled:opacity-50"
                   >
                     <X className="w-4 h-4 mr-2" />
                     Cancel
@@ -341,7 +341,7 @@ export default function AdminProjectDetail() {
                   <button
                     onClick={handleSave}
                     disabled={isUploadingImages}
-                    className="flex items-center px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm disabled:opacity-70"
+                    className="flex items-center px-3 py-2 bg-[#1C1917] text-white rounded-none hover:bg-stone-800 text-sm disabled:opacity-70"
                   >
                     {isUploadingImages ? (
                       <>
@@ -368,7 +368,7 @@ export default function AdminProjectDetail() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Featured Image */}
-            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div className="bg-white rounded-none shadow-sm overflow-hidden">
               {isEditing && formData ? (
                 <div className="space-y-4 p-6">
                   <div>
@@ -377,9 +377,9 @@ export default function AdminProjectDetail() {
                       {/* Preview of selected new image */}
                       {newFeaturedImage ? (
                         <div className="relative">
-                          <div className="relative w-full h-64 rounded-lg overflow-hidden border-2 border-blue-300 shadow-md bg-gray-100">
+                          <div className="relative w-full h-64 rounded-none overflow-hidden border-2 border-stone-300 shadow-md bg-[#FAF9F5]">
                             <img src={newFeaturedImage.url} alt="New Featured" className="w-full h-full object-cover" />
-                            <div className="absolute top-2 right-2 px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded">
+                            <div className="absolute top-2 right-2 px-3 py-1 bg-stone-500 text-white text-xs font-bold rounded">
                               📤 New
                             </div>
                           </div>
@@ -392,9 +392,9 @@ export default function AdminProjectDetail() {
                           </button>
                         </div>
                       ) : (
-                        <div className="relative w-full h-64 rounded-lg overflow-hidden border-2 border-gray-300 shadow-md bg-gray-100">
+                        <div className="relative w-full h-64 rounded-none overflow-hidden border-2 border-gray-300 shadow-md bg-[#FAF9F5]">
                           <img src={formData.featuredImage} alt="Current Featured" className="w-full h-full object-cover" />
-                          <div className="absolute top-2 right-2 px-3 py-1 bg-green-500 text-white text-xs font-bold rounded">
+                          <div className="absolute top-2 right-2 px-3 py-1 bg-stone-500 text-white text-xs font-bold rounded">
                             ✓ Current
                           </div>
                         </div>
@@ -419,7 +419,7 @@ export default function AdminProjectDetail() {
                             }
                             e.target.value = '';
                           }}
-                          className="w-full px-4 py-2.5 bg-blue-50 border-2 border-dashed border-blue-300 rounded-lg cursor-pointer hover:bg-blue-100 transition-colors text-sm"
+                          className="w-full px-4 py-2.5 bg-stone-50 border-2 border-dashed border-stone-300 rounded-none cursor-pointer hover:bg-blue-100 transition-colors text-sm"
                         />
                       )}
                       <p className="text-xs text-gray-500">💡 Choose a new image to update the featured image</p>
@@ -427,7 +427,7 @@ export default function AdminProjectDetail() {
                   </div>
                 </div>
               ) : (
-                <div className="relative w-full h-96 bg-gray-100">
+                <div className="relative w-full h-96 bg-[#FAF9F5]">
                   <img
                     src={project.featuredImage}
                     alt={project.title}
@@ -438,7 +438,7 @@ export default function AdminProjectDetail() {
             </div>
 
             {/* Project Details */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-none shadow-sm p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Project Details</h2>
               
               {isEditing && formData ? (
@@ -449,7 +449,7 @@ export default function AdminProjectDetail() {
                       type="text"
                       value={formData.title}
                       onChange={(e) => setFormData({...formData, title: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     />
                   </div>
                   
@@ -459,7 +459,7 @@ export default function AdminProjectDetail() {
                       value={formData.description}
                       onChange={(e) => setFormData({...formData, description: e.target.value})}
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     />
                   </div>
                   
@@ -469,7 +469,7 @@ export default function AdminProjectDetail() {
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({...formData, category: e.target.value as 'residential' | 'commercial'})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                       >
                         <option value="residential">Residential</option>
                         <option value="commercial">Commercial</option>
@@ -482,7 +482,7 @@ export default function AdminProjectDetail() {
                         type="number"
                         value={formData.completionYear}
                         onChange={(e) => setFormData({...formData, completionYear: parseInt(e.target.value)})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                       />
                     </div>
                   </div>
@@ -494,7 +494,7 @@ export default function AdminProjectDetail() {
                         type="text"
                         value={formData.client}
                         onChange={(e) => setFormData({...formData, client: e.target.value})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                       />
                     </div>
                     
@@ -504,7 +504,7 @@ export default function AdminProjectDetail() {
                         type="number"
                         value={formData.order}
                         onChange={(e) => setFormData({...formData, order: parseInt(e.target.value) || 0})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                       />
                     </div>
                   </div>
@@ -516,7 +516,7 @@ export default function AdminProjectDetail() {
                       value={formData.technologies.join(', ')}
                       onChange={(e) => setFormData({...formData, technologies: e.target.value.split(',').map(t => t.trim()).filter(t => t)})}
                       placeholder="AutoCAD, Revit, SketchUp"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     />
                   </div>
 
@@ -527,7 +527,7 @@ export default function AdminProjectDetail() {
                       value={formData.materials.join(', ')}
                       onChange={(e) => setFormData({...formData, materials: e.target.value.split(',').map(m => m.trim()).filter(m => m)})}
                       placeholder="Steel, Glass, Concrete"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     />
                   </div>
 
@@ -538,7 +538,7 @@ export default function AdminProjectDetail() {
                       onChange={(e) => setFormData({...formData, images: e.target.value.split('\n').map(url => url.trim()).filter(url => url)})}
                       rows={4}
                       placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     />
                   </div>
 
@@ -549,7 +549,7 @@ export default function AdminProjectDetail() {
                       onChange={(e) => setFormData({...formData, videos: e.target.value.split('\n').map(url => url.trim()).filter(url => url)})}
                       rows={3}
                       placeholder="https://example.com/video1.mp4&#10;https://example.com/video2.mp4"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     />
                   </div>
 
@@ -560,7 +560,7 @@ export default function AdminProjectDetail() {
                       value={formData.featuredImage}
                       onChange={(e) => setFormData({...formData, featuredImage: e.target.value})}
                       placeholder="https://example.com/featured-image.jpg"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     />
                   </div>
                 </div>
@@ -599,7 +599,7 @@ export default function AdminProjectDetail() {
             </div>
 
             {/* Images Gallery */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-none shadow-sm p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Images Gallery</h2>
               
               {isEditing && formData ? (
@@ -611,7 +611,7 @@ export default function AdminProjectDetail() {
                       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                         {formData.images.map((image, index) => (
                           <div key={index} className="relative group">
-                            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-green-300 shadow-md bg-gray-100">
+                            <div className="relative aspect-square rounded-none overflow-hidden border-2 border-green-300 shadow-md bg-[#FAF9F5]">
                               <img src={image} alt={`Gallery ${index + 1}`} className="w-full h-full object-cover" />
                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <button
@@ -627,7 +627,7 @@ export default function AdminProjectDetail() {
                               </div>
                             </div>
                             <p className="text-xs text-gray-600 mt-2 truncate">{index + 1}. Image</p>
-                            <div className="absolute top-1 right-1 px-2 py-1 bg-green-500 text-white text-xs font-bold rounded">
+                            <div className="absolute top-1 right-1 px-2 py-1 bg-stone-500 text-white text-xs font-bold rounded">
                               {index + 1}
                             </div>
                           </div>
@@ -643,7 +643,7 @@ export default function AdminProjectDetail() {
                       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                         {newGalleryImages.map((img, index) => (
                           <div key={img.id} className="relative group">
-                            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-blue-300 shadow-md bg-gray-100">
+                            <div className="relative aspect-square rounded-none overflow-hidden border-2 border-stone-300 shadow-md bg-[#FAF9F5]">
                               <img src={img.url} alt={img.name} className="w-full h-full object-cover" />
                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <button
@@ -656,7 +656,7 @@ export default function AdminProjectDetail() {
                                   <Trash2 className="w-4 h-4" />
                                 </button>
                               </div>
-                              <div className="absolute top-1 right-1 px-2 py-1 bg-blue-500 text-white text-xs font-bold rounded">
+                              <div className="absolute top-1 right-1 px-2 py-1 bg-stone-500 text-white text-xs font-bold rounded">
                                 📤
                               </div>
                             </div>
@@ -694,7 +694,7 @@ export default function AdminProjectDetail() {
                         });
                         e.target.value = '';
                       }}
-                      className="w-full px-4 py-2.5 bg-blue-50 border-2 border-dashed border-blue-300 rounded-lg cursor-pointer hover:bg-blue-100 transition-colors"
+                      className="w-full px-4 py-2.5 bg-stone-50 border-2 border-dashed border-stone-300 rounded-none cursor-pointer hover:bg-blue-100 transition-colors"
                     />
                     <p className="text-xs text-gray-500 mt-2">
                       💡 Choose images to add. Click "Save" to upload all new images.
@@ -705,7 +705,7 @@ export default function AdminProjectDetail() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                   {project.images.map((image, index) => (
                     <div key={index} className="relative group">
-                      <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-gray-200 shadow-md bg-gray-100">
+                      <div className="relative aspect-square rounded-none overflow-hidden border-2 border-gray-200 shadow-md bg-[#FAF9F5]">
                         <img src={image} alt={`Gallery ${index + 1}`} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                           <ImageIcon className="w-6 h-6 text-white" />
@@ -720,7 +720,7 @@ export default function AdminProjectDetail() {
 
             {/* Videos */}
             {project.videos.length > 0 && (
-              <div className="bg-white rounded-lg shadow-sm p-6">
+              <div className="bg-white rounded-none shadow-sm p-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Videos</h2>
                 <div className="space-y-4">
                   {project.videos.map((video, index) => (
@@ -728,7 +728,7 @@ export default function AdminProjectDetail() {
                       <video
                         src={video}
                         controls
-                        className="w-full rounded-lg"
+                        className="w-full rounded-none"
                       />
                     </div>
                   ))}
@@ -740,7 +740,7 @@ export default function AdminProjectDetail() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Status Card */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-none shadow-sm p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Status</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -761,7 +761,7 @@ export default function AdminProjectDetail() {
             </div>
 
             {/* Technologies */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-none shadow-sm p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Technologies</h3>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, index) => (
@@ -776,7 +776,7 @@ export default function AdminProjectDetail() {
             </div>
 
             {/* Materials */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-none shadow-sm p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Materials</h3>
               <div className="flex flex-wrap gap-2">
                 {project.materials.map((material, index) => (
@@ -791,12 +791,12 @@ export default function AdminProjectDetail() {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white rounded-none shadow-sm p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
               <div className="space-y-2">
                 <Link
                   href={`/portfolio/${project._id}`}
-                  className="flex items-center justify-center w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm"
+                  className="flex items-center justify-center w-full px-4 py-2 bg-[#FAF9F5] text-gray-700 rounded-none hover:bg-gray-200 text-sm"
                 >
                   <Eye className="w-4 h-4 mr-2" />
                   View Public Page

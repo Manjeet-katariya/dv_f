@@ -1,8 +1,7 @@
 "use client";
 
-import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Link, Mail, User } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface TeamMember {
   _id: string;
@@ -17,176 +16,148 @@ interface TeamMember {
   isActive: boolean;
 }
 
+const fallbackTeam: TeamMember[] = [
+  { _id: 't1', name: 'Eleanor Vance', position: 'Principal Architect', bio: 'With over 20 years of experience, Eleanor leads the studio with a distinct vision for blending modern minimalism with timeless warmth.', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80', order: 1, isActive: true },
+  { _id: 't2', name: 'Marcus Sterling', position: 'Design Director', bio: 'Marcus oversees all creative operations, ensuring every project aligns with our uncompromising standards of luxury and functionality.', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80', order: 2, isActive: true },
+  { _id: 't3', name: 'Sophia Lin', position: 'Lead Interior Designer', bio: 'Sophia specializes in bespoke furniture curation and textile selection, bringing distinct character to every residential space.', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&q=80', order: 3, isActive: true },
+  { _id: 't4', name: 'Arjun Mehta', position: 'Project Manager', bio: 'Arjun coordinates every site operation with precision — keeping timelines, budgets, and contractor relationships firmly on track.', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80', order: 4, isActive: true },
+];
+
 export default function TeamPage() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const fetchTeamMembers = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${API_URL}/api/team`);
+        const data = await res.json();
+        if (data.success && data.data && data.data.length > 0) setTeamMembers(data.data);
+        else setTeamMembers(fallbackTeam);
+      } catch { setTeamMembers(fallbackTeam); }
+      finally { setLoading(false); }
+    };
     fetchTeamMembers();
   }, []);
 
-  const fetchTeamMembers = async () => {
-    try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-      const response = await fetch(`${API_URL}/api/team`);
-      const data = await response.json();
-      
-      if (data.success) {
-        setTeamMembers(data.data);
-      } else {
-        setError('Failed to fetch team members');
-      }
-    } catch (err) {
-      setError('Error connecting to server');
-      console.error('Error fetching team members:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-zinc-300 font-sans">
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2660A2] mx-auto mb-4"></div>
-            <p className="text-slate-600">Loading our team...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-zinc-300 font-sans">
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-center">
-            <User className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-serif text-slate-900 mb-2">Oops!</h2>
-            <p className="text-slate-600 mb-4">{error}</p>
-            <button 
-              onClick={fetchTeamMembers}
-              className="px-6 py-2 bg-[#2660A2] text-white rounded-sm hover:bg-[#1F3E7D] transition-colors"
-            >
-              Try Again
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-zinc-300 font-sans">
+    <div className="min-h-screen bg-[#FAF9F5] font-sans">
 
-      {/* Hero Section */}
-      <main className="relative pt-40 pb-20 bg-zinc-50 border-b border-zinc-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* ── HEADER ── */}
+      <section className="bg-[#1C1917] pt-28 pb-16 px-8 lg:px-16">
+        <div className="max-w-[1700px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="h-px w-12 bg-[#2660A2]"></div>
-              <span className="text-[#2660A2] font-bold uppercase tracking-widest text-sm">
-                Our Team
-              </span>
-              <div className="h-px w-12 bg-[#2660A2]"></div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-5 h-[1px] bg-stone-700" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-600">The People</span>
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-slate-900 mb-6">
-              Meet the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5B96D1] to-[#5B7FBB]">Visionaries</span>
-            </h1>
-            <p className="text-xl text-slate-600 font-light max-w-2xl mx-auto">
-              The talented individuals behind our architectural masterpieces, each bringing unique expertise and passion to every project.
-            </p>
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+              <h1 className="font-serif font-bold text-white text-[clamp(2.5rem,5vw,4rem)] leading-tight">
+                Meet the Team<br />
+                <span className="italic font-normal text-stone-500">Behind Every Space.</span>
+              </h1>
+              <p className="text-stone-500 text-sm font-light max-w-sm leading-relaxed lg:pb-2">
+                Architects, designers, and project managers — united by a shared commitment to exceptional work and enduring spaces.
+              </p>
+            </div>
           </motion.div>
         </div>
-      </main>
+      </section>
 
-      {/* Team Grid Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {teamMembers.length === 0 ? (
-            <div className="text-center py-20">
-              <User className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-              <h3 className="text-2xl font-serif text-slate-900 mb-2">No Team Members Yet</h3>
-              <p className="text-slate-600">Our team is growing. Check back soon!</p>
+      {/* ── TEAM GRID ── */}
+      <section className="py-20 px-8 lg:px-16">
+        <div className="max-w-[1700px] mx-auto">
+
+          {loading ? (
+            <div className="flex justify-center py-32">
+              <div className="w-6 h-6 border-2 border-stone-200 border-t-[#1C1917] rounded-full animate-spin" />
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {teamMembers.map((member, index) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-14">
+              {teamMembers.map((member, i) => (
                 <motion.div
                   key={member._id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group bg-white rounded-sm shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+                  transition={{ duration: 0.7, delay: i * 0.08 }}
+                  className="group"
                 >
-                  {/* Image Container */}
-                  <div className="relative h-80 overflow-hidden">
+                  {/* Image */}
+                  <div className="relative aspect-[3/4] overflow-hidden bg-stone-100 mb-5">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.04] transition-all duration-[1200ms] ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Index number */}
+                    <div className="absolute top-4 left-4 text-[9px] font-mono text-white/40">
+                      {String(i + 1).padStart(2, '0')}
+                    </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-serif font-bold text-slate-900 mb-2">
-                      {member.name}
-                    </h3>
-                    <p className="text-[#a68a6b] font-semibold text-sm mb-3 uppercase tracking-wider">
-                      {member.position}
-                    </p>
-                    <p className="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                      {member.bio}
-                    </p>
+                  {/* Info */}
+                  <h2 className="font-serif font-bold text-[#1C1917] text-xl mb-1 group-hover:text-stone-600 transition-colors">
+                    {member.name}
+                  </h2>
+                  <p className="text-[9px] uppercase tracking-[0.25em] text-stone-400 font-bold mb-3">
+                    {member.position}
+                  </p>
+                  <div className="w-full h-[1px] bg-stone-200 mb-3 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 h-full w-0 bg-[#1C1917] group-hover:w-full transition-all duration-700 ease-out" />
+                  </div>
+                  <p className="text-[#57534E] text-xs font-light leading-relaxed">
+                    {member.bio}
+                  </p>
 
-                    {/* Social Links */}
-                    <div className="flex items-center space-x-3 pt-4 border-t border-zinc-100">
+                  {/* Contact links */}
+                  {(member.email || member.linkedin) && (
+                    <div className="flex gap-4 mt-4">
                       {member.email && (
-                        <a
-                          href={`mailto:${member.email}`}
-                          className="text-slate-400 hover:text-[#a68a6b] transition-colors"
-                          aria-label={`Email ${member.name}`}
-                        >
-                          <Mail className="w-4 h-4" />
+                        <a href={`mailto:${member.email}`} className="text-[9px] uppercase tracking-[0.2em] text-stone-400 hover:text-[#1C1917] transition-colors font-bold">
+                          Email
                         </a>
                       )}
                       {member.linkedin && (
-                        <a
-                          href={member.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-slate-400 hover:text-[#a68a6b] transition-colors"
-                          aria-label={`${member.name}'s LinkedIn`}
-                        >
-                          <Link className="w-4 h-4" />
-                        </a>
-                      )}
-                      {member.twitter && (
-                        <a
-                          href={member.twitter}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-slate-400 hover:text-[#a68a6b] transition-colors"
-                          aria-label={`${member.name}'s Twitter`}
-                        >
-                          <Link className="w-4 h-4" />
+                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-[9px] uppercase tracking-[0.2em] text-stone-400 hover:text-[#1C1917] transition-colors font-bold">
+                          LinkedIn
                         </a>
                       )}
                     </div>
-                  </div>
+                  )}
                 </motion.div>
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* ── JOIN US STRIP ── */}
+      <section className="bg-[#1C1917] py-16 px-8 lg:px-16 mt-8">
+        <div className="max-w-[1700px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-5 h-[1px] bg-stone-700" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-600">Careers</span>
+            </div>
+            <h2 className="font-serif font-bold text-white text-2xl lg:text-3xl">
+              Want to work with us?
+            </h2>
+            <p className="text-stone-500 text-sm font-light mt-2 max-w-md">
+              We are always looking for talented architects, designers, and creative minds to join the DVL team.
+            </p>
+          </div>
+          <a
+            href="mailto:careers@dvlarchitects.com"
+            className="flex-shrink-0 inline-flex items-center gap-2 px-8 py-4 border border-stone-700 text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1C1917] transition-all duration-300"
+          >
+            Get in Touch
+          </a>
         </div>
       </section>
 

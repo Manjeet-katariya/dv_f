@@ -1,7 +1,8 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
-import { Calendar, User, Tag } from 'lucide-react';
+import { Calendar, User, Tag, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const blogs = [
   {
@@ -70,69 +71,128 @@ export default function Blogs() {
     : blogs.filter(blog => blog.tags.includes(selectedTag));
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Architecture Blog</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Insights, inspiration, and ideas from our architectural experts
-        </p>
-      </div>
-
-      {/* Tag Filter */}
-      <div className="flex flex-wrap justify-center gap-2 mb-12">
-        {allTags.map((tag) => (
-          <button
-            key={tag}
-            onClick={() => setSelectedTag(tag)}
-            className={`px-4 py-2 rounded-md transition-colors ${
-              selectedTag === tag
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-            {tag}
-          </button>
-        ))}
-      </div>
-
-      {/* Blog Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredBlogs.map((blog) => (
-          <article key={blog.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover" />
-            <div className="p-6">
-              <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
-                <span className="flex items-center space-x-1">
-                  <Calendar className="w-4 h-4" />
-                  <span>{blog.date}</span>
-                </span>
-                <span className="flex items-center space-x-1">
-                  <User className="w-4 h-4" />
-                  <span>{blog.author}</span>
-                </span>
-              </div>
-              <h2 className="text-xl font-bold mb-2 hover:text-blue-600 transition-colors">
-                <a href={`/blogs/${blog.id}`}>{blog.title}</a>
-              </h2>
-              <p className="text-gray-600 mb-4 line-clamp-3">{blog.excerpt}</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {blog.tags.map((tag) => (
-                  <span key={tag} className="flex items-center space-x-1 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-                    <Tag className="w-3 h-3" />
-                    <span>{tag}</span>
-                  </span>
-                ))}
-              </div>
-              <a
-                href={`/blogs/${blog.id}`}
-                className="inline-block text-blue-600 font-semibold hover:text-blue-700"
-              >
-                Read More →
-              </a>
+    <div className="min-h-screen bg-[#FAF9F5] font-sans selection:bg-[#1C1917] selection:text-[#FAF9F5]">
+      
+      {/* ── HERO HEADER ── */}
+      <section className="relative pt-40 pb-20 overflow-hidden bg-[#F4F3EE]">
+        {/* Subtle background radial gradient */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(181,148,81,0.1),transparent_70%)] pointer-events-none" />
+        
+        <div className="relative z-10 max-w-[1700px] mx-auto px-6 lg:px-14 w-full text-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="h-px w-12 bg-[#1C1917]" />
+              <span className="text-stone-600 text-[9px] font-bold uppercase tracking-[0.4em]">Journal & Perspectives</span>
+              <div className="h-px w-12 bg-[#1C1917]" />
             </div>
-          </article>
-        ))}
-      </div>
+            
+            <h1 className="text-5xl sm:text-6xl lg:text-[80px] font-bold text-[#1C1917] tracking-tight font-serif leading-[1.05]">
+              Architecture Blog
+            </h1>
+            
+            <p className="text-[#57534E] text-base lg:text-lg font-light mt-8 max-w-2xl mx-auto leading-relaxed">
+              Insights, inspiration, and thoughts from our architectural and design studio.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── TAG FILTER BAR (FROSTED & LIGHT) ── */}
+      <section className="py-5 bg-[#FAF9F5]/90 backdrop-blur-md border-b border-stone-200 sticky top-[72px] z-30 shadow-[0_4px_30px_rgba(181,148,81,0.03)]">
+        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
+          <div className="flex items-center gap-6 overflow-x-auto no-scrollbar justify-start sm:justify-center">
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setSelectedTag(tag)}
+                className={`relative pb-2 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors whitespace-nowrap ${
+                  selectedTag === tag ? 'text-[#1C1917]' : 'text-[#878076] hover:text-stone-600'
+                }`}
+              >
+                {tag}
+                {selectedTag === tag && (
+                  <motion.div layoutId="activeBlogFilter" className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#1C1917]" />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── EDITORIAL JOURNAL GRID ── */}
+      <section className="py-24 bg-[#FAF9F5]">
+        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+            {filteredBlogs.map((blog, index) => (
+              <motion.article 
+                key={blog.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: index * 0.1 }}
+                className="group flex flex-col h-full bg-white border border-stone-200/50 rounded-sm overflow-hidden hover:shadow-[0_20px_50px_rgba(181,148,81,0.08)] transition-all duration-500"
+              >
+                {/* Image panel */}
+                <div className="relative w-full h-64 overflow-hidden bg-stone-100">
+                  <img 
+                    src={blog.image} 
+                    alt={blog.title} 
+                    className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-105"
+                  />
+                  {/* Subtle overlay */}
+                  <div className="absolute inset-0 bg-[#1C1917]/5 group-hover:bg-transparent transition-colors duration-500" />
+                </div>
+
+                {/* Content Panel */}
+                <div className="p-8 flex flex-col flex-grow">
+                  {/* Metadata */}
+                  <div className="flex items-center space-x-4 text-[10px] uppercase tracking-wider font-semibold text-[#878076] mb-4">
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-stone-600" />
+                      {blog.date}
+                    </span>
+                    <span>•</span>
+                    <span className="flex items-center gap-1.5">
+                      <User className="w-3.5 h-3.5 text-stone-600" />
+                      {blog.author}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h2 className="text-2xl font-serif font-bold text-[#1C1917] group-hover:text-stone-600 transition-colors leading-tight mb-4">
+                    <a href={`/blogs/${blog.id}`}>{blog.title}</a>
+                  </h2>
+
+                  {/* Excerpt */}
+                  <p className="text-[#57534E] text-sm font-light leading-relaxed mb-6 flex-grow">
+                    {blog.excerpt}
+                  </p>
+
+                  {/* Tags list */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {blog.tags.map((tag) => (
+                      <span key={tag} className="inline-flex items-center gap-1 text-[9px] uppercase tracking-widest font-bold bg-[#F4F3EE] text-[#57534E] px-2.5 py-1 rounded-sm border border-stone-200/50">
+                        <Tag className="w-2.5 h-2.5 text-stone-600/75" />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Read More Link */}
+                  <div className="pt-4 border-t border-stone-200/50">
+                    <a
+                      href={`/blogs/${blog.id}`}
+                      className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-[#1C1917] group-hover:text-stone-600 transition-colors"
+                    >
+                      Read Case Study <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

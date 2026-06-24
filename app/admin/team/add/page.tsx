@@ -121,7 +121,7 @@ export default function AddTeamMemberPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAF9F5] flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -136,7 +136,7 @@ export default function AddTeamMemberPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#FAF9F5]">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -154,7 +154,7 @@ export default function AddTeamMemberPage() {
             <button
               onClick={handleSubmit}
               disabled={submitting}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              className="flex items-center px-4 py-2 bg-[#1C1917] text-white rounded-none hover:bg-stone-800 disabled:opacity-50"
             >
               {submitting ? (
                 <>
@@ -177,7 +177,7 @@ export default function AddTeamMemberPage() {
         <form onSubmit={handleSubmit} className="space-y-8">
           
           {/* Profile Section */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="bg-white rounded-none shadow-sm p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">Profile Information</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -186,7 +186,7 @@ export default function AddTeamMemberPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Profile Photo</label>
                 <div className="space-y-4">
                   {imagePreview ? (
-                    <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+                    <div className="relative w-full aspect-square rounded-none overflow-hidden">
                       <img
                         src={imagePreview}
                         alt="Preview"
@@ -205,7 +205,7 @@ export default function AddTeamMemberPage() {
                       </button>
                     </div>
                   ) : (
-                    <div className="w-full aspect-square border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center hover:border-blue-500 transition-colors">
+                    <div className="w-full aspect-square border-2 border-dashed border-gray-300 rounded-none flex flex-col items-center justify-center hover:border-blue-500 transition-colors">
                       <User className="w-12 h-12 text-gray-400 mb-2" />
                       <span className="text-sm text-gray-500">No image selected</span>
                     </div>
@@ -215,7 +215,7 @@ export default function AddTeamMemberPage() {
                     <label className="block text-sm font-medium text-gray-600 mb-2">
                       Upload Photo
                     </label>
-                    <label className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                    <label className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-none cursor-pointer hover:bg-[#FAF9F5] transition-colors">
                       <Upload className="w-4 h-4 mr-2 text-gray-600" />
                       <span className="text-sm text-gray-600">Choose File</span>
                       <input
@@ -246,7 +246,7 @@ export default function AddTeamMemberPage() {
                         }
                       }}
                       placeholder="https://example.com/photo.jpg"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600 text-sm"
                     />
                   </div>
                 </div>
@@ -261,7 +261,7 @@ export default function AddTeamMemberPage() {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     placeholder="Enter full name"
                   />
                 </div>
@@ -273,7 +273,7 @@ export default function AddTeamMemberPage() {
                     required
                     value={formData.position}
                     onChange={(e) => setFormData({...formData, position: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     placeholder="e.g., Senior Architect"
                   />
                 </div>
@@ -285,7 +285,7 @@ export default function AddTeamMemberPage() {
                     rows={4}
                     value={formData.bio}
                     onChange={(e) => setFormData({...formData, bio: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                     placeholder="Brief biography..."
                   />
                 </div>
@@ -294,7 +294,7 @@ export default function AddTeamMemberPage() {
           </div>
 
           {/* Contact Information */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="bg-white rounded-none shadow-sm p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">Contact Information</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -307,7 +307,7 @@ export default function AddTeamMemberPage() {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                   placeholder="email@example.com"
                 />
               </div>
@@ -321,7 +321,7 @@ export default function AddTeamMemberPage() {
                   type="url"
                   value={formData.linkedin}
                   onChange={(e) => setFormData({...formData, linkedin: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                   placeholder="https://linkedin.com/in/username"
                 />
               </div>
@@ -335,7 +335,7 @@ export default function AddTeamMemberPage() {
                   type="url"
                   value={formData.twitter}
                   onChange={(e) => setFormData({...formData, twitter: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                   placeholder="https://twitter.com/username"
                 />
               </div>
@@ -349,24 +349,24 @@ export default function AddTeamMemberPage() {
                     const value = parseInt(e.target.value);
                     setFormData({...formData, order: isNaN(value) ? 0 : value});
                   }}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-none focus:ring-2 focus:ring-stone-600"
                 />
               </div>
             </div>
           </div>
 
           {/* Status & Settings */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="bg-white rounded-none shadow-sm p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">Status & Settings</h2>
             
             <div className="flex items-center space-x-4">
               <button
                 type="button"
                 onClick={() => setFormData({...formData, isActive: !formData.isActive})}
-                className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                className={`flex items-center px-4 py-2 rounded-none transition-colors ${
                   formData.isActive 
-                    ? 'bg-green-100 text-green-700 hover:bg-green-200' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-green-100 text-stone-850 hover:bg-green-200' 
+                    : 'bg-[#FAF9F5] text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 {formData.isActive ? (
@@ -395,14 +395,14 @@ export default function AddTeamMemberPage() {
           <div className="flex justify-end space-x-4">
             <Link
               href="/admin/team"
-              className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-none hover:bg-[#FAF9F5] transition-colors"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={submitting}
-              className="flex items-center px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="flex items-center px-8 py-3 bg-[#1C1917] text-white font-medium rounded-none hover:bg-stone-800 disabled:opacity-50 transition-colors"
             >
               {submitting ? (
                 <>

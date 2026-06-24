@@ -1,9 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Building, Loader2, ArrowUpRight } from 'lucide-react';
+import { Loader2, ArrowUpRight } from 'lucide-react';
 
 interface Project {
   _id: string;
@@ -75,125 +75,182 @@ export default function PortfolioPage() {
   const filtered = selectedCategory === 'all' ? projects : projects.filter(p => p.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-[#F7FBFF]">
+    <div className="min-h-screen bg-[#FAF9F5]">
 
-      {/* ── REFINED EDITORIAL HERO ── */}
-      <section className="relative pt-40 lg:pt-56 pb-20 overflow-hidden bg-[#EFF5FF]">
-        {/* Subtle background radial gradient */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.1),transparent_70%)] pointer-events-none" />
-        
-        <div className="relative z-10 max-w-[1700px] mx-auto px-6 lg:px-14 w-full text-center">
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="h-px w-12 bg-[#5B96D1]" />
-              <span className="text-[#5A7BC1] text-[9px] font-bold uppercase tracking-[0.4em]">Curated Archives</span>
-              <div className="h-px w-12 bg-[#5B96D1]" />
-            </div>
-            
-            <h1 className="text-5xl sm:text-6xl lg:text-[80px] font-bold text-[#1D325E] tracking-tight font-serif leading-[1.05]">
-              Our Creations & Concepts
-            </h1>
-            
-            <p className="text-[#4A6E9A] text-base lg:text-lg font-light mt-8 max-w-2xl mx-auto leading-relaxed">
-              Designing spaces that inspire and endure.
-            </p>
+      {/* ── PAGE HEADER with text + card ── */}
+      <section className="pt-12 pb-0 bg-[#FAF9F5] border-b border-stone-200">
+        <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
+
+          {/* Top row: label only */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-3 mb-10"
+          >
+            <div className="w-5 h-[1px] bg-stone-400" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Selected Works</span>
           </motion.div>
-        </div>
-      </section>
 
-      {/* ── FILTER BAR (LIGHT & FROSTED) ── */}
-      <section className="py-5 bg-[#F7FBFF]/90 backdrop-blur-md border-b border-[#5B96D1]/20 sticky top-[72px] z-30 shadow-[0_4px_30px_rgba(201,168,76,0.03)]">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
-          <div className="flex items-center gap-8 md:gap-12 overflow-x-auto no-scrollbar justify-start sm:justify-center">
-            {['all', 'residential', 'commercial'].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat as any)}
-                className={`relative pb-2 text-[10px] font-bold uppercase tracking-[0.3em] transition-colors whitespace-nowrap ${
-                  selectedCategory === cat ? 'text-[#2660A2]' : 'text-[#5A7BC1]/60 hover:text-[#1D325E]'
-                }`}
-              >
-                {cat === 'all' ? 'All Projects' : cat}
-                {selectedCategory === cat && (
-                  <motion.div layoutId="activeFilter" className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#5B96D1]" />
-                )}
-              </button>
-            ))}
+          {/* Main header: text left + card right */}
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-end pb-12">
+
+            {/* Left: Heading + description */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+            >
+              <h1 className="text-4xl lg:text-5xl font-serif font-bold text-[#1C1917] tracking-tight leading-[1.1] mb-5">
+                This is our<br />
+                <span className="italic font-normal text-stone-400">Portfolio</span> of<br />
+                Our Projects.
+              </h1>
+              <p className="text-[#57534E] text-sm font-light leading-relaxed max-w-sm">
+                Every space we design carries a story — of the client, the land, and the craft. Browse our curated archive of residential and commercial works.
+              </p>
+            </motion.div>
+
+            {/* Right: Info card */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.25 }}
+              className="bg-[#1C1917] text-white p-8 lg:p-10 relative overflow-hidden"
+            >
+              {/* Decorative corner line */}
+              <div className="absolute top-6 right-6 w-10 h-10 border-t border-r border-white/10" />
+
+              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500 block mb-6">DVL Architects</span>
+
+              <p className="text-xl font-serif font-bold text-white leading-snug mb-8">
+                "We believe great spaces don't just look beautiful — they feel alive."
+              </p>
+
+              <div className="grid grid-cols-3 gap-4 border-t border-stone-700 pt-6">
+                <div>
+                  <div className="text-2xl font-serif font-bold text-white">500+</div>
+                  <div className="text-[8px] uppercase tracking-[0.2em] text-stone-500 mt-0.5">Projects</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-serif font-bold text-white">15+</div>
+                  <div className="text-[8px] uppercase tracking-[0.2em] text-stone-500 mt-0.5">Years</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-serif font-bold text-white">2</div>
+                  <div className="text-[8px] uppercase tracking-[0.2em] text-stone-500 mt-0.5">Typologies</div>
+                </div>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* ── EDITORIAL CARD GRID ── */}
-      <section className="py-24 bg-[#F7FBFF]">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
+      {/* ── FILTER BAR — sticky below header ── */}
+      <div className="sticky top-[72px] z-30 bg-[#FAF9F5]/95 backdrop-blur-sm border-b border-stone-200">
+        <div className="max-w-[1700px] mx-auto px-8 lg:px-16 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="flex items-center gap-1 bg-stone-100 rounded-sm p-1 w-fit"
+          >
+            {(['all', 'residential', 'commercial'] as const).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 text-[9px] font-bold uppercase tracking-[0.25em] rounded-sm transition-all duration-300 ${
+                  selectedCategory === cat
+                    ? 'bg-[#1C1917] text-white shadow-sm'
+                    : 'text-stone-500 hover:text-[#1C1917]'
+                }`}
+              >
+                {cat === 'all' ? 'All' : cat}
+              </button>
+            ))}
+          </motion.div>
+
+          {!loading && (
+            <span className="text-[9px] uppercase tracking-[0.3em] font-bold text-stone-400">
+              {filtered.length} {selectedCategory === 'all' ? 'Projects' : selectedCategory} found
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* ── GALLERY GRID ── */}
+      <section className="py-8 pb-24 bg-[#FAF9F5]">
+        <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
+
           {loading ? (
-            <div className="flex justify-center items-center py-40">
-              <div className="flex flex-col items-center gap-4">
-                <Loader2 className="w-8 h-8 text-[#5B96D1] animate-spin" />
-                <span className="text-[9px] uppercase tracking-[0.3em] text-[#5A7BC1] font-bold">Curating Portfolio</span>
+            <div className="flex justify-center items-center py-48">
+              <div className="flex flex-col items-center gap-3">
+                <Loader2 className="w-6 h-6 text-stone-400 animate-spin" />
+                <span className="text-[9px] uppercase tracking-[0.3em] text-stone-400 font-bold">Loading</span>
               </div>
             </div>
           ) : filtered.length === 0 ? (
-            <div className="text-center py-40 border border-dashed border-[#5B96D1]/30 bg-[#EFF5FF]/50 rounded-lg">
-              <Building className="w-12 h-12 text-[#5B96D1]/40 mx-auto mb-4" />
-              <p className="text-[#4A6E9A] font-light">No projects found in this category.</p>
+            <div className="text-center py-40">
+              <p className="text-stone-400 text-sm font-light">No projects in this category.</p>
             </div>
           ) : (
-            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
+            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14">
               <AnimatePresence mode="popLayout">
                 {filtered.map((project, index) => (
                   <motion.div
                     layout
-                    initial={{ opacity: 0, scale: 0.98, y: 30 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.6, delay: index * 0.05 }}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.55, delay: index * 0.05 }}
                     key={project._id}
                   >
-                    <Link href={`/portfolio/${project._id}`} className="group flex flex-col gap-6 w-full h-full">
-                      
-                      {/* Image Container */}
-                      <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#D4E0FF] shadow-[0_10px_40px_rgba(180,130,40,0.05)]">
+                    <Link href={`/portfolio/${project._id}`} className="group block">
+
+                      {/* Image — different aspect ratios for visual interest */}
+                      <div className={`relative w-full overflow-hidden bg-stone-100 ${
+                        index % 5 === 0 ? 'aspect-[3/4]' :
+                        index % 5 === 1 ? 'aspect-[4/3]' :
+                        index % 5 === 2 ? 'aspect-[1/1]' :
+                        index % 5 === 3 ? 'aspect-[4/5]' :
+                        'aspect-[3/2]'
+                      }`}>
                         <img
                           src={project.featuredImage}
                           alt={project.title}
-                          className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-105"
+                          className="w-full h-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-106"
                         />
-                        
-                        {/* Elegant Inner Frame Hover */}
-                        <div className="absolute inset-4 border border-[#F7FBFF]/0 z-10 pointer-events-none transition-colors duration-700 group-hover:border-[#F7FBFF]/40" />
 
-                        {/* Subtle Dark Gradient for Text Legibility */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1205]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        
-                        {/* Hover Circle Button */}
-                        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                          <div className="w-16 h-16 rounded-full bg-[#F7FBFF]/90 backdrop-blur-sm text-[#2660A2] flex items-center justify-center scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] shadow-xl">
-                            <ArrowUpRight className="w-6 h-6" />
-                          </div>
+                        {/* Hover overlay */}
+                        <div className="absolute inset-0 bg-[#1C1917]/0 group-hover:bg-[#1C1917]/20 transition-all duration-700" />
+
+                        {/* Arrow badge — appears on hover */}
+                        <div className="absolute top-4 right-4 w-8 h-8 bg-white flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400 shadow-sm">
+                          <ArrowUpRight className="w-4 h-4 text-[#1C1917]" />
                         </div>
 
-                        {/* Category Badge */}
-                        <div className="absolute top-4 left-4 z-20">
-                          <span className="bg-[#F7FBFF]/90 backdrop-blur-sm text-[#2660A2] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.3em] shadow-sm">
+                        {/* Category pill — always visible */}
+                        <div className="absolute bottom-4 left-4">
+                          <span className="bg-white/90 text-[#1C1917] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.2em]">
                             {project.category}
                           </span>
                         </div>
                       </div>
 
-                      {/* Clean Text Content Below */}
-                      <div className="flex flex-col px-1">
-                        <h3 className="text-xl sm:text-2xl font-bold text-[#1D325E] font-serif mb-3 group-hover:text-[#2660A2] transition-colors duration-300">
-                          {project.title}
-                        </h3>
-                        <div className="flex items-center gap-3 text-[#4A6E9A] text-xs font-light uppercase tracking-widest">
-                          <span className="flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-[#5B96D1]" />
-                            {project.location}
-                          </span>
-                          <span className="w-1 h-1 rounded-full bg-[#5B96D1]/40" />
-                          <span>{project.completionYear}</span>
+                      {/* Text — minimal, no icons */}
+                      <div className="mt-4 flex items-start justify-between">
+                        <div>
+                          <h3 className="text-sm font-serif font-bold text-[#1C1917] group-hover:text-stone-500 transition-colors leading-snug mb-1">
+                            {project.title}
+                          </h3>
+                          <p className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-medium">
+                            {project.location} · {project.completionYear}
+                          </p>
                         </div>
+                        <span className="text-[9px] font-mono text-stone-300 mt-0.5 flex-shrink-0 ml-4">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
                       </div>
 
                     </Link>
@@ -204,23 +261,24 @@ export default function PortfolioPage() {
           )}
 
           {/* Infinite scroll trigger */}
-          <div ref={loadMoreRef} className="flex justify-center pt-24 pb-16">
+          <div ref={loadMoreRef} className="flex justify-center pt-20 pb-8">
             {loadingMore && (
-              <div className="flex flex-col items-center gap-3">
-                <Loader2 className="w-7 h-7 text-[#5B96D1] animate-spin" />
-                <p className="text-[#5A7BC1] text-[9px] font-bold uppercase tracking-[0.3em]">Loading archive...</p>
+              <div className="flex items-center gap-3">
+                <Loader2 className="w-5 h-5 text-stone-400 animate-spin" />
+                <span className="text-[9px] uppercase tracking-[0.3em] text-stone-400 font-bold">Loading more</span>
               </div>
             )}
             {!hasMore && !loadingMore && pagination.totalRecords > 0 && (
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-px bg-[#5B96D1]/30" />
-                <p className="text-[#5A7BC1] text-[9px] font-bold uppercase tracking-[0.3em]">
-                  Displaying all {pagination.totalRecords} works
-                </p>
-                <div className="w-12 h-px bg-[#5B96D1]/30" />
+              <div className="flex items-center gap-5">
+                <div className="w-10 h-px bg-stone-300" />
+                <span className="text-[9px] uppercase tracking-[0.3em] text-stone-400 font-bold">
+                  {pagination.totalRecords} works total
+                </span>
+                <div className="w-10 h-px bg-stone-300" />
               </div>
             )}
           </div>
+
         </div>
       </section>
     </div>

@@ -166,17 +166,17 @@ export default function ContactDetailsPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <Loader2 className="h-10 w-10 animate-spin text-blue-600 mb-4" />
+        <Loader2 className="h-10 w-10 animate-spin text-[#1C1917] mb-4" />
         <p className="text-sm font-medium text-gray-500 uppercase tracking-widest">Loading Settings...</p>
       </div>
     );
   }
 
-  const InputClass = "w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all";
+  const InputClass = "w-full rounded-none border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-stone-600 focus:ring-1 focus:ring-stone-600 outline-none transition-all";
   const LabelClass = "block text-sm font-semibold text-gray-700 mb-2";
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-12 font-sans">
+    <div className="min-h-screen bg-[#FAF9F5] pb-12 font-sans">
       
       {/* Sticky Header */}
       <div className="bg-white shadow-sm border-b sticky top-0 z-30">
@@ -189,7 +189,7 @@ export default function ContactDetailsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-70 transition-all shadow-sm"
+              className="inline-flex items-center justify-center rounded-none bg-[#1C1917] px-6 py-2.5 text-sm font-semibold text-white hover:bg-stone-800 disabled:opacity-70 transition-all shadow-sm"
             >
               {saving ? (
                 <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</>
@@ -210,9 +210,9 @@ export default function ContactDetailsPage() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className={`mb-6 p-4 rounded-xl flex items-center border ${
+              className={`mb-6 p-4 rounded-none flex items-center border ${
                 statusMessage.type === 'success' 
-                  ? 'bg-green-50 border-green-200 text-green-800' 
+                  ? 'bg-stone-50 border-green-200 text-green-800' 
                   : 'bg-red-50 border-red-200 text-red-800'
               }`}
             >
@@ -229,9 +229,9 @@ export default function ContactDetailsPage() {
         <div className="grid gap-8">
           
           {/* Company Information */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
+          <div className="rounded-none border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-              <div className="p-2 bg-blue-50 text-blue-600 rounded-lg"><Globe className="h-5 w-5" /></div>
+              <div className="p-2 bg-stone-50 text-[#1C1917] rounded-none"><Globe className="h-5 w-5" /></div>
               <h2 className="text-lg font-bold text-gray-900">Company Information</h2>
             </div>
             
@@ -262,9 +262,9 @@ export default function ContactDetailsPage() {
           {/* Contact & Address Information */}
           <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Details */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
+            <div className="rounded-none border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-                <div className="p-2 bg-purple-50 text-purple-600 rounded-lg"><Phone className="h-5 w-5" /></div>
+                <div className="p-2 bg-stone-50 text-stone-600 rounded-none"><Phone className="h-5 w-5" /></div>
                 <h2 className="text-lg font-bold text-gray-900">Contact Methods</h2>
               </div>
               <div className="space-y-5">
@@ -292,9 +292,9 @@ export default function ContactDetailsPage() {
             </div>
 
             {/* Address */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
+            <div className="rounded-none border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-                <div className="p-2 bg-orange-50 text-orange-600 rounded-lg"><MapPin className="h-5 w-5" /></div>
+                <div className="p-2 bg-stone-100 text-orange-600 rounded-none"><MapPin className="h-5 w-5" /></div>
                 <h2 className="text-lg font-bold text-gray-900">Headquarters</h2>
               </div>
               <div className="space-y-5">
@@ -332,7 +332,7 @@ export default function ContactDetailsPage() {
           </div>
 
           {/* Social Media Links */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
+          <div className="rounded-none border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
             <h2 className="text-lg font-bold text-gray-900 mb-6 pb-4 border-b border-gray-100">Social Media Links</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
@@ -355,15 +355,15 @@ export default function ContactDetailsPage() {
           </div>
 
           {/* Business Hours */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm mb-12">
+          <div className="rounded-none border border-gray-200 bg-white p-6 sm:p-8 shadow-sm mb-12">
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-              <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><Clock className="h-5 w-5" /></div>
+              <div className="p-2 bg-stone-50 text-emerald-600 rounded-none"><Clock className="h-5 w-5" /></div>
               <h2 className="text-lg font-bold text-gray-900">Business Hours</h2>
             </div>
             
             <div className="space-y-4">
               {Object.entries(contactDetails.businessHours).map(([day, hours]) => (
-                <div key={day} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-gray-50 transition-colors">
+                <div key={day} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 rounded-none border border-gray-100 bg-[#FAF9F5]/50 hover:bg-[#FAF9F5] transition-colors">
                   <div className="w-32 capitalize font-semibold text-gray-700">{day}</div>
                   
                   <div className="flex flex-wrap items-center gap-4 flex-1">
@@ -374,7 +374,7 @@ export default function ContactDetailsPage() {
                         onChange={(e) => handleBusinessHoursChange(day, 'closed', !e.target.checked)}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                      <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-stone-500"></div>
                       <span className="ml-3 text-sm font-medium text-gray-600">{hours.closed ? 'Closed' : 'Open'}</span>
                     </label>
 
@@ -384,14 +384,14 @@ export default function ContactDetailsPage() {
                           type="time"
                           value={hours.open}
                           onChange={(e) => handleBusinessHoursChange(day, 'open', e.target.value)}
-                          className="px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+                          className="px-3 py-2 rounded-none border border-gray-300 text-sm focus:border-stone-600 focus:ring-1 focus:ring-stone-600 outline-none"
                         />
                         <span className="text-gray-400 font-medium">to</span>
                         <input
                           type="time"
                           value={hours.close}
                           onChange={(e) => handleBusinessHoursChange(day, 'close', e.target.value)}
-                          className="px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+                          className="px-3 py-2 rounded-none border border-gray-300 text-sm focus:border-stone-600 focus:ring-1 focus:ring-stone-600 outline-none"
                         />
                       </div>
                     )}

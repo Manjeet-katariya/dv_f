@@ -156,10 +156,10 @@ export default function AdminContactsPage() {
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      'new': 'bg-blue-50 text-blue-700 border-blue-200',
-      'contacted': 'bg-amber-50 text-amber-700 border-amber-200',
-      'in-progress': 'bg-purple-50 text-purple-700 border-purple-200',
-      'completed': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      'new': 'bg-stone-50 text-stone-800 border-stone-200',
+      'contacted': 'bg-stone-100 text-stone-750 border-stone-200',
+      'in-progress': 'bg-stone-50 text-purple-700 border-purple-200',
+      'completed': 'bg-stone-50 text-stone-850 border-emerald-200',
       'closed': 'bg-zinc-100 text-zinc-600 border-zinc-200'
     };
     const labels: Record<string, string> = {
@@ -175,15 +175,15 @@ export default function AdminContactsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[80vh] flex flex-col items-center justify-center bg-gray-50">
-        <Loader2 className="w-10 h-10 animate-spin text-[#a68a6b] mb-4" />
+      <div className="min-h-[80vh] flex flex-col items-center justify-center bg-[#FAF9F5]">
+        <Loader2 className="w-10 h-10 animate-spin text-[#1C1917] mb-4" />
         <p className="text-zinc-500 uppercase tracking-widest text-sm font-semibold">Loading Inquiries...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans pb-12">
+    <div className="min-h-screen bg-[#FAF9F5] font-sans pb-12">
       
       {/* Global Floating Alert */}
       <AnimatePresence>
@@ -207,7 +207,7 @@ export default function AdminContactsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between h-auto sm:h-20 py-4 sm:py-0 gap-4">
             <div className="flex items-center gap-4">
-              <Link href="/admin" className="p-2 -ml-2 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors">
+              <Link href="/admin" className="p-2 -ml-2 rounded-full text-gray-500 hover:text-gray-900 hover:bg-[#FAF9F5] transition-colors">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
               <div>
@@ -224,13 +224,13 @@ export default function AdminContactsPage() {
                   placeholder="Search name, email, subject..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-[#a68a6b] focus:border-transparent outline-none bg-gray-50 focus:bg-white transition-all"
+                  className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-none text-sm focus:ring-2 focus:ring-[#1C1917] focus:border-transparent outline-none bg-[#FAF9F5] focus:bg-white transition-all"
                 />
               </div>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="py-2 pl-3 pr-8 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-[#a68a6b] outline-none bg-gray-50 cursor-pointer"
+                className="py-2 pl-3 pr-8 border border-gray-200 rounded-none text-sm focus:ring-2 focus:ring-[#1C1917] outline-none bg-[#FAF9F5] cursor-pointer"
               >
                 <option value="">All Statuses</option>
                 <option value="new">New</option>
@@ -249,8 +249,8 @@ export default function AdminContactsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Contact List */}
-          <div className="lg:col-span-5 xl:col-span-4 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden h-[calc(100vh-140px)] flex flex-col">
-            <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center shrink-0">
+          <div className="lg:col-span-5 xl:col-span-4 bg-white rounded-none border border-gray-200 shadow-sm overflow-hidden h-[calc(100vh-140px)] flex flex-col">
+            <div className="p-4 border-b border-gray-100 bg-[#FAF9F5]/50 flex justify-between items-center shrink-0">
               <h2 className="text-sm font-bold text-gray-700 uppercase tracking-widest">Inbox</h2>
               <span className="text-xs font-semibold bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">{filteredContacts.length}</span>
             </div>
@@ -258,7 +258,7 @@ export default function AdminContactsPage() {
             <div className="overflow-y-auto flex-1 custom-scrollbar">
               {filteredContacts.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-64 text-center p-6">
-                  <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                  <div className="w-16 h-16 bg-[#FAF9F5] rounded-full flex items-center justify-center mb-4">
                     <Inbox className="w-8 h-8 text-gray-300" />
                   </div>
                   <p className="text-gray-900 font-medium">No inquiries found</p>
@@ -271,8 +271,8 @@ export default function AdminContactsPage() {
                     onClick={() => setSelectedContact(contact)}
                     className={`p-5 border-b border-gray-100 cursor-pointer transition-all ${
                       selectedContact?._id === contact._id 
-                        ? 'bg-blue-50/50 border-l-4 border-l-blue-500' 
-                        : 'hover:bg-gray-50 border-l-4 border-l-transparent'
+                        ? 'bg-stone-50/50 border-l-4 border-l-blue-500' 
+                        : 'hover:bg-[#FAF9F5] border-l-4 border-l-transparent'
                     }`}
                   >
                     <div className="flex justify-between items-start mb-2 gap-2">
@@ -309,12 +309,12 @@ export default function AdminContactsPage() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 key={selectedContact._id}
-                className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden"
+                className="bg-white rounded-none border border-gray-200 shadow-sm overflow-hidden"
               >
                 {/* Detail Header */}
-                <div className="p-6 md:p-8 border-b border-gray-100 bg-gray-50/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="p-6 md:p-8 border-b border-gray-100 bg-[#FAF9F5]/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold">
+                    <div className="w-14 h-14 bg-blue-100 text-[#1C1917] rounded-full flex items-center justify-center text-xl font-bold">
                       {selectedContact.name.charAt(0).toUpperCase()}
                     </div>
                     <div>
@@ -326,7 +326,7 @@ export default function AdminContactsPage() {
                   </div>
                   <button
                     onClick={() => setShowEmailModal(true)}
-                    className="w-full sm:w-auto bg-slate-900 hover:bg-[#a68a6b] text-white px-5 py-2.5 rounded-lg font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
+                    className="w-full sm:w-auto bg-slate-900 hover:bg-[#1C1917] text-white px-5 py-2.5 rounded-none font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
                   >
                     <Send className="w-4 h-4" />
                     Reply via Email
@@ -358,7 +358,7 @@ export default function AdminContactsPage() {
                   {/* Message Box */}
                   <div className="mb-8">
                     <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-3">Inquiry Message</p>
-                    <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                    <div className="bg-[#FAF9F5] rounded-none p-5 border border-gray-100">
                       <h4 className="font-bold text-gray-900 mb-2">{selectedContact.subject}</h4>
                       <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">
                         {selectedContact.message}
@@ -374,7 +374,7 @@ export default function AdminContactsPage() {
                         <img 
                           src={selectedContact.imageUrl} 
                           alt="Reference" 
-                          className="w-48 h-48 object-cover rounded-lg border border-gray-200 shadow-sm hover:opacity-90 transition-opacity"
+                          className="w-48 h-48 object-cover rounded-none border border-gray-200 shadow-sm hover:opacity-90 transition-opacity"
                         />
                       </a>
                     </div>
@@ -391,7 +391,7 @@ export default function AdminContactsPage() {
                           value={selectedContact.status}
                           onChange={(e) => updateStatus(selectedContact._id, e.target.value, selectedContact.notes)}
                           disabled={updating === selectedContact._id}
-                          className="w-full appearance-none bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#a68a6b] cursor-pointer disabled:opacity-50"
+                          className="w-full appearance-none bg-white border border-gray-300 px-4 py-2.5 rounded-none text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1C1917] cursor-pointer disabled:opacity-50"
                         >
                           <option value="new">🆕 New</option>
                           <option value="contacted">📞 Contacted</option>
@@ -417,7 +417,7 @@ export default function AdminContactsPage() {
                         }}
                         onBlur={(e) => updateStatus(selectedContact._id, selectedContact.status, e.target.value)}
                         placeholder="Add private notes about this client..."
-                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#a68a6b] resize-none"
+                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-none text-sm focus:outline-none focus:ring-2 focus:ring-[#1C1917] resize-none"
                         rows={3}
                       />
                       <p className="text-[10px] text-gray-400 mt-1 flex justify-end">Saves automatically on click away</p>
@@ -426,8 +426,8 @@ export default function AdminContactsPage() {
                 </div>
               </motion.div>
             ) : (
-              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm h-[calc(100vh-140px)] flex flex-col items-center justify-center text-center p-8">
-                <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+              <div className="bg-white rounded-none border border-gray-200 shadow-sm h-[calc(100vh-140px)] flex flex-col items-center justify-center text-center p-8">
+                <div className="w-20 h-20 bg-[#FAF9F5] rounded-full flex items-center justify-center mb-6">
                   <MessageSquare className="w-10 h-10 text-gray-300" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">No Inquiry Selected</h3>
@@ -453,11 +453,11 @@ export default function AdminContactsPage() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden"
+              className="relative w-full max-w-2xl bg-white rounded-none shadow-2xl overflow-hidden"
             >
-              <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+              <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-[#FAF9F5]/50">
                 <h3 className="text-lg font-bold text-gray-900">Compose Email</h3>
-                <button onClick={() => setShowEmailModal(false)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
+                <button onClick={() => setShowEmailModal(false)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-[#FAF9F5] rounded-full transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -465,7 +465,7 @@ export default function AdminContactsPage() {
               <form onSubmit={handleSendEmail} className="p-6 space-y-5">
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">To</label>
-                  <div className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 flex items-center gap-2">
+                  <div className="px-4 py-3 bg-[#FAF9F5] border border-gray-200 rounded-none text-sm text-gray-600 flex items-center gap-2">
                     <User className="w-4 h-4 text-gray-400" />
                     <span className="font-medium">{selectedContact.name}</span>
                     <span className="text-gray-400">&lt;{selectedContact.email}&gt;</span>
@@ -479,7 +479,7 @@ export default function AdminContactsPage() {
                     value={emailSubject}
                     onChange={(e) => setEmailSubject(e.target.value)}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a68a6b] text-sm"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-[#1C1917] text-sm"
                     placeholder="Regarding your inquiry: [Subject]"
                   />
                 </div>
@@ -491,7 +491,7 @@ export default function AdminContactsPage() {
                     onChange={(e) => setEmailMessage(e.target.value)}
                     required
                     rows={8}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a68a6b] text-sm resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-[#1C1917] text-sm resize-none"
                     placeholder="Type your response here..."
                   />
                 </div>
@@ -500,14 +500,14 @@ export default function AdminContactsPage() {
                   <button
                     type="button"
                     onClick={() => setShowEmailModal(false)}
-                    className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium text-sm transition-colors"
+                    className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-none hover:bg-[#FAF9F5] font-medium text-sm transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={sendingEmail}
-                    className="px-6 py-2.5 bg-slate-900 hover:bg-[#a68a6b] text-white rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-colors disabled:opacity-70"
+                    className="px-6 py-2.5 bg-slate-900 hover:bg-[#1C1917] text-white rounded-none font-medium text-sm flex items-center justify-center gap-2 transition-colors disabled:opacity-70"
                   >
                     {sendingEmail ? (
                       <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</>

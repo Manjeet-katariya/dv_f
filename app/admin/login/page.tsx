@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/app/context/AuthContext';
@@ -41,32 +41,47 @@ export default function AdminLogin() {
     }
   };
 
+  const inputClass = "w-full border-b border-stone-300 bg-transparent text-[#1C1917] font-serif text-base py-3 focus:outline-none focus:border-stone-600 transition-colors placeholder:text-stone-450 rounded-none";
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
-        <div className="text-center mb-8">
-          <div className="inline-block p-3 bg-blue-100 rounded-full mb-4">
-            <LogIn className="w-8 h-8 text-blue-600" />
+    <div className="min-h-screen bg-[#FAF9F5] flex items-center justify-center p-6 selection:bg-[#1C1917] selection:text-[#FAF9F5]">
+      <div className="bg-white border border-stone-200 p-8 md:p-12 w-full max-w-md shadow-[0_20px_50px_rgba(0,0,0,0.02)] relative rounded-none">
+        
+        {/* Logo and Headings */}
+        <div className="text-center mb-10">
+          <div className="inline-block p-1 border border-stone-200 rounded-full mb-4">
+            <img 
+              src="/logo-dvl.png" 
+              alt="DVL Architects" 
+              className="h-14 w-14 object-cover rounded-full"
+            />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Login</h1>
-          <p className="text-gray-600">Access the administration panel</p>
+          <h1 className="font-serif font-bold text-2xl text-[#1C1917] tracking-tight">DVL Studio</h1>
+          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-[0.25em] mt-1.5">Administration Portal</p>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+        {errorMessage && (
+          <div className="mb-6 p-4 border border-red-500/20 bg-red-50 text-red-700 text-xs font-light flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-red-500 shrink-0" strokeWidth={1.5} />
+            <span>{errorMessage}</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-[10px] uppercase tracking-[0.2em] text-stone-500 font-bold mb-1">Email Address</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              placeholder="admin@architecture.com"
+              className={inputClass}
+              placeholder="admin@dvlarchitects.com"
               required
             />
           </div>
 
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+          <div>
+            <label className="block text-[10px] uppercase tracking-[0.2em] text-stone-500 font-bold mb-1">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -75,32 +90,29 @@ export default function AdminLogin() {
                   setPassword(e.target.value);
                   if (errorMessage) setErrorMessage('');
                 }}
-                className={`w-full px-4 py-2 border ${errorMessage ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none`}
+                className={inputClass}
                 placeholder="••••••••"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-2.5 text-gray-500"
+                className="absolute right-2 top-2.5 text-stone-400 hover:text-stone-600 transition-colors"
               >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
-            {errorMessage && (
-              <p className="mt-2 text-sm text-red-600 font-medium">
-                {errorMessage}
-              </p>
-            )}
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors"
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
+          <div className="pt-4">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-[#1C1917] text-[#FAF9F5] hover:bg-stone-800 py-4 font-bold uppercase tracking-[0.3em] text-[10px] transition-all duration-300 disabled:opacity-50 cursor-pointer shadow-md"
+            >
+              {loading ? 'Authenticating...' : 'Sign In'}
+            </button>
+          </div>
         </form>
       </div>
     </div>

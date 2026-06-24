@@ -109,7 +109,7 @@ export default function SocialIconsManagementPage() {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#a68a6b]"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#1C1917]"></div>
           <p className="text-zinc-600 mt-4 font-light">Loading social icons...</p>
         </div>
       </div>
@@ -135,9 +135,9 @@ export default function SocialIconsManagementPage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
+            className={`mb-6 p-4 rounded-none flex items-center gap-3 ${
               message.type === 'success'
-                ? 'bg-green-50 border border-green-200 text-green-800'
+                ? 'bg-stone-50 border border-green-200 text-green-800'
                 : 'bg-red-50 border border-red-200 text-red-800'
             }`}
           >
@@ -149,7 +149,7 @@ export default function SocialIconsManagementPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-lg shadow-sm border border-zinc-200"
+          className="bg-white rounded-none shadow-sm border border-zinc-200"
         >
           {!isEditing ? (
             // View Mode
@@ -161,7 +161,7 @@ export default function SocialIconsManagementPage() {
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {socialPlatforms.map((platform) => (
-                      <div key={platform.key} className="p-4 bg-zinc-50 rounded-lg">
+                      <div key={platform.key} className="p-4 bg-zinc-50 rounded-none">
                         <p className="text-sm font-semibold text-zinc-700 mb-2">{platform.label}</p>
                         <p className="text-sm text-slate-600 break-all">
                           {formData[platform.key as keyof SocialIcons] || 'Not set'}
@@ -174,7 +174,7 @@ export default function SocialIconsManagementPage() {
                 <div className="pt-4">
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#a68a6b] text-white rounded-lg hover:bg-[#9a7a5a] transition-colors font-semibold"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#1C1917] text-white rounded-none hover:bg-[#9a7a5a] transition-colors font-semibold"
                   >
                     <Edit className="w-4 h-4" />
                     Edit Links
@@ -199,7 +199,7 @@ export default function SocialIconsManagementPage() {
                           name={platform.key}
                           value={formData[platform.key as keyof SocialIcons]}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a68a6b] focus:border-transparent"
+                          className="w-full px-4 py-3 border border-zinc-300 rounded-none focus:outline-none focus:ring-2 focus:ring-[#1C1917] focus:border-transparent"
                           placeholder={platform.placeholder}
                         />
                       </div>
@@ -212,7 +212,7 @@ export default function SocialIconsManagementPage() {
                   <button
                     onClick={handleSave}
                     disabled={saving}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#a68a6b] text-white rounded-lg hover:bg-[#9a7a5a] transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#1C1917] text-white rounded-none hover:bg-[#9a7a5a] transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Save className="w-4 h-4" />
                     {saving ? 'Saving...' : 'Save Changes'}
@@ -220,7 +220,7 @@ export default function SocialIconsManagementPage() {
                   <button
                     onClick={handleCancel}
                     disabled={saving}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-zinc-300 text-slate-700 rounded-lg hover:bg-zinc-50 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-zinc-300 text-slate-700 rounded-none hover:bg-zinc-50 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <X className="w-4 h-4" />
                     Cancel

@@ -1,14 +1,9 @@
 "use client";
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, CheckCircle, Clock, Mail, MapPin, Phone } from 'lucide-react';
-import Slider from 'react-slick';
-
-// Slick Carousel CSS
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { ArrowUpRight } from 'lucide-react';
 
 import MissionVision from '../components/MissionVision';
 import FeaturedProjects from '../components/FeaturedProjects';
@@ -41,10 +36,10 @@ const services = [
 ];
 
 const process = [
-  { num: '01', title: 'Discovery', desc: 'We listen, analyse, and immerse ourselves in your vision and lifestyle.' },
-  { num: '02', title: 'Concept', desc: 'Spatial layouts, mood boards, and 3D previews that define the direction.' },
-  { num: '03', title: 'Execution', desc: 'Procurement, contractor management, and meticulous quality audits.' },
-  { num: '04', title: 'Handover', desc: 'A curated reveal of your new space, followed by ongoing partnership.' },
+  { num: '01', title: 'Discovery', desc: 'We listen, analyse, and immerse ourselves in your vision and lifestyle to understand every detail.' },
+  { num: '02', title: 'Concept', desc: 'Spatial layouts, mood boards, and 3D previews that define the creative direction of your project.' },
+  { num: '03', title: 'Execution', desc: 'Procurement, contractor management, and meticulous quality audits at every stage.' },
+  { num: '04', title: 'Handover', desc: 'A curated reveal of your new space, followed by our ongoing partnership and post-care.' },
 ];
 
 const stats = [
@@ -54,520 +49,433 @@ const stats = [
   { value: '2M+', label: 'Social Followers' },
 ];
 
-const specialConditions = [
-  { title: 'Support After Completion', desc: 'Our team stays with you even after the project is delivered — continuous care and support.' },
-  { title: 'Familiar Premium Service', desc: 'Maintain your lifestyle while we transform your space with zero disruption.' },
-  { title: 'Personal Design Expert', desc: 'A dedicated architect is your single point of contact throughout the journey.' },
-  { title: 'Special Attention', desc: 'Enhanced service for discerning clients who expect nothing but excellence.' },
+const advantage = [
+  { title: 'Post-Delivery Care', desc: 'Our commitment extends beyond handover. We offer continuous structural support long after project completion.' },
+  { title: 'Zero-Disruption Process', desc: 'We manage every granular detail so you can maintain your schedule undisturbed during the entire transformation.' },
+  { title: 'Dedicated Art Director', desc: 'A senior principal architect serves as your exclusive liaison from sketch to final styling and handover.' },
+  { title: 'Bespoke Sourcing', desc: 'Access to rare materials, custom furniture artisans, and exclusive design catalogs.' },
 ];
 
+function ServicesList() {
+  const [hovered, setHovered] = useState<number | null>(null);
+  return (
+    <div className="divide-y divide-stone-100">
+      {services.map((service, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: idx * 0.06 }}
+          onMouseEnter={() => setHovered(idx)}
+          onMouseLeave={() => setHovered(null)}
+          className={`group transition-colors duration-300 ${hovered === idx ? 'bg-[#1C1917]' : 'bg-white'}`}
+        >
+          <Link href="/services" className="grid grid-cols-[56px_1fr_auto] lg:grid-cols-[72px_1fr_auto_auto] gap-6 lg:gap-12 items-center py-7 lg:py-8">
+            <span className={`text-[9px] font-mono transition-colors duration-300 ${hovered === idx ? 'text-stone-600' : 'text-stone-300'}`}>
+              {service.num}
+            </span>
+            <div>
+              <h3 className={`font-serif font-bold text-xl lg:text-2xl transition-colors duration-300 ${hovered === idx ? 'text-white' : 'text-[#1C1917]'}`}>
+                {service.title}
+              </h3>
+            </div>
+            <p className={`hidden lg:block text-xs font-light leading-relaxed max-w-xs transition-colors duration-300 ${hovered === idx ? 'text-stone-500' : 'text-stone-400'}`}>
+              {service.desc}
+            </p>
+            <div className={`w-9 h-9 border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${hovered === idx ? 'border-stone-700 bg-stone-800' : 'border-stone-200'}`}>
+              <ArrowUpRight className={`w-4 h-4 transition-colors duration-300 ${hovered === idx ? 'text-white' : 'text-stone-400'}`} />
+            </div>
+          </Link>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
 export default function Home() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '28%']);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const [heroProjects, setHeroProjects] = useState<any[]>([]);
-  const [loadingHero, setLoadingHero] = useState(true);
+  const heroImage = 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90';
 
-  const activeHeroProjects = heroProjects;
-
-  useEffect(() => {
-    const fetchHeroProjects = async () => {
-      try {
-        const API_URL = 'https://shravanpuriarchitects.com';
-        const res = await fetch(`${API_URL}/api/projects?limit=3`);
-        if (!res.ok) throw new Error('Failed to fetch hero projects');
-
-        const data = await res.json();
-        if (data.success && Array.isArray(data.data)) {
-          const activeProjects = data.data.filter((project: any) => project.isActive !== false);
-          setHeroProjects(activeProjects.slice(0, 3));
-        } else {
-          setHeroProjects([]);
-        }
-      } catch (error) {
-        console.error('Hero fetch error:', error);
-        setHeroProjects([]);
-      } finally {
-        setLoadingHero(false);
-      }
-    };
-
-    fetchHeroProjects();
-  }, []);
-  
-  // Slick Carousel Settings
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    fade: true,
-    cssEase: 'linear',
-    arrows: false,
-    pauseOnHover: false,
-  };
 
   return (
-    <div className="bg-[#F7FBFF]">
-      {/* Global override for Slick Carousel to match luxury theme */}
-      <style>{`
-        .luxury-slider .slick-dots {
-          bottom: 50px;
-          z-index: 20;
-        }
-        .luxury-slider .slick-dots li {
-          margin: 0 6px;
-        }
-        .luxury-slider .slick-dots li button:before {
-          color: #ffffff;
-          font-size: 10px;
-          opacity: 0.3;
-          transition: all 0.4s ease;
-        }
-        .luxury-slider .slick-dots li.slick-active button:before {
-          color: #ffffff;
-          font-size: 12px;
-          opacity: 1;
-        }
-      `}</style>
+    <div className="bg-[#FAF9F5] text-[#1C1917] font-sans selection:bg-[#1C1917] selection:text-[#FAF9F5]">
 
-      {/* ── 2. ABOUT ── */}
-      
-      {/* ── 3. SHOWCASE SLIDER (MAX 90VH) - REDESIGNED ── */}
-      <section ref={heroRef} className="relative w-full h-[90vh] max-h-[90vh] bg-[#162A48] overflow-hidden group">
-        {/* Logo in top left */}
-        {/* <div className="absolute top-8 left-6 lg:left-16 z-20">
-          <img
-            src="/logo2.png"
-            alt="SP Architects"
-            className="h-12 object-contain"
-          />
-        </div> */}
-        {activeHeroProjects.length > 0 && (
-          <Slider {...sliderSettings} className="h-full luxury-slider">
-            {activeHeroProjects.map((slide, idx) => (
-            <div key={idx} className="relative h-[90vh] max-h-[90vh] outline-none overflow-hidden">
-              <motion.img 
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 10, ease: "easeOut" }}
-                src={slide.image || slide.featuredImage || slide.img || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=85'} 
-                alt={slide.title || 'Project Showcase'} 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              {/* Premium Cinematic Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#162A48]/30 to-[#0A1322]/95" />
-              
-              {/* Content Overlay */}
-              <div className="absolute inset-0 flex flex-col justify-end pb-32 px-6 lg:px-16 max-w-[1700px] mx-auto w-full z-10">
-                <motion.div 
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                  className="max-w-4xl"
-                >
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold uppercase tracking-[0.3em] px-4 py-2">
-                      {slide.category}
-                    </span>
-                    <div className="w-12 h-px bg-white/40" />
-                    <span className="flex items-center gap-2 text-white/80 text-[11px] font-medium tracking-widest uppercase">
-                      <MapPin className="w-4 h-4 text-[#2660A2]" /> {slide.location}
-                    </span>
-                  </div>
-                  <h2 className="text-5xl lg:text-[5.5rem] font-bold text-white font-serif mb-8 leading-[1.05] tracking-tight drop-shadow-2xl">
-                    {slide.title}
-                  </h2>
-                  <Link
-                    href="/portfolio"
-                    className="inline-flex items-center gap-4 text-xs font-bold uppercase tracking-[0.25em] text-white hover:text-[#2660A2] transition-colors group/btn bg-white/5 backdrop-blur-sm border border-white/10 px-8 py-4 hover:bg-white/10"
-                  >
-                    Explore Project
-                    <span className="bg-[#2660A2] p-2 rounded-full group-hover/btn:scale-110 transition-transform shadow-[0_0_15px_rgba(38,96,162,0.5)]">
-                      <ArrowRight className="w-4 h-4 text-white" />
-                    </span>
-                  </Link>
-                </motion.div>
-              </div>
-            </div>
-            ))}
-          </Slider>
-        )}
+      {/* ── 01 — HERO (Full Bleed Image with Overlaid Text) ── */}
+      <section className="relative w-full h-[78vh] md:h-[82vh] min-h-[500px] overflow-hidden">
 
-        {/* Scroll indicator animation */}
-        <motion.div 
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden lg:flex flex-col items-center gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
+        {/* Background Image */}
+        <motion.div
+          initial={{ scale: 1.06 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2.2, ease: 'easeOut' }}
+          className="absolute inset-0"
         >
-          <span className="text-[9px] uppercase tracking-[0.4em] text-white/50 font-bold">Scroll</span>
-          <div className="w-[1px] h-12 bg-white/20 overflow-hidden relative">
-            <motion.div 
-              className="w-full h-1/2 bg-white absolute top-0"
-              animate={{ y: [0, 48] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-            />
-          </div>
+          <img
+            src={heroImage}
+            alt="DVL Architects — Architecture & Interiors"
+            className="w-full h-full object-cover"
+          />
+          {/* Dark gradient overlay — stronger at bottom-left where text sits */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
         </motion.div>
+
+
+        {/* Bottom-left: Main content */}
+        <div className="absolute bottom-0 left-0 right-0 px-8 lg:px-16 pb-12 z-10">
+          <div className="max-w-[900px]">
+
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.4, ease: 'easeOut' }}
+              className="font-serif font-bold text-white tracking-tight leading-[1.0] text-[clamp(2.8rem,7vw,6rem)] mb-5"
+            >
+              Designing Spaces<br />
+              <span className="italic font-normal text-white/80">That Inspire.</span>
+            </motion.h1>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.65 }}
+            >
+              <p className="text-white/65 text-sm sm:text-base font-light leading-relaxed max-w-sm">
+                We make architecture, interiors, and design that is innovative, refined, and remarkable.
+              </p>
+            </motion.div>
+
+          </div>
+
+          {/* Bottom right: Stats strip */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="hidden md:flex absolute bottom-12 right-8 lg:right-16 gap-8 lg:gap-12"
+          >
+            {stats.slice(0, 3).map((s, i) => (
+              <div key={i} className="text-right">
+                <div className="text-xl font-serif font-bold text-white">{s.value}</div>
+                <div className="text-[8px] uppercase tracking-[0.2em] text-white/50 font-bold mt-0.5">{s.label}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
       </section>
 
-      {/* ── 3. SPACES WE’VE TRANSFORMED ── */}
-      {/* <section className="py-20 bg-[#EFF5FF]">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-16 text-center">
-          <h2 className="text-4xl lg:text-6xl font-bold text-[#162A48] tracking-tight font-serif mb-4">
-            Spaces We’ve Transformed
-          </h2>
-          <p className="text-[#4B5F8A] text-lg font-light">
-            Thoughtfully designed. Beautifully executed.
-          </p>
-        </div>
-      </section> */}
+      {/* ── 02 — SELECTED WORKS ── */}
+      <FeaturedProjects />
 
-      {/* ── 3.5. INTRO SECTION - REDESIGNED ── */}
-      <section className="py-32 lg:py-40 bg-[#F7FBFF] overflow-hidden relative">
-        {/* Decorative Background Element */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#EFF5FF] rounded-bl-[200px] opacity-60 pointer-events-none" />
+      {/* ── 03 — ABOUT ── */}
+      <section className="bg-white py-24 lg:py-32 border-t border-stone-200">
+        <div className="max-w-[1800px] mx-auto px-8 lg:px-20">
 
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-16 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
-            
-            {/* Left image - Editorial Layout */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col lg:flex-row lg:items-end gap-8 mb-16 pb-12 border-b border-stone-200"
+          >
+            <div className="lg:w-1/3 flex-shrink-0">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-6 h-[1px] bg-stone-400" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">About The Studio</span>
+              </div>
+              <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400">Jaipur, India · Established 2009</span>
+            </div>
+            <h2 className="lg:w-2/3 text-3xl lg:text-4xl font-serif font-bold text-[#1C1917] leading-tight tracking-tight">
+              We translate human aspirations into architectural realities, creating spaces{' '}
+              <span className="italic font-serif">that inspire.</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="lg:col-span-5 relative"
+              transition={{ duration: 0.8 }}
             >
-              {/* Image Frame with rounded offset */}
-              <div className="relative aspect-[4/5] rounded-tl-[60px] rounded-br-[60px] overflow-hidden shadow-[0_30px_60px_rgba(22,42,72,0.15)] z-10 border-[6px] border-white">
+              <div className="aspect-[4/3] overflow-hidden border border-stone-200">
                 <img
                   src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80"
                   alt="Studio Interior"
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-[2000ms]"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-[1500ms]"
                 />
-                <div className="absolute inset-0 bg-[#162A48]/10 hover:bg-transparent transition-colors duration-700" />
               </div>
-
-              {/* Backdrop outline */}
-              <div className="absolute -inset-4 border border-[#2660A2]/30 rounded-tl-[70px] rounded-br-[70px] -z-10 translate-x-4 translate-y-4" />
-
-              {/* Floating stat card - Glassmorphism */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="absolute -right-6 lg:-right-16 bottom-12 bg-white/85 backdrop-blur-xl border border-white/50 p-8 shadow-[0_20px_40px_rgba(0,0,0,0.06)] z-20 rounded-2xl"
-              >
-                <div className="text-6xl lg:text-7xl font-bold font-serif leading-none mb-3 text-[#162A48]">
-                  15<span className="text-[#2660A2] text-5xl">+</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-[2px] bg-[#2660A2]" />
-                  <div className="text-[9px] uppercase tracking-[0.3em] font-bold text-[#5B6E9A] leading-tight">Years of<br />Excellence</div>
-                </div>
-              </motion.div>
             </motion.div>
 
-            {/* Right text - Elegant Typography */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="lg:col-span-7 flex flex-col justify-center pt-16 lg:pt-0 lg:pl-10"
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="flex flex-col gap-8"
             >
-              <div className="flex items-center gap-4 mb-8">
-                <span className="w-12 h-[1px] bg-[#2660A2]" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#2660A2]">Designed Around You</span>
-              </div>
+              <p className="text-[#57534E] text-base leading-relaxed font-light">
+                Our practice is built on a commitment to spatial logic, material integrity, and refined detailing. From spatial flows to furniture selection, we ensure each project expresses a unified design concept.
+              </p>
 
-              <h2 className="text-5xl lg:text-[4.5rem] font-bold text-[#162A48] tracking-tight leading-[1.05] mb-8 font-serif">
-                Crafting Spaces<br />
-                <span className="text-[#8B99B8] font-light italic">Beyond Ordinary.</span>
-              </h2>
-
-              <div className="pl-6 border-l-[3px] border-[#2660A2]/20 mb-10">
-                <p className="text-[#4B5F8A] text-lg leading-relaxed font-light max-w-xl">
-                  At SP Architects, we design spaces that feel as good as they look. With a focus on creativity, functionality, and detail, we create interiors tailored to your lifestyle — where every space is thoughtfully designed and uniquely yours.
-                </p>
+              <div className="grid grid-cols-2 gap-6 border-t border-b border-stone-200 py-6">
+                {stats.map((s, i) => (
+                  <div key={i}>
+                    <div className="text-2xl font-bold font-serif text-[#1C1917]">{s.value}</div>
+                    <div className="text-[9px] uppercase tracking-[0.2em] text-stone-500 mt-0.5">{s.label}</div>
+                  </div>
+                ))}
               </div>
 
               <Link
                 href="/about"
-                className="inline-flex items-center gap-4 text-[11px] font-bold uppercase tracking-[0.3em] text-[#162A48] hover:text-[#2660A2] transition-colors group w-fit"
+                className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#1C1917] hover:text-stone-500 transition-colors group w-fit"
               >
-                <span className="border-b border-[#162A48] group-hover:border-[#2660A2] pb-1 transition-colors">Discover Our Story</span>
-                <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <span className="border-b border-[#1C1917]/20 group-hover:border-[#1C1917] pb-0.5 transition-colors">Our Approach</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </Link>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── 4. FEATURED PROJECTS COMPONENT ── */}
-      <section className="bg-[#EFF5FF]">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14 pt-28 pb-12 text-center">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-[#2660A2]" />
-            <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5B6E9A]">Featured Works</span>
-            <div className="w-8 h-px bg-[#2660A2]" />
-          </div>
-          <h2 className="text-4xl lg:text-6xl font-bold text-[#162A48] tracking-tight font-serif mb-4">
-            Our Creations & Concepts
-          </h2>
-          <p className="text-[#4B5F8A] text-lg font-light">
-            Designing spaces that inspire and endure.
-          </p>
-        </div>
-      </section>
-      <FeaturedProjects />
+      {/* ── 04 — SERVICES (Image Card Grid) ── */}
+      <section className="bg-[#1C1917] py-24 border-t border-stone-800">
+        <div className="max-w-[1800px] mx-auto px-8 lg:px-20">
 
-      {/* ── 5. SERVICES (MODERN REDESIGN) ── */}
-      <section className="py-32 bg-[#F7FBFF] border-t border-[#2660A2]/20">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
-          
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-24"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-[1px] bg-[#2660A2]" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5B6E9A]">Our Proficiency</span>
-            </div>
-            
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-              <h2 className="text-4xl lg:text-6xl font-bold tracking-tight font-serif text-[#162A48] leading-[1.1]">
-                Shaping spaces with<br />knowledge, creativity,<br />
-                <span className="italic font-normal text-[#8B99B8]">and precision.</span>
-              </h2>
-              <p className="text-[#4B5F8A] max-w-md text-base leading-relaxed font-light lg:pb-3">
-                Design That Performs. Our approach covers every stage of your project — from design consultation to complete turnkey execution, making the entire process simple and stress-free.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Modern Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
-            {services.map((service, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: idx * 0.15 }}
-                className="group flex flex-col"
-              >
-                {/* Top Border & Header */}
-                <div className="flex items-center justify-between border-b border-[#2660A2]/30 pb-6 mb-8 transition-colors duration-700 group-hover:border-[#2660A2]">
-                  <h3 className="text-3xl font-bold text-[#162A48] font-serif group-hover:text-[#2660A2] transition-colors duration-500">
-                    {service.title}
-                  </h3>
-                  <span className="text-[#2660A2] text-lg font-bold font-serif tracking-widest group-hover:scale-110 transition-transform duration-500">
-                    {service.num}
-                  </span>
-                </div>
-
-                {/* Image Container */}
-                <Link 
-                  href="/services" 
-                  className="relative w-full aspect-[16/10] overflow-hidden mb-8 bg-[#EFF5FF] block"
-                >
-                  <img
-                    src={service.img}
-                    alt={service.title}
-                    className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1500ms] ease-out"
-                  />
-                  <div className="absolute inset-0 bg-[#162A48]/10 group-hover:bg-transparent transition-colors duration-700" />
-                  
-                  {/* Floating View Text inside image */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#F7FBFF]/90 backdrop-blur-md px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center gap-2 text-[#162A48] text-[9px] font-bold uppercase tracking-[0.3em]">
-                    Explore Service <ArrowUpRight className="w-3.5 h-3.5" />
-                  </div>
-                </Link>
-
-                {/* Description & Button */}
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 pr-4">
-                  <p className="text-[#4B5F8A] text-sm leading-relaxed font-light max-w-sm">
-                    {service.desc}
-                  </p>
-                  <Link
-                    href="/services"
-                    className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[#2660A2]/50 text-[#5B6E9A] group-hover:bg-[#2660A2] group-hover:text-[#162A48] group-hover:border-[#2660A2] transition-all duration-500 flex-shrink-0"
-                  >
-                    <ArrowUpRight className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 6. PROCESS ── */}
-      <section className="py-32 bg-[#162A48]">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-10 h-px bg-[#2660A2]" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#2660A2]">Methodology</span>
-              <div className="w-10 h-px bg-[#2660A2]" />
-            </div>
-
-            <h2 className="text-4xl lg:text-6xl font-bold text-[#F7FBFF] mb-6 leading-tight font-serif">
-              From Concept to{' '}
-              <span className="italic font-normal text-[#2660A2]">Creation.</span>
-            </h2>
-
-            <p className="text-[#8B99B8] font-light max-w-2xl mx-auto text-lg">
-              A structured, transparent approach to bringing your visionary spaces to life.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {process.map((step, i) => (
-              <motion.div
-                key={step.num}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-[#162A48]/80 border border-[#2660A2]/20 p-10 hover:border-[#2660A2]/60 hover:bg-[#162A48] group transition-all duration-500 relative overflow-hidden"
-              >
-                <div className="absolute -right-3 -bottom-3 text-[110px] font-bold text-[#2660A2]/[0.06] group-hover:text-[#2660A2]/[0.1] transition-colors duration-500 font-serif select-none leading-none">
-                  {step.num}
-                </div>
-
-                <div className="relative z-10">
-                  <div className="text-[10px] font-bold text-[#2660A2] tracking-[0.3em] uppercase mb-6">
-                    Phase {step.num}
-                  </div>
-                  <h3 className="text-2xl font-bold text-[#F7FBFF] font-serif group-hover:text-[#2660A2] mb-4 transition-colors">
-                    {step.title}
-                  </h3>
-                  <p className="text-[#8B99B8] text-sm leading-relaxed font-light">
-                    {step.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. THE ADVANTAGE (WHY CHOOSE US) ── */}
-      <section className="py-32 bg-[#EFF5FF]">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20"
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 pb-10 border-b border-stone-700"
           >
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-[1px] bg-[#2660A2]" />
-                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5B6E9A]">The Advantage</span>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-6 h-[1px] bg-stone-500" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-400">Our Proficiency</span>
               </div>
-              <h2 className="text-4xl lg:text-6xl font-bold text-[#162A48] tracking-tight font-serif leading-[1.1]">
-                The Shravan Puri <span className="text-[#2660A2] italic font-normal">Edge.</span>
+              <h2 className="text-3xl lg:text-4xl font-serif font-bold text-white leading-tight">
+                Services We Offer
               </h2>
             </div>
-            <p className="text-[#4B5F8A] max-w-sm text-sm leading-relaxed font-light lg:pb-2">
-              Beyond exceptional aesthetics, we provide a holistic, white-glove experience tailored to the most discerning clientele.
+            <p className="text-stone-400 max-w-xs text-sm leading-relaxed font-light">
+              Comprehensive interior design and architectural consultancy.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-            {[
-              { title: 'Post-Delivery Care', desc: 'Our commitment extends beyond handover. We offer continuous aesthetic and structural support.' },
-              { title: 'Zero-Disruption Process', desc: 'We manage every granular detail so you can maintain your lifestyle undisturbed during the transformation.' },
-              { title: 'Dedicated Art Director', desc: 'A senior principal architect serves as your exclusive liaison from initial sketch to final styling.' },
-              { title: 'Bespoke Sourcing', desc: 'Access to rare materials, custom furniture artisans, and exclusive global design catalogs.' },
-            ].map((item, idx) => (
+          {/* 2×2 Image Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
+            {services.map((service, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="group flex gap-6 p-8 bg-[#F7FBFF] border-l-2 border-transparent hover:border-[#2660A2] transition-all duration-500 hover:shadow-[0_10px_40px_rgba(20,42,72,0.06)]"
+                transition={{ duration: 0.7, delay: idx * 0.1 }}
               >
-                <div className="text-3xl font-serif text-[#2660A2]/40 group-hover:text-[#2660A2] transition-colors duration-500">
-                  0{idx + 1}
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-[#162A48] font-serif mb-3 group-hover:text-[#2660A2] transition-colors">{item.title}</h3>
-                  <p className="text-[#4B5F8A] text-sm leading-relaxed font-light">{item.desc}</p>
-                </div>
+                <Link
+                  href="/services"
+                  className="group relative block h-[320px] lg:h-[380px] overflow-hidden"
+                >
+                  {/* Image */}
+                  <img
+                    src={service.img}
+                    alt={service.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] ease-out scale-100 group-hover:scale-108"
+                  />
+
+                  {/* Base dark overlay */}
+                  <div className="absolute inset-0 bg-black/55 group-hover:bg-black/35 transition-all duration-700" />
+
+                  {/* Content */}
+                  <div className="absolute inset-0 p-7 flex flex-col justify-between">
+                    {/* Top: number */}
+                    <span className="text-[10px] font-mono text-white/40 group-hover:text-white/70 transition-colors duration-500">
+                      {service.num}
+                    </span>
+
+                    {/* Bottom: title + desc */}
+                    <div>
+                      <h3 className="text-2xl lg:text-3xl font-serif font-bold text-white leading-tight mb-3 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                        {service.title}
+                      </h3>
+                      <p className="text-white/0 group-hover:text-white/75 text-sm font-light leading-relaxed max-w-xs transition-all duration-500 translate-y-3 group-hover:translate-y-0">
+                        {service.desc}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Bottom-right arrow */}
+                  <div className="absolute bottom-7 right-7 w-9 h-9 border border-white/20 group-hover:border-white/60 flex items-center justify-center transition-all duration-500">
+                    <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-white transition-colors duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                </Link>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 7. MISSION & VISION ── */}
-      <MissionVision />
-
-      {/* ── 8. THE ATELIER (STUDIO INFO) ── */}
-    
-
-      {/* ── 9. FINAL CTA (MODERN & ELEGANT) ── */}
-      <section className="py-32 lg:py-40 bg-[#EFF5FF] border-t border-[#2660A2]/20 relative overflow-hidden">
-        {/* Subtle large background typography */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none opacity-[0.03] whitespace-nowrap">
-          <span className="text-[20vw] font-serif font-bold text-[#162A48] leading-none">SHRAVAN PURI</span>
-        </div>
-
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <div className="w-12 h-[1px] bg-[#2660A2]" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5B6E9A]">Commence The Journey</span>
-              <div className="w-12 h-[1px] bg-[#2660A2]" />
+      {/* ── 04b — SERVICES LIST (Editorial hover rows) ── */}
+      <section className="bg-white border-t border-stone-100">
+        <div className="max-w-[1800px] mx-auto px-8 lg:px-20">
+          <div className="flex items-center justify-between py-8 border-b border-stone-100">
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-[1px] bg-stone-300" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-400">All Services</span>
             </div>
-
-            <h2 className="text-5xl lg:text-7xl font-bold text-[#162A48] tracking-tight font-serif leading-[1.1] mb-8">
-              Ready to redefine <br className="hidden md:block" />
-              <span className="text-[#2660A2] italic font-normal">your space?</span>
-            </h2>
-
-            <p className="text-[#4B5F8A] text-lg leading-relaxed font-light mb-12 max-w-2xl mx-auto">
-              Schedule a private consultation with our principal architects. Let us translate your vision into a structural masterpiece.
-            </p>
-
-            <Link
-              href="/contact"
-              className="group inline-flex items-center gap-5 px-12 py-6 bg-[#162A48] text-[#F7FBFF] text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-[#2660A2] hover:text-[#162A48] transition-all duration-500 shadow-xl"
-            >
-              Initiate Project
-              <div className="w-8 h-[1px] bg-[#F7FBFF] group-hover:bg-[#162A48] group-hover:w-12 transition-all duration-500 relative">
-                <ArrowRight className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 translate-x-1/2" />
-              </div>
+            <Link href="/services" className="text-[9px] uppercase tracking-[0.2em] text-stone-400 hover:text-[#1C1917] transition-colors font-bold hidden lg:block">
+              View All →
             </Link>
-          </motion.div>
+          </div>
+
+          <ServicesList />
+
+          <div className="py-8 border-t border-stone-100 flex justify-end">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#1C1917] hover:text-stone-500 transition-colors group"
+            >
+              <span className="border-b border-[#1C1917]/20 group-hover:border-[#1C1917] pb-0.5 transition-colors">Explore All Services</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
+
+      {/* ── 05 — WHY DVL (Split Dark Layout) ── */}
+      <section className="bg-[#FAF9F5] py-24 border-t border-stone-200">
+        <div className="max-w-[1800px] mx-auto px-8 lg:px-20">
+
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+            {/* Left: Big Statement */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="lg:sticky lg:top-32"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-6 h-[1px] bg-stone-400" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Why DVL</span>
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-serif font-bold text-[#1C1917] leading-[1.1] mb-8 tracking-tight">
+                Built on trust,<br />
+                <span className="italic font-normal text-stone-400">delivered</span><br />
+                with precision.
+              </h2>
+              <p className="text-[#57534E] text-base font-light leading-relaxed max-w-sm">
+                Every project is a commitment — to quality, to the client, and to creating spaces that stand the test of time.
+              </p>
+            </motion.div>
+
+            {/* Right: 2×2 Bordered Items */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 border border-stone-200">
+              {[
+                { num: '01', title: 'On-Time Delivery', desc: 'We honour every deadline with disciplined project schedules and proactive risk management.' },
+                { num: '02', title: 'Transparent Budgeting', desc: 'No hidden costs. Every rupee is accounted for with detailed breakdowns from day one.' },
+                { num: '03', title: 'End-to-End Service', desc: 'From concept sketches to the final styling of your space — one team, zero handoffs.' },
+                { num: '04', title: '15+ Years of Mastery', desc: 'Over 500 completed spaces across Rajasthan, backed by a legacy of design excellence.' },
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.08 }}
+                  className={`p-8 hover:bg-stone-50 transition-colors ${
+                    idx === 0 || idx === 1 ? 'border-b border-stone-200' : ''
+                  } ${idx % 2 === 0 ? 'sm:border-r border-stone-200' : ''}`}
+                >
+                  <span className="text-[9px] font-mono text-stone-400 block mb-4">{item.num}</span>
+                  <h3 className="text-base font-serif font-bold text-[#1C1917] mb-2 leading-snug">{item.title}</h3>
+                  <p className="text-[#57534E] text-xs leading-relaxed font-light">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── 06 — HOW WE WORK (Numbered Vertical Steps) ── */}
+      <section className="bg-[#1C1917] py-24 border-t border-stone-800">
+        <div className="max-w-[1800px] mx-auto px-8 lg:px-20">
+
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 pb-10 border-b border-stone-700"
+          >
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-6 h-[1px] bg-stone-600" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">How We Work</span>
+              </div>
+              <h2 className="text-3xl lg:text-4xl font-serif font-bold text-white leading-tight">
+                From Brief to<br />
+                <span className="italic font-normal text-stone-400">Beautiful Reality.</span>
+              </h2>
+            </div>
+            <p className="text-stone-500 max-w-xs text-sm leading-relaxed font-light">
+              A refined four-phase process perfected over 15 years of architectural practice.
+            </p>
+          </motion.div>
+
+          {/* Large numbered steps — alternating layout */}
+          <div className="space-y-0">
+            {[
+              { num: '01', title: 'Listen & Discover', sub: 'Understanding You', desc: 'We immerse ourselves in your world — your aspirations, lifestyle, and spatial needs — before a single line is drawn.' },
+              { num: '02', title: 'Design & Envision', sub: 'Creating the Blueprint', desc: 'Detailed floor plans, mood boards, material palettes, and photorealistic 3D renders bring your vision to life on screen.' },
+              { num: '03', title: 'Build & Supervise', sub: 'Precision Execution', desc: 'Our on-site team manages every contractor, material, and timeline to ensure flawless quality at every stage.' },
+              { num: '04', title: 'Reveal & Celebrate', sub: 'Your New Space', desc: 'A curated final walkthrough of your completed space, styled to perfection, followed by our post-handover care.' },
+            ].map((step, i) => (
+              <motion.div
+                key={step.num}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: i * 0.1 }}
+                className="group grid grid-cols-[auto_1fr] lg:grid-cols-[120px_1fr_1fr] gap-6 lg:gap-16 py-10 border-b border-stone-800 last:border-0 items-start"
+              >
+                {/* Large number */}
+                <span className="text-[4rem] lg:text-[5rem] font-serif font-bold text-stone-700 group-hover:text-stone-500 transition-colors duration-500 leading-none">
+                  {step.num}
+                </span>
+
+                {/* Title block */}
+                <div className="pt-2">
+                  <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-600 block mb-1">{step.sub}</span>
+                  <h3 className="text-2xl lg:text-3xl font-serif font-bold text-white group-hover:text-stone-300 transition-colors duration-300 leading-tight">
+                    {step.title}
+                  </h3>
+                </div>
+
+                {/* Description — hidden on mobile, shown lg */}
+                <p className="hidden lg:block text-stone-500 text-sm font-light leading-relaxed pt-3 max-w-md group-hover:text-stone-400 transition-colors duration-300">
+                  {step.desc}
+                </p>
+
+                {/* Mobile description */}
+                <p className="lg:hidden col-span-2 text-stone-500 text-sm font-light leading-relaxed -mt-4">
+                  {step.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 07 — MISSION & VISION ── */}
+      <MissionVision />
+
     </div>
   );
 }

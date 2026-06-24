@@ -192,16 +192,16 @@ export default function AddProjectPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
           className="text-center bg-white p-12 rounded-3xl shadow-xl border border-purple-100"
         >
-          <CheckCircle className="w-24 h-24 text-purple-600 mx-auto mb-6" />
+          <CheckCircle className="w-24 h-24 text-stone-600 mx-auto mb-6" />
           <h1 className="text-4xl font-extrabold text-gray-900 mb-3 tracking-tight">Project Created!</h1>
-          <p className="text-lg text-purple-600 font-medium">Redirecting back to your portfolio...</p>
+          <p className="text-lg text-stone-600 font-medium">Redirecting back to your portfolio...</p>
         </motion.div>
       </div>
     );
@@ -218,7 +218,7 @@ export default function AddProjectPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center">
-              <Link href="/admin/projects" className="flex items-center text-purple-600 hover:text-purple-800 mr-6 transition-colors bg-purple-50 px-3 py-2 rounded-xl font-medium">
+              <Link href="/admin/projects" className="flex items-center text-stone-600 hover:text-stone-800 mr-6 transition-colors bg-stone-50 px-3 py-2 rounded-none font-medium">
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Back
               </Link>
@@ -226,7 +226,7 @@ export default function AddProjectPage() {
             </div>
             <div className="flex items-center gap-4">
               {uploadProgress && (
-                <div className="flex items-center text-sm font-semibold text-purple-600 bg-purple-50 px-4 py-2 rounded-xl">
+                <div className="flex items-center text-sm font-semibold text-stone-600 bg-stone-50 px-4 py-2 rounded-none">
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   {uploadProgress}
                 </div>
@@ -234,7 +234,7 @@ export default function AddProjectPage() {
               <button
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="flex items-center px-8 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 hover:shadow-lg hover:shadow-purple-200 disabled:opacity-70 disabled:hover:shadow-none transition-all duration-200 transform active:scale-95"
+                className="flex items-center px-8 py-3 bg-[#1C1917] text-white font-bold rounded-none hover:bg-stone-800 hover:shadow-lg hover:shadow-purple-200 disabled:opacity-70 disabled:hover:shadow-none transition-all duration-200 transform active:scale-95"
               >
                 {submitting ? (
                   <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Saving...</>
@@ -278,7 +278,7 @@ export default function AddProjectPage() {
             className="bg-white rounded-3xl shadow-sm border border-purple-100/50 p-8 sm:p-10"
           >
             <h2 className="text-xl font-extrabold text-gray-900 mb-8 flex items-center">
-              <span className="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center mr-3 text-sm">1</span>
+              <span className="w-8 h-8 rounded-none bg-stone-100 text-stone-600 flex items-center justify-center mr-3 text-sm">1</span>
               Basic Information
             </h2>
             
@@ -290,7 +290,7 @@ export default function AddProjectPage() {
                   required 
                   value={formData.title}
                   onChange={(e) => setFormData({...formData, title: e.target.value})}
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
+                  className="w-full px-5 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
                   placeholder="e.g., The Glass Pavilion"
                 />
               </div>
@@ -301,7 +301,7 @@ export default function AddProjectPage() {
                   required 
                   value={formData.category}
                   onChange={(e) => setFormData({...formData, category: e.target.value as 'residential' | 'commercial'})}
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all cursor-pointer font-medium text-gray-900 appearance-none"
+                  className="w-full px-5 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all cursor-pointer font-medium text-gray-900 appearance-none"
                 >
                   <option value="residential">Residential</option>
                   <option value="commercial">Commercial</option>
@@ -315,7 +315,7 @@ export default function AddProjectPage() {
                   required 
                   value={formData.client}
                   onChange={(e) => setFormData({...formData, client: e.target.value})}
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
+                  className="w-full px-5 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
                   placeholder="e.g., Mr. Sharma"
                 />
               </div>
@@ -327,7 +327,7 @@ export default function AddProjectPage() {
                   required 
                   value={formData.location}
                   onChange={(e) => setFormData({...formData, location: e.target.value})}
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
+                  className="w-full px-5 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
                   placeholder="e.g., Jaipur, Rajasthan"
                 />
               </div>
@@ -343,7 +343,7 @@ export default function AddProjectPage() {
                       const value = parseInt(e.target.value);
                       setFormData({...formData, completionYear: isNaN(value) ? new Date().getFullYear() : value});
                     }}
-                    className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
+                    className="w-full px-5 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
                   />
                 </div>
                 <div>
@@ -355,7 +355,7 @@ export default function AddProjectPage() {
                       const value = parseInt(e.target.value);
                       setFormData({...formData, order: isNaN(value) ? 0 : value});
                     }}
-                    className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
+                    className="w-full px-5 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
                   />
                 </div>
               </div>
@@ -367,7 +367,7 @@ export default function AddProjectPage() {
                   rows={5} 
                   value={formData.description}
                   onChange={(e) => setFormData({...formData, description: e.target.value})}
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all resize-none font-medium text-gray-900"
+                  className="w-full px-5 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all resize-none font-medium text-gray-900"
                   placeholder="Provide a detailed, captivating description of the project..."
                 />
               </div>
@@ -382,7 +382,7 @@ export default function AddProjectPage() {
             className="bg-white rounded-3xl shadow-sm border border-purple-100/50 p-8 sm:p-10"
           >
             <h2 className="text-xl font-extrabold text-gray-900 mb-8 flex items-center">
-              <span className="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center mr-3 text-sm">2</span>
+              <span className="w-8 h-8 rounded-none bg-stone-100 text-stone-600 flex items-center justify-center mr-3 text-sm">2</span>
               Technical Details
             </h2>
             
@@ -393,7 +393,7 @@ export default function AddProjectPage() {
                   type="text" 
                   value={formData.technologies}
                   onChange={(e) => setFormData({...formData, technologies: e.target.value})}
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
+                  className="w-full px-5 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
                   placeholder="e.g., AutoCAD, 3ds Max, Revit (Comma separated)"
                 />
               </div>
@@ -403,7 +403,7 @@ export default function AddProjectPage() {
                   type="text" 
                   value={formData.materials}
                   onChange={(e) => setFormData({...formData, materials: e.target.value})}
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
+                  className="w-full px-5 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all font-medium text-gray-900"
                   placeholder="e.g., Concrete, Glass, Steel (Comma separated)"
                 />
               </div>
@@ -418,28 +418,28 @@ export default function AddProjectPage() {
             className="bg-white rounded-3xl shadow-sm border border-purple-100/50 p-8 sm:p-10"
           >
             <h2 className="text-xl font-extrabold text-gray-900 mb-8 flex items-center">
-              <span className="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center mr-3 text-sm">3</span>
+              <span className="w-8 h-8 rounded-none bg-stone-100 text-stone-600 flex items-center justify-center mr-3 text-sm">3</span>
               Media Gallery
             </h2>
 
             <div className="space-y-10">
               {/* Featured Image */}
-              <div className="bg-purple-50/50 p-6 rounded-3xl border border-purple-100">
+              <div className="bg-stone-50/50 p-6 rounded-3xl border border-purple-100">
                 <label className="block text-sm font-bold text-gray-900 mb-4">
-                  Featured Cover Image * <span className="text-xs text-purple-500 font-normal ml-2 bg-purple-100 px-2 py-1 rounded-md">Required</span>
+                  Featured Cover Image * <span className="text-xs text-purple-500 font-normal ml-2 bg-stone-100 px-2 py-1 rounded-md">Required</span>
                 </label>
                 {featuredImage ? (
-                  <div className="relative w-full max-w-2xl h-64 rounded-2xl overflow-hidden border-2 border-purple-200 shadow-lg group">
+                  <div className="relative w-full max-w-2xl h-64 rounded-none overflow-hidden border-2 border-purple-200 shadow-lg group">
                     <img src={featuredImage.url} alt="Featured" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     <button
                       type="button" 
                       onClick={removeFeaturedImage}
-                      className="absolute top-4 right-4 p-2.5 bg-white/90 text-red-500 rounded-xl hover:bg-red-50 hover:text-red-600 shadow-lg transition-all"
+                      className="absolute top-4 right-4 p-2.5 bg-white/90 text-red-500 rounded-none hover:bg-red-50 hover:text-red-600 shadow-lg transition-all"
                     >
                       <X className="w-5 h-5" />
                     </button>
-                    <div className="absolute bottom-4 left-4 px-4 py-2 bg-purple-600/90 backdrop-blur-sm text-white text-sm font-bold rounded-xl shadow-lg flex items-center">
+                    <div className="absolute bottom-4 left-4 px-4 py-2 bg-[#1C1917]/90 backdrop-blur-sm text-white text-sm font-bold rounded-none shadow-lg flex items-center">
                       <ImagePlus className="w-4 h-4 mr-2" /> Cover Photo
                     </div>
                   </div>
@@ -461,7 +461,7 @@ export default function AddProjectPage() {
                     <label className="block text-sm font-bold text-gray-900 mb-1">Project Gallery</label>
                     <p className="text-sm text-gray-500">Showcase your project from multiple angles.</p>
                   </div>
-                  <span className="mt-3 sm:mt-0 inline-flex items-center text-sm font-bold bg-purple-100 text-purple-700 px-4 py-1.5 rounded-xl border border-purple-200">
+                  <span className="mt-3 sm:mt-0 inline-flex items-center text-sm font-bold bg-stone-100 text-purple-700 px-4 py-1.5 rounded-none border border-purple-200">
                     {galleryImages.length} images selected
                   </span>
                 </div>
@@ -477,19 +477,19 @@ export default function AddProjectPage() {
                           key={img.id} 
                           className="relative group cursor-pointer"
                         >
-                          <div className="relative aspect-square rounded-2xl overflow-hidden border-2 border-purple-100 shadow-md bg-gray-100">
+                          <div className="relative aspect-square rounded-none overflow-hidden border-2 border-purple-100 shadow-md bg-[#FAF9F5]">
                             <img src={img.url} alt={img.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                             <div className="absolute inset-0 bg-purple-900/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                               <button
                                 type="button" 
                                 onClick={() => removeGalleryImage(img.id)}
-                                className="p-3 bg-white text-red-500 rounded-xl hover:bg-red-50 hover:text-red-600 shadow-xl transform scale-75 group-hover:scale-100 transition-all duration-300"
+                                className="p-3 bg-white text-red-500 rounded-none hover:bg-red-50 hover:text-red-600 shadow-xl transform scale-75 group-hover:scale-100 transition-all duration-300"
                               >
                                 <Trash2 className="w-5 h-5" />
                               </button>
                             </div>
                           </div>
-                          <div className="absolute -top-3 -right-3 w-8 h-8 bg-purple-600 text-white text-xs font-bold rounded-xl shadow-lg flex items-center justify-center border-2 border-white z-10">
+                          <div className="absolute -top-3 -right-3 w-8 h-8 bg-[#1C1917] text-white text-xs font-bold rounded-none shadow-lg flex items-center justify-center border-2 border-white z-10">
                             {index + 1}
                           </div>
                         </motion.div>
@@ -526,8 +526,8 @@ export default function AddProjectPage() {
                       e.target.value = '';
                     }}
                   />
-                  <div className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-purple-300 rounded-3xl bg-purple-50/50 group-hover:bg-purple-50 group-hover:border-purple-400 transition-all duration-300">
-                    <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-purple-300 rounded-3xl bg-stone-50/50 group-hover:bg-stone-50 group-hover:border-purple-400 transition-all duration-300">
+                    <div className="w-16 h-16 bg-white rounded-none shadow-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                       <UploadCloud className="w-8 h-8 text-purple-500" />
                     </div>
                     <p className="text-base font-bold text-purple-700 mb-1">Click or drag images to upload</p>
@@ -559,14 +559,14 @@ export default function AddProjectPage() {
                           value={url}
                           onChange={(e) => handleVideoUrlChange(index, e.target.value)}
                           placeholder="https://youtube.com/watch?v=..."
-                          className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all text-sm font-medium text-gray-900"
+                          className="w-full pl-12 pr-4 py-4 bg-[#FAF9F5] border border-gray-200 rounded-none focus:bg-white focus:ring-4 focus:ring-purple-100 focus:border-purple-500 outline-none transition-all text-sm font-medium text-gray-900"
                         />
                       </div>
                       {videoUrls.length > 1 && (
                         <button
                           type="button" 
                           onClick={() => removeVideoUrl(index)}
-                          className="p-4 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-2xl transition-all"
+                          className="p-4 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-none transition-all"
                         >
                           <Trash2 className="w-6 h-6" />
                         </button>
@@ -577,7 +577,7 @@ export default function AddProjectPage() {
                   <button
                     type="button" 
                     onClick={addVideoUrl}
-                    className="inline-flex items-center px-5 py-3 mt-2 text-sm font-bold text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-xl transition-colors"
+                    className="inline-flex items-center px-5 py-3 mt-2 text-sm font-bold text-stone-600 bg-stone-50 hover:bg-stone-100 rounded-none transition-colors"
                   >
                     <Plus className="w-5 h-5 mr-2" /> Add another video link
                   </button>

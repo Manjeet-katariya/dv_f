@@ -1,118 +1,120 @@
 "use client";
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
 export default function MissionVision() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const leftY = useTransform(scrollYProgress, [0, 1], [30, -30]);
-  const rightY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
-
   return (
-    <section ref={ref} className="relative bg-[#F7FBFF] py-32 overflow-hidden border-t border-[#5B96D1]/20">
-      
-      {/* Subtle Background Elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.05),transparent_70%)] pointer-events-none" />
+    <section className="bg-white py-32 border-t border-stone-200 relative overflow-hidden">
 
-      <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
-        
+      {/* Giant watermark */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <span className="font-serif font-bold text-stone-300/[0.08] leading-none"
+          style={{ fontSize: 'clamp(10rem, 28vw, 28rem)' }}>
+          DVL
+        </span>
+      </div>
+
+      {/* Charcoal radial glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(28,25,23,0.02),transparent_70%)] pointer-events-none" />
+
+      <div className="max-w-[1800px] mx-auto px-10 lg:px-20 relative z-10">
+
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-24 relative z-10"
+          className="text-center mb-24"
         >
           <div className="inline-flex items-center gap-4 mb-6">
-            <div className="h-px w-12 bg-[#5B96D1]" />
-            <span className="text-[#5A7BC1] text-[9px] font-bold uppercase tracking-[0.4em]">Core Philosophy</span>
-            <div className="h-px w-12 bg-[#5B96D1]" />
+            <div className="h-px w-10 bg-stone-400" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.45em] text-[#878076]">Core Philosophy</span>
+            <div className="h-px w-10 bg-stone-400" />
           </div>
-
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1D325E] tracking-tight leading-[1.1] font-serif">
-            Our Purpose & <br />
-            <span className="italic font-normal text-[#9A7840]">Future Trajectory.</span>
+          <h2 className="text-3xl lg:text-4xl font-serif font-bold text-[#1C1917]">
+            Our Purpose &{' '}
+            <span className="text-stone-850 italic font-serif">Future Trajectory.</span>
           </h2>
         </motion.div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        {/* Two columns separated by vertical stone line */}
+        <div className="grid lg:grid-cols-[1fr_1px_1fr] items-start gap-0">
 
-          {/* Mission Card (Light) */}
+          {/* ── MISSION ── */}
           <motion.div
-            style={{ y: leftY }}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
-            className="relative bg-[#EFF5FF] p-12 lg:p-16 group transition-all duration-700 hover:shadow-[0_20px_60px_rgba(180,130,40,0.08)]"
+            className="py-12 lg:pr-20 group"
           >
-            {/* Elegant Inner Frame */}
-            <div className="absolute inset-4 border border-[#5B96D1]/20 pointer-events-none transition-colors duration-500 group-hover:border-[#5B96D1]/50" />
-            
-            <div className="relative z-10">
-              <div className="flex items-center justify-between mb-16">
-                <span className="text-6xl font-bold text-[#5B96D1]/30 leading-none font-serif group-hover:text-[#5B96D1]/60 transition-colors duration-500">I</span>
-                <p className="text-[#5A7BC1] text-[9px] font-bold uppercase tracking-[0.4em]">The Mandate</p>
+            <div className="flex items-center justify-between mb-12">
+              <span className="text-8xl font-serif font-bold text-stone-300 group-hover:text-stone-400 transition-colors duration-500 leading-none">I</span>
+              <div className="text-right">
+                <p className="text-[8px] font-bold uppercase tracking-[0.45em] text-[#878076]">The Mandate</p>
+                <p className="text-[8px] font-bold uppercase tracking-[0.25em] text-stone-400 mt-1">Mission</p>
               </div>
+            </div>
 
-              <h3 className="text-3xl xl:text-4xl font-bold text-[#1D325E] leading-tight tracking-tight mb-6 font-serif">
-                Elevating the <br />
-                <span className="text-[#2660A2] italic font-normal">Standard</span> of Living
-              </h3>
+            <h3 className="text-2xl lg:text-3xl font-serif font-bold text-[#1C1917] leading-tight tracking-tight mb-8">
+              Elevating the{' '}
+              <span className="text-stone-850 italic font-serif">Standard</span>{' '}
+              of Living
+            </h3>
 
-              <p className="text-[#4A6E9A] text-sm leading-relaxed font-light mb-12 max-w-md">
-                We are dedicated to crafting spaces that seamlessly blend aesthetic brilliance with everyday functionality. Our mission is to transform environments into bespoke sanctuaries that perfectly reflect the unique identity of those who inhabit them.
-              </p>
+            <p className="text-[#57534E] text-sm leading-relaxed font-light mb-12 max-w-lg">
+              We are dedicated to crafting spaces that seamlessly blend aesthetic brilliance with everyday functionality. Our mission is to transform environments into bespoke sanctuaries that perfectly reflect the unique identity of those who inhabit them.
+            </p>
 
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-[#5B96D1]/20">
-                {[{ v: '500+', l: 'Spaces' }, { v: '15+', l: 'Years' }, { v: '100%', l: 'Precision' }].map((s, i) => (
-                  <div key={i}>
-                    <div className="text-xl font-bold text-[#1D325E] font-serif mb-1 group-hover:text-[#2660A2] transition-colors">{s.v}</div>
-                    <div className="text-[8px] uppercase tracking-[0.2em] text-[#5A7BC1] font-bold">{s.l}</div>
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-3 gap-8 border-t border-stone-200 pt-10">
+              {[{ v: '500+', l: 'Spaces' }, { v: '15+', l: 'Years' }, { v: '100%', l: 'Precision' }].map((s, i) => (
+                <div key={i}>
+                  <div className="text-2xl font-bold font-serif text-[#1C1917] mb-1 group-hover:text-stone-600 transition-colors">{s.v}</div>
+                  <div className="text-[8px] uppercase tracking-[0.25em] text-[#878076]">{s.l}</div>
+                </div>
+              ))}
             </div>
           </motion.div>
 
-          {/* Vision Card (Ultra-Light) */}
+          {/* Vertical divider */}
+          <div className="hidden lg:block bg-gradient-to-b from-transparent via-stone-200 to-transparent self-stretch" />
+
+          {/* ── VISION ── */}
           <motion.div
-            style={{ y: rightY }}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.15 }}
-            className="relative bg-[#F7FBFF] border border-[#5B96D1]/20 p-12 lg:p-16 group transition-all duration-700 hover:shadow-[0_20px_60px_rgba(180,130,40,0.08)] hover:border-[#5B96D1]/50 hover:bg-[#EFF5FF]"
+            transition={{ duration: 0.9, delay: 0.12 }}
+            className="py-12 lg:pl-20 border-t border-stone-200 lg:border-t-0 group"
           >
-            {/* Elegant Inner Frame */}
-            <div className="absolute inset-4 border border-[#5B96D1]/10 pointer-events-none transition-colors duration-500 group-hover:border-[#5B96D1]/40" />
-
-            <div className="relative z-10 flex flex-col h-full">
-              <div className="flex items-center justify-between mb-16">
-                <span className="text-6xl font-bold text-[#5B96D1]/30 leading-none font-serif group-hover:text-[#5B96D1]/60 transition-colors duration-500">II</span>
-                <p className="text-[#5A7BC1] text-[9px] font-bold uppercase tracking-[0.4em]">The Horizon</p>
+            <div className="flex items-center justify-between mb-12">
+              <span className="text-8xl font-serif font-bold text-stone-300 group-hover:text-stone-400 transition-colors duration-500 leading-none">II</span>
+              <div className="text-right">
+                <p className="text-[8px] font-bold uppercase tracking-[0.45em] text-[#878076]">The Horizon</p>
+                <p className="text-[8px] font-bold uppercase tracking-[0.25em] text-stone-400 mt-1">Vision</p>
               </div>
+            </div>
 
-              <h3 className="text-3xl xl:text-4xl font-bold text-[#1D325E] leading-tight tracking-tight mb-6 font-serif">
-                Pioneering <br />
-                <span className="text-[#2660A2] italic font-normal">Architectural</span> Legacy
-              </h3>
+            <h3 className="text-2xl lg:text-3xl font-serif font-bold text-[#1C1917] leading-tight tracking-tight mb-8">
+              Pioneering{' '}
+              <span className="text-stone-850 italic font-serif">Architectural</span>{' '}
+              Legacy
+            </h3>
 
-              <p className="text-[#4A6E9A] text-sm leading-relaxed font-light mb-12 max-w-md flex-grow">
-                To be the global benchmark in luxury architecture and interior design. We envision a future where our creations not only define modern elegance but stand as enduring landmarks of sustainable and innovative design.
-              </p>
+            <p className="text-[#57534E] text-sm leading-relaxed font-light mb-12 max-w-lg">
+              To be the global benchmark in luxury architecture and interior design. We envision a future where our creations not only define modern elegance but stand as enduring landmarks of sustainable and innovative design.
+            </p>
 
-              <div className="space-y-4 pt-8 border-t border-[#5B96D1]/20">
-                {['Global Design Influence', 'Sustainable Luxury', 'Uncompromising Quality'].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4">
-                    <div className="w-1 h-1 rounded-full bg-[#5B96D1] flex-shrink-0" />
-                    <span className="text-[#1D325E] text-[10px] uppercase tracking-[0.2em] font-bold">{item}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="space-y-5 border-t border-stone-200 pt-10">
+              {['Global Design Influence', 'Sustainable Luxury', 'Uncompromising Quality'].map((item, i) => (
+                <div key={i} className="flex items-center gap-5">
+                  <div className="w-2 h-2 bg-[#1C1917] flex-shrink-0" />
+                  <span className="text-[#57534E] text-[11px] uppercase tracking-[0.25em] font-bold group-hover:text-[#1C1917] transition-colors">
+                    {item}
+                  </span>
+                </div>
+              ))}
             </div>
           </motion.div>
 

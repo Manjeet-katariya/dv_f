@@ -89,8 +89,8 @@ export default function ProjectDetailPage() {
   // --- PREMIUM LOADING STATE ---
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center font-sans">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a68a6b] mb-4"></div>
+      <div className="min-h-screen bg-[#FAF9F5] flex flex-col items-center justify-center font-sans">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-stone-800 mb-4"></div>
         <p className="text-zinc-500 uppercase tracking-widest text-sm font-semibold">Loading Case Study...</p>
       </div>
     );
@@ -99,9 +99,9 @@ export default function ProjectDetailPage() {
   // --- ERROR / NOT FOUND STATE ---
   if (!project) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center font-sans">
-        <h1 className="text-3xl font-serif text-slate-900 mb-4">Project Not Found</h1>
-        <Link href="/portfolio" className="text-[#2660A2] hover:text-[#5B96D1] border-b border-[#2660A2] pb-1 uppercase tracking-widest text-sm font-semibold transition-colors">
+      <div className="min-h-screen bg-[#FAF9F5] flex flex-col items-center justify-center font-sans">
+        <h1 className="text-3xl font-serif text-[#1C1917] mb-4">Project Not Found</h1>
+        <Link href="/portfolio" className="text-stone-600 hover:text-stone-600 border-b border-stone-400 pb-1 uppercase tracking-widest text-sm font-semibold transition-colors">
           Return to Portfolio
         </Link>
       </div>
@@ -123,19 +123,19 @@ export default function ProjectDetailPage() {
         </div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 md:pb-16">
-          <Link href="/portfolio" className="inline-flex items-center gap-2 text-zinc-300 hover:text-[#a68a6b] mb-6 md:mb-8 transition-colors text-xs md:text-sm uppercase tracking-widest font-bold">
+          <Link href="/portfolio" className="inline-flex items-center gap-2 text-zinc-300 hover:text-stone-600 mb-6 md:mb-8 transition-colors text-xs md:text-sm uppercase tracking-widest font-bold">
             <ArrowLeft className="w-4 h-4" /> Back to Portfolio
           </Link>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="bg-[#a68a6b] text-white text-[10px] md:text-xs font-bold uppercase tracking-widest px-3 py-1.5 mb-4 md:mb-6 inline-block shadow-md rounded-sm">
+            <span className="bg-[#1C1917] text-white text-[10px] md:text-xs font-bold uppercase tracking-widest px-3 py-1.5 mb-4 md:mb-6 inline-block shadow-md rounded-sm">
               {project.category}
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-white mb-4 md:mb-6 leading-tight drop-shadow-lg">
               {project.title}
             </h1>
             <div className="flex flex-wrap items-center gap-4 md:gap-6 text-zinc-300 font-light text-sm md:text-base">
-              <div className="flex items-center gap-2"><MapPin className="w-4 h-4 md:w-5 md:h-5 text-[#a68a6b]" /> {project.location}</div>
-              <div className="flex items-center gap-2"><Calendar className="w-4 h-4 md:w-5 md:h-5 text-[#a68a6b]" /> {project.completionYear}</div>
+              <div className="flex items-center gap-2"><MapPin className="w-4 h-4 md:w-5 md:h-5 text-stone-600" /> {project.location}</div>
+              <div className="flex items-center gap-2"><Calendar className="w-4 h-4 md:w-5 md:h-5 text-stone-600" /> {project.completionYear}</div>
             </div>
           </motion.div>
         </div>
@@ -148,8 +148,8 @@ export default function ProjectDetailPage() {
             
             {/* Left Col: Story & Gallery */}
             <div className="lg:col-span-8">
-              <h2 className="text-2xl md:text-3xl font-serif text-slate-900 mb-6 pb-4 border-b border-zinc-200">Project Overview</h2>
-              <p className="text-base md:text-lg text-slate-600 leading-relaxed font-light mb-16 whitespace-pre-line">
+              <h2 className="text-2xl md:text-3xl font-serif text-[#1C1917] mb-6 pb-4 border-b border-stone-200">Project Overview</h2>
+              <p className="text-base md:text-lg text-[#57534E] leading-relaxed font-light mb-16 whitespace-pre-line">
                 {project.description}
               </p>
 
@@ -157,8 +157,8 @@ export default function ProjectDetailPage() {
               {project.images.length > 0 && (
                 <div className="mb-16">
                   <div className="flex items-center gap-3 mb-8">
-                    <Grid3x3 className="w-5 h-5 md:w-6 md:h-6 text-[#a68a6b]" />
-                    <h3 className="text-xl md:text-2xl font-serif text-slate-900">Gallery</h3>
+                    <Grid3x3 className="w-5 h-5 md:w-6 md:h-6 text-stone-600" />
+                    <h3 className="text-xl md:text-2xl font-serif text-[#1C1917]">Gallery</h3>
                   </div>
                   
                   {/* Grid Setup: auto-rows to keep items strictly proportioned */}
@@ -167,7 +167,7 @@ export default function ProjectDetailPage() {
                       <div 
                         key={idx} 
                         onClick={() => openLightbox(idx)}
-                        className={`group relative overflow-hidden bg-zinc-100 cursor-pointer rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 ${getGallerySpan(idx)}`}
+                        className={`group relative overflow-hidden bg-[#F4F3EE] cursor-pointer rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 ${getGallerySpan(idx)}`}
                       >
                         <img 
                           src={img} 
@@ -190,12 +190,12 @@ export default function ProjectDetailPage() {
               {project.videos && project.videos.length > 0 && (
                 <div>
                   <div className="flex items-center gap-3 mb-8">
-                    <Play className="w-5 h-5 md:w-6 md:h-6 text-[#a68a6b]" />
-                    <h3 className="text-xl md:text-2xl font-serif text-slate-900">Cinematic Tour</h3>
+                    <Play className="w-5 h-5 md:w-6 md:h-6 text-stone-600" />
+                    <h3 className="text-xl md:text-2xl font-serif text-[#1C1917]">Cinematic Tour</h3>
                   </div>
                   <div className="grid grid-cols-1 gap-6">
                     {project.videos.map((vid, idx) => (
-                      <div key={idx} className="aspect-video bg-black rounded-sm overflow-hidden shadow-lg border-4 border-zinc-100">
+                      <div key={idx} className="aspect-video bg-black rounded-sm overflow-hidden shadow-lg border-4 border-stone-100">
                         <video src={vid} controls className="w-full h-full object-cover" />
                       </div>
                     ))}
@@ -206,48 +206,48 @@ export default function ProjectDetailPage() {
 
             {/* Right Col: Details Card */}
             <div className="lg:col-span-4">
-              <div className="sticky top-32 bg-zinc-50 border border-zinc-200 p-6 md:p-8 rounded-sm shadow-sm">
-                <h3 className="text-lg md:text-xl font-serif text-slate-900 mb-6">Project Details</h3>
+              <div className="sticky top-32 bg-[#FAF9F5] border border-stone-200 p-6 md:p-8 rounded-sm shadow-sm">
+                <h3 className="text-lg md:text-xl font-serif text-[#1C1917] mb-6">Project Details</h3>
                 
                 <div className="space-y-6 mb-8">
                   <div>
                     <p className="text-[10px] md:text-xs text-zinc-400 uppercase tracking-widest font-bold mb-1">Client</p>
-                    <p className="text-sm md:text-base text-slate-900 flex items-center gap-2"><User className="w-4 h-4 text-[#a68a6b]" /> {project.client}</p>
+                    <p className="text-sm md:text-base text-[#1C1917] flex items-center gap-2"><User className="w-4 h-4 text-stone-600" /> {project.client}</p>
                   </div>
                   <div>
                     <p className="text-[10px] md:text-xs text-zinc-400 uppercase tracking-widest font-bold mb-1">Location</p>
-                    <p className="text-sm md:text-base text-slate-900 flex items-center gap-2"><MapPin className="w-4 h-4 text-[#a68a6b]" /> {project.location}</p>
+                    <p className="text-sm md:text-base text-[#1C1917] flex items-center gap-2"><MapPin className="w-4 h-4 text-stone-600" /> {project.location}</p>
                   </div>
                   <div>
                     <p className="text-[10px] md:text-xs text-zinc-400 uppercase tracking-widest font-bold mb-1">Completed</p>
-                    <p className="text-sm md:text-base text-slate-900 flex items-center gap-2"><Calendar className="w-4 h-4 text-[#a68a6b]" /> {project.completionYear}</p>
+                    <p className="text-sm md:text-base text-[#1C1917] flex items-center gap-2"><Calendar className="w-4 h-4 text-stone-600" /> {project.completionYear}</p>
                   </div>
                 </div>
 
                 {project.technologies && project.technologies.length > 0 && (
-                  <div className="mb-6 pt-6 border-t border-zinc-200">
+                  <div className="mb-6 pt-6 border-t border-stone-200">
                     <p className="text-[10px] md:text-xs text-zinc-400 uppercase tracking-widest font-bold mb-3 flex items-center gap-2"><Tag className="w-4 h-4"/> Technologies</p>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.map(tech => (
-                        <span key={tech} className="px-2 py-1 md:px-3 md:py-1 bg-white border border-zinc-200 text-slate-600 text-xs rounded-sm">{tech}</span>
+                        <span key={tech} className="px-2 py-1 md:px-3 md:py-1 bg-white border border-stone-200 text-[#57534E] text-xs rounded-sm">{tech}</span>
                       ))}
                     </div>
                   </div>
                 )}
 
                 {project.materials && project.materials.length > 0 && (
-                  <div className="pt-6 border-t border-zinc-200">
+                  <div className="pt-6 border-t border-stone-200">
                     <p className="text-[10px] md:text-xs text-zinc-400 uppercase tracking-widest font-bold mb-3 flex items-center gap-2"><Building className="w-4 h-4"/> Core Materials</p>
                     <div className="flex flex-wrap gap-2">
                       {project.materials.map(mat => (
-                        <span key={mat} className="px-2 py-1 md:px-3 md:py-1 bg-[#a68a6b]/10 text-[#a68a6b] border border-[#a68a6b]/20 text-[10px] md:text-xs font-semibold uppercase tracking-wider rounded-sm">{mat}</span>
+                        <span key={mat} className="px-2 py-1 md:px-3 md:py-1 bg-stone-100 text-stone-600 border border-stone-200 text-[10px] md:text-xs font-semibold uppercase tracking-wider rounded-sm">{mat}</span>
                       ))}
                     </div>
                   </div>
                 )}
 
                 <div className="mt-10">
-                  <Link href="/contact" className="block w-full bg-slate-900 hover:bg-[#a68a6b] text-white text-center py-3 md:py-4 rounded-sm font-bold uppercase tracking-widest text-sm transition-colors duration-300 shadow-md hover:shadow-xl">
+                  <Link href="/contact" className="block w-full bg-slate-900 hover:bg-[#1C1917] text-white text-center py-3 md:py-4 rounded-sm font-bold uppercase tracking-widest text-sm transition-colors duration-300 shadow-md hover:shadow-xl">
                     Discuss A Project
                   </Link>
                 </div>
@@ -272,7 +272,7 @@ export default function ProjectDetailPage() {
             {/* Close Button */}
             <button 
               onClick={closeLightbox} 
-              className="absolute top-4 right-4 md:top-6 md:right-6 z-10 p-2 md:p-3 bg-zinc-100 text-slate-500 hover:text-slate-900 hover:bg-zinc-200 rounded-full transition-colors shadow-sm"
+              className="absolute top-4 right-4 md:top-6 md:right-6 z-10 p-2 md:p-3 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] hover:bg-stone-200 rounded-full transition-colors shadow-sm"
             >
               <X className="w-5 h-5 md:w-6 md:h-6" />
             </button>
@@ -280,7 +280,7 @@ export default function ProjectDetailPage() {
             {/* Previous Button (Desktop) */}
             <button 
               onClick={(e) => { e.stopPropagation(); navigateLightbox('prev'); }} 
-              className="absolute left-6 top-1/2 -translate-y-1/2 z-10 p-3 bg-zinc-100 text-slate-500 hover:text-slate-900 hover:bg-zinc-200 rounded-full transition-colors shadow-sm hidden md:block"
+              className="absolute left-6 top-1/2 -translate-y-1/2 z-10 p-3 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] hover:bg-stone-200 rounded-full transition-colors shadow-sm hidden md:block"
             >
               <ChevronLeft className="w-8 h-8" />
             </button>
@@ -297,21 +297,21 @@ export default function ProjectDetailPage() {
                   transition={{ duration: 0.3 }}
                   src={project.images[lightboxIndex]}
                   alt="Enlarged gallery view"
-                  className="max-w-full max-h-[70vh] md:max-h-[80vh] object-contain shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-sm border border-zinc-200"
+                  className="max-w-full max-h-[70vh] md:max-h-[80vh] object-contain shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-sm border border-stone-200"
                 />
               </AnimatePresence>
 
               {/* Mobile Controls (Visible only on small screens) */}
               <div className="flex md:hidden items-center justify-center gap-6 mt-6">
-                <button onClick={(e) => { e.stopPropagation(); navigateLightbox('prev'); }} className="p-2 bg-zinc-100 text-slate-500 hover:text-slate-900 rounded-full shadow-sm"><ChevronLeft className="w-5 h-5" /></button>
-                <div className="text-slate-500 tracking-widest text-xs font-bold">
+                <button onClick={(e) => { e.stopPropagation(); navigateLightbox('prev'); }} className="p-2 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] rounded-full shadow-sm"><ChevronLeft className="w-5 h-5" /></button>
+                <div className="text-[#878076] tracking-widest text-xs font-bold">
                   {lightboxIndex + 1} / {project.images.length}
                 </div>
-                <button onClick={(e) => { e.stopPropagation(); navigateLightbox('next'); }} className="p-2 bg-zinc-100 text-slate-500 hover:text-slate-900 rounded-full shadow-sm"><ChevronRight className="w-5 h-5" /></button>
+                <button onClick={(e) => { e.stopPropagation(); navigateLightbox('next'); }} className="p-2 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] rounded-full shadow-sm"><ChevronRight className="w-5 h-5" /></button>
               </div>
 
               {/* Desktop Counter */}
-              <div className="hidden md:block text-center text-slate-500 mt-6 tracking-widest text-sm font-bold uppercase">
+              <div className="hidden md:block text-center text-[#878076] mt-6 tracking-widest text-sm font-bold uppercase">
                 {lightboxIndex + 1} <span className="mx-2 font-normal text-zinc-300">|</span> {project.images.length}
               </div>
             </div>
@@ -319,7 +319,7 @@ export default function ProjectDetailPage() {
             {/* Next Button (Desktop) */}
             <button 
               onClick={(e) => { e.stopPropagation(); navigateLightbox('next'); }} 
-              className="absolute right-6 top-1/2 -translate-y-1/2 z-10 p-3 bg-zinc-100 text-slate-500 hover:text-slate-900 hover:bg-zinc-200 rounded-full transition-colors shadow-sm hidden md:block"
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-10 p-3 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] hover:bg-stone-200 rounded-full transition-colors shadow-sm hidden md:block"
             >
               <ChevronRight className="w-8 h-8" />
             </button>

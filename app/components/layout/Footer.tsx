@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -15,7 +15,6 @@ interface ContactDetails {
   };
 }
 
-// Refined social icons matching navbar style
 const FacebookIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -94,14 +93,16 @@ const Footer = () => {
     { name: 'Portfolio', href: '/portfolio' },
     { name: 'Services', href: '/services' },
     { name: 'About', href: '/about' },
+    { name: 'Team', href: '/team' },
+    { name: 'Blogs', href: '/blogs' },
     { name: 'Calculator', href: '/calculator' },
     { name: 'Contact', href: '/contact' },
   ];
 
   return (
-    <footer className="bg-[#F7FBFF] relative border-t border-[#2660A2]/20">
+    <footer className="bg-[#F4F3EE] relative border-t border-stone-200">
       {/* Top accent line */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#2660A2] to-transparent opacity-60" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-stone-200 to-transparent opacity-30" />
 
       <div className="max-w-[1700px] mx-auto px-6 lg:px-14 pt-16 pb-12">
 
@@ -112,16 +113,15 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-6">
               <img
-                src="/logo2.png"
-                alt="SP Architects"
-                className="h-14 object-contain"
+                src="/logo-dvl.png"
+                alt="DVL Architects"
+                className="h-14 w-14 object-cover rounded-full border border-stone-200 shadow-sm opacity-90 hover:opacity-100 transition-opacity"
               />
             </Link>
-            <p className="text-[11px] font-light text-[#1F3E7D] leading-relaxed tracking-wide mb-6">
+            <p className="text-[11px] font-light text-[#57534E] leading-relaxed tracking-wide mb-6">
               Crafting exceptional spaces that blend luxury, functionality, and timeless design. Transforming visions into architectural masterpieces.
             </p>
-            
-            {/* Social Icons Below Description */}
+
             {socials.length > 0 && (
               <div className="flex items-center gap-3">
                 {socials.map(({ key, href, Icon }) => (
@@ -132,7 +132,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     aria-label={key}
                     onClick={() => trackSocialClick(key)}
-                    className="flex items-center justify-center w-8 h-8 rounded-full bg-[#EFF5FF] border border-[#2660A2]/20 text-[#5B96D1] hover:text-[#2660A2] hover:border-[#2660A2]/60 hover:bg-[#5B96D1]/10 transition-all duration-300"
+                    className="flex items-center justify-center w-8 h-8 border border-stone-200/60 text-[#57534E] hover:text-[#1C1917] hover:border-stone-400 hover:bg-stone-50 transition-all duration-300"
                   >
                     <Icon />
                   </a>
@@ -143,7 +143,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="lg:col-span-1">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#1F3E7D] mb-8">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#1C1917] mb-8">
               Quick Links
             </h3>
             <div className="space-y-3">
@@ -151,7 +151,7 @@ const Footer = () => {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="block text-[10px] font-medium uppercase tracking-[0.15em] text-[#5A7BC1] hover:text-[#5B96D1] transition-colors duration-300"
+                  className="block text-[10px] font-medium uppercase tracking-[0.15em] text-[#57534E] hover:text-[#1C1917] transition-colors duration-300"
                 >
                   {link.name}
                 </Link>
@@ -161,26 +161,26 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="lg:col-span-1">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#162A48] mb-8">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#1C1917] mb-8">
               Contact Info
             </h3>
-            <div className="space-y-4 text-[11px] font-light text-[#162A48] leading-relaxed">
+            <div className="space-y-4 text-[11px] font-light text-[#57534E] leading-relaxed">
               <div>
-                <p className="font-medium text-[#5B6E9A] mb-1">STUDIO ADDRESS</p>
+                <p className="font-semibold text-[#878076] text-[10px] uppercase tracking-wider mb-1">STUDIO ADDRESS</p>
                 <p>{contactDetails?.address?.street ? `${contactDetails.address.street}` : 'Jaike-e-Jaipur Chowpatty'}<br />
                   {contactDetails?.address?.city ? `${contactDetails.address.city}, ${contactDetails.address.state}` : 'Sirsi Road, Jaipur - 302012'}<br />
                   {contactDetails?.address?.country || 'Rajasthan, India'}</p>
               </div>
               <div>
-                <p className="font-medium text-[#5B6E9A] mb-1">PHONE</p>
-                <a href={`tel:${contactDetails?.phone || '+918619633247'}`} className="hover:text-[#2660A2] transition-colors">
+                <p className="font-semibold text-[#878076] text-[10px] uppercase tracking-wider mb-1">PHONE</p>
+                <a href={`tel:${contactDetails?.phone || '+918619633247'}`} className="hover:text-[#1C1917] transition-colors">
                   {contactDetails?.phone || '+91-8619633247'}
                 </a>
               </div>
               <div>
-                <p className="font-medium text-[#5B6E9A] mb-1">EMAIL</p>
-                <a href={`mailto:${contactDetails?.email || 'hello@shravanpuriarchitects.com'}`} className="hover:text-[#2660A2] transition-colors">
-                  {contactDetails?.email || 'hello@shravanpuriarchitects.com'}
+                <p className="font-semibold text-[#878076] text-[10px] uppercase tracking-wider mb-1">EMAIL</p>
+                <a href={`mailto:${contactDetails?.email || 'sparchitects93@gmail.com'}`} className="hover:text-[#1C1917] transition-colors">
+                  {contactDetails?.email || 'sparchitects93@gmail.com'}
                 </a>
               </div>
             </div>
@@ -188,14 +188,13 @@ const Footer = () => {
 
           {/* CTA */}
           <div className="lg:col-span-1">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#1F3E7D] mb-8">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#1C1917] mb-8">
               Connect
             </h3>
 
-            {/* CTA Button */}
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center text-[9px] font-black uppercase tracking-[0.2em] px-6 py-3 bg-[#2660A2] text-[#F7FBFF] hover:bg-[#162A48] transition-all duration-300 shadow-[0_2px_16px_rgba(20,42,72,0.16)] hover:shadow-[0_4px_20px_rgba(20,42,72,0.2)]"
+              className="inline-flex items-center justify-center text-[9px] font-black uppercase tracking-[0.2em] px-6 py-3 bg-[#1C1917] text-[#FAF9F5] hover:bg-stone-800 transition-all duration-300 shadow-[0_2px_16px_rgba(28,25,23,0.15)] hover:shadow-[0_4px_24px_rgba(28,25,23,0.25)]"
             >
               Start Project
             </Link>
@@ -204,16 +203,16 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-[#5B96D1]/10">
+        <div className="pt-8 border-t border-stone-200/80">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[9px] uppercase tracking-[0.2em] text-[#5B6E9A] font-light">
-              © {year} SP Architects. All rights reserved.
+            <p className="text-[9px] uppercase tracking-[0.2em] text-[#878076] font-light">
+              © {year} DVL Architects. All rights reserved.
             </p>
-            <p className="text-[9px] uppercase tracking-[0.2em] text-[#5B6E9A] font-light">
+            <p className="text-[9px] uppercase tracking-[0.2em] text-[#878076] font-light">
               Designed & Developed by{' '}
               <a
                 href="#"
-                className="text-[#2660A2] hover:text-[#2660A2] transition-colors font-medium"
+                className="text-[#1C1917] hover:text-stone-500 transition-colors font-medium"
               >
                 Nine Degree
               </a>
@@ -223,8 +222,8 @@ const Footer = () => {
 
       </div>
 
-      {/* Bottom gold line */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#5B96D1]/25 to-transparent" />
+      {/* Bottom line */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
     </footer>
   );
 };

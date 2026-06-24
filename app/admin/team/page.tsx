@@ -93,7 +93,7 @@ export default function TeamManagement() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAF9F5] flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="text-gray-600 mt-4">Loading team members...</p>
@@ -103,7 +103,7 @@ export default function TeamManagement() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#FAF9F5]">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,7 +113,7 @@ export default function TeamManagement() {
             </div>
             <Link
               href="/admin/team/add"
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center px-4 py-2 bg-[#1C1917] text-white rounded-none hover:bg-stone-800"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add Team Member
@@ -125,10 +125,10 @@ export default function TeamManagement() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="bg-white rounded-none p-6 shadow-sm">
             <div className="flex items-center">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Users className="w-6 h-6 text-blue-600" />
+              <div className="p-3 bg-blue-100 rounded-none">
+                <Users className="w-6 h-6 text-[#1C1917]" />
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-600">Total Members</p>
@@ -137,9 +137,9 @@ export default function TeamManagement() {
             </div>
           </div>
           
-          <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="bg-white rounded-none p-6 shadow-sm">
             <div className="flex items-center">
-              <div className="p-3 bg-green-100 rounded-lg">
+              <div className="p-3 bg-green-100 rounded-none">
                 <CheckCircle className="w-6 h-6 text-green-600" />
               </div>
               <div className="ml-4">
@@ -151,9 +151,9 @@ export default function TeamManagement() {
             </div>
           </div>
           
-          <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="bg-white rounded-none p-6 shadow-sm">
             <div className="flex items-center">
-              <div className="p-3 bg-red-100 rounded-lg">
+              <div className="p-3 bg-red-100 rounded-none">
                 <XCircle className="w-6 h-6 text-red-600" />
               </div>
               <div className="ml-4">
@@ -167,7 +167,7 @@ export default function TeamManagement() {
         </div>
 
         {/* Filters and Search */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div className="bg-white rounded-none shadow-sm p-6 mb-6">
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search */}
             <div className="flex-1">
@@ -178,7 +178,7 @@ export default function TeamManagement() {
                   placeholder="Search team members..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border rounded-none focus:ring-2 focus:ring-stone-600 focus:border-transparent"
                 />
               </div>
             </div>
@@ -189,7 +189,7 @@ export default function TeamManagement() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'order' | 'name' | 'date')}
-                className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-2 border rounded-none focus:ring-2 focus:ring-stone-600"
               >
                 <option value="order">Sort by Order</option>
                 <option value="name">Sort by Name</option>
@@ -206,7 +206,7 @@ export default function TeamManagement() {
               key={member._id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+              className="bg-white rounded-none shadow-sm overflow-hidden hover:shadow-md transition-shadow"
             >
               {/* Member Image */}
               <div className="relative h-64">
@@ -262,19 +262,19 @@ export default function TeamManagement() {
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.95 }}
-                          className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-10"
+                          className="absolute right-0 mt-2 w-48 bg-white rounded-none shadow-lg border z-10"
                         >
                           <div className="py-1">
                             <Link
                               href={`/admin/team/${member._id}`}
-                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-[#FAF9F5]"
                             >
                               <Eye className="w-4 h-4 mr-2" />
                               View Details
                             </Link>
                             <Link
                               href={`/admin/team/${member._id}?mode=edit`}
-                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-[#FAF9F5]"
                             >
                               <Edit2 className="w-4 h-4 mr-2" />
                               Edit
@@ -324,14 +324,14 @@ export default function TeamManagement() {
                 <div className="flex items-center space-x-2">
                   <Link
                     href={`/admin/team/${member._id}`}
-                    className="flex-1 flex items-center justify-center px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm"
+                    className="flex-1 flex items-center justify-center px-3 py-2 bg-[#FAF9F5] text-gray-700 rounded-none hover:bg-gray-200 text-sm"
                   >
                     <Eye className="w-4 h-4 mr-2" />
                     View
                   </Link>
                   <Link
                     href={`/admin/team/${member._id}?mode=edit`}
-                    className="flex-1 flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+                    className="flex-1 flex items-center justify-center px-3 py-2 bg-[#1C1917] text-white rounded-none hover:bg-stone-800 text-sm"
                   >
                     <Edit2 className="w-4 h-4 mr-2" />
                     Edit
@@ -358,7 +358,7 @@ export default function TeamManagement() {
             {!searchTerm && (
               <Link
                 href="/admin/team/add"
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="inline-flex items-center px-4 py-2 bg-[#1C1917] text-white rounded-none hover:bg-stone-800"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Your First Team Member

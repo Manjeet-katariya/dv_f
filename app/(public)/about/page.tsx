@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { FaUser, FaArrowRight, FaGem, FaLeaf, FaHandshake, FaExternalLinkAlt, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+
 interface TeamMember {
   _id: string;
   name: string;
@@ -24,35 +24,16 @@ interface Founder {
 }
 
 const journeySteps = [
-  { year: "2010", title: "The Inception", description: "Founded with a vision to redefine interior spaces through thoughtful design and premium craftsmanship." },
-  { year: "2015", title: "First Major Recognition", description: "Awarded the National Design Excellence Award for our groundbreaking work on the Horizon Residential Complex." },
-  { year: "2020", title: "Global Expansion", description: "Opened our first international studio in Dubai, bringing our unique interior design philosophy to the global stage." },
-  { year: "2024", title: "Sustainable Future", description: "Committed to 100% eco-friendly designs, integrating sustainable materials into all new projects." },
+  { year: '2010', title: 'The Inception', desc: 'Founded with a vision to redefine interior spaces through thoughtful design and premium craftsmanship in Jaipur.' },
+  { year: '2015', title: 'First Recognition', desc: 'Awarded the National Design Excellence Award for our groundbreaking work on the Horizon Residential Complex.' },
+  { year: '2020', title: 'Expanding Horizons', desc: 'Scaled our studio to serve commercial clients across Rajasthan with end-to-end project management capabilities.' },
+  { year: '2024', title: 'Sustainable Future', desc: 'Committed to integrating eco-friendly materials and sustainable practices into every new project we undertake.' },
 ];
 
-// Fallback Premium Data to ensure the UI never breaks
 const fallbackTeam: TeamMember[] = [
-  { 
-    _id: 't1', 
-    name: 'Eleanor Vance', 
-    position: 'Principal Architect', 
-    bio: 'With over 20 years of experience, Eleanor leads the studio with a distinct vision for blending modern minimalism with timeless warmth.', 
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80' 
-  },
-  { 
-    _id: 't2', 
-    name: 'Marcus Sterling', 
-    position: 'Design Director', 
-    bio: 'Marcus oversees all creative operations, ensuring every project aligns with our uncompromising standards of luxury and functionality.', 
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80' 
-  },
-  { 
-    _id: 't3', 
-    name: 'Sophia Lin', 
-    position: 'Lead Interior Designer', 
-    bio: 'Sophia specializes in bespoke furniture curation and textile selection, bringing distinct character to every residential and commercial space.', 
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&q=80' 
-  }
+  { _id: 't1', name: 'Eleanor Vance', position: 'Principal Architect', bio: 'With over 20 years of experience, Eleanor leads the studio with a distinct vision for blending modern minimalism with timeless warmth.', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80' },
+  { _id: 't2', name: 'Marcus Sterling', position: 'Design Director', bio: 'Marcus oversees all creative operations, ensuring every project aligns with our uncompromising standards of luxury and functionality.', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80' },
+  { _id: 't3', name: 'Sophia Lin', position: 'Lead Interior Designer', bio: 'Sophia specializes in bespoke furniture curation and textile selection, bringing distinct character to every residential and commercial space.', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&q=80' },
 ];
 
 export default function AboutPage() {
@@ -66,318 +47,279 @@ export default function AboutPage() {
         const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
         const res = await fetch(`${API_URL}/api/team`);
         const data = await res.json();
-        if (data.success && data.data && data.data.length > 0) {
-          setTeamMembers(data.data);
-        } else {
-          setTeamMembers(fallbackTeam);
-        }
-      } catch {
-        setTeamMembers(fallbackTeam);
-      }
+        if (data.success && data.data && data.data.length > 0) setTeamMembers(data.data);
+        else setTeamMembers(fallbackTeam);
+      } catch { setTeamMembers(fallbackTeam); }
     };
-
     const fetchFounder = async () => {
       try {
         const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
         const res = await fetch(`${API_URL}/api/founder`);
         const data = await res.json();
-        if (data.success && data.data) {
-          setFounder(data.data);
-        }
-      } catch {
-        // Silently fail
-      }
+        if (data.success && data.data) setFounder(data.data);
+      } catch { /* silent */ }
     };
-
     Promise.all([fetchTeam(), fetchFounder()]).finally(() => setLoading(false));
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F7FBFF]">
+    <div className="min-h-screen bg-[#FAF9F5] font-sans">
 
-      {/* ── 1. HERO ── */}
-      <section className="relative min-h-[95vh] flex items-center lg:items-end pb-0 lg:pb-24 pt-32 overflow-hidden bg-[#1D325E]">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=85"
-            alt="Luxury Interior"
-            className="w-full h-full object-cover opacity-90"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#1D325E]/20 to-[#1D325E]/60" />
-        </div>
+      {/* ── 1. HERO: Split Panel ── */}
+      <section className="grid lg:grid-cols-2 min-h-[88vh]">
 
-        <div className="relative z-10 max-w-[1700px] mx-auto px-6 lg:px-14 w-full flex justify-end">
-          <motion.div 
-            initial={{ opacity: 0, x: 40 }} 
-            animate={{ opacity: 1, x: 0 }} 
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="w-full lg:w-5/12 xl:w-1/3 bg-[#F7FBFF]/95 backdrop-blur-md p-10 lg:p-16 border border-[#5B96D1]/30 shadow-[0_20px_80px_rgba(44,31,10,0.2)]"
+        {/* Left: Dark content */}
+        <div className="bg-[#1C1917] flex flex-col justify-between px-10 lg:px-16 pt-28 pb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.15 }}
           >
-            <div className="flex items-center gap-4 mb-8">
-              <div className="h-[1px] w-10 bg-[#5B96D1]" />
-              <span className="text-[#5A7BC1] text-[9px] font-bold uppercase tracking-[0.4em]">About The Studio</span>
+            <div className="flex items-center gap-3 mb-10">
+              <div className="w-5 h-[1px] bg-stone-600" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">About the Studio</span>
             </div>
-            
-            <h1 className="text-4xl sm:text-5xl font-bold text-[#1D325E] tracking-tight font-serif leading-[1.1] mb-6">
-              Our Design Philosophy
+            <h1 className="font-serif font-bold text-white text-[clamp(2.4rem,4.5vw,4rem)] leading-[1.05] tracking-tight mb-8">
+              We design spaces<br />
+              <span className="italic font-normal text-stone-400">that outlast</span><br />
+              trends.
             </h1>
-            
-            <p className="text-[#4A6E9A] text-sm leading-relaxed font-light mb-6">
-              We craft sophisticated spaces where elegance meets precision. Through curated materials, refined detailing, and a focus on timeless design, we create interiors that exude luxury while remaining functional and enduring.
+            <p className="text-stone-500 text-sm font-light leading-relaxed max-w-sm">
+              DVL Architects & Interiors is a full-service design studio based in Jaipur. We combine architectural rigour with interior sensibility to create spaces that are beautiful, functional, and built to last.
             </p>
+          </motion.div>
 
-            <p className="text-[#4A6E9A] text-sm leading-relaxed font-light mb-10">
-              Inspiring spaces with lasting impact. Developing spaces that combine visual appeal, functionality, and durability—ensuring they influence users positively and perform efficiently in the long run.
-            </p>
-
-            <div className="flex items-center gap-6">
-              <div className="w-12 h-12 rounded-full border border-[#5B96D1] flex items-center justify-center">
-                <FaArrowRight className="w-4 h-4 text-[#2660A2]" />
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+            className="grid grid-cols-2 gap-6 border-t border-stone-800 pt-8 mt-14"
+          >
+            {[['500+', 'Projects Delivered'], ['15+', 'Years of Practice']].map(([val, lbl]) => (
+              <div key={lbl}>
+                <div className="text-3xl font-serif font-bold text-white mb-1">{val}</div>
+                <div className="text-[8px] uppercase tracking-[0.25em] text-stone-600">{lbl}</div>
               </div>
-              <span className="text-[#1D325E] text-[10px] font-bold uppercase tracking-[0.2em]">Discover Our Story</span>
-            </div>
+            ))}
           </motion.div>
         </div>
+
+        {/* Right: Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          className="relative overflow-hidden min-h-[50vh] lg:min-h-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1400"
+            alt="DVL Studio"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
+        </motion.div>
       </section>
 
-      {/* ── 2. THE STUDIO CONTENT ── */}
-      <section className="bg-[#F7FBFF] py-32 lg:py-48 border-b border-[#5B96D1]/20">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            
+      {/* ── 2. STUDIO ETHOS ── */}
+      <section className="bg-[#FAF9F5] py-24 border-b border-stone-200">
+        <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+            {/* Left: Quote */}
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
+              initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="flex items-center gap-4 mb-8">
-                <div className="h-[1px] w-8 bg-[#5B96D1]" />
-                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5A7BC1]">Our Ethos</span>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-5 h-[1px] bg-stone-400" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Our Ethos</span>
               </div>
-              
-              <h2 className="text-4xl lg:text-6xl font-bold text-[#1D325E] font-serif mb-2 leading-tight">Designing spaces that</h2>
-              <h2 className="text-4xl lg:text-6xl font-bold text-[#2660A2] font-serif mb-10 leading-tight italic font-normal">inspire and endure.</h2>
-              
-              <div className="space-y-6 text-[#4A6E9A] text-base leading-relaxed font-light mb-12 max-w-lg">
-                <p>At our Studio, every space begins with a deep focus on detail — the foundation of exceptional design. From material selection to finishing touches, each element is carefully considered and thoughtfully executed.</p>
-                <p>We craft smart, elegant and customised interiors that balance design, comfort and functionality. Our expertise spans residential, commercial and bespoke interior solutions.</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-8 pt-10 border-t border-[#5B96D1]/20">
-                {[{ v: '15+', l: 'Years Experience' }, { v: '120', l: 'Global Awards' }].map((s, i) => (
-                  <div key={i}>
-                    <div className="text-4xl font-bold text-[#1D325E] font-serif mb-2">{s.v}</div>
-                    <div className="text-[9px] uppercase tracking-[0.3em] text-[#5A7BC1] font-bold">{s.l}</div>
-                  </div>
-                ))}
+              <h2 className="font-serif text-3xl lg:text-4xl font-bold text-[#1C1917] leading-tight mb-3">
+                Great design is not
+              </h2>
+              <h2 className="font-serif text-3xl lg:text-4xl italic font-normal text-stone-400 leading-tight mb-10">
+                decoration. It is clarity.
+              </h2>
+              <div className="space-y-5 text-[#57534E] text-sm font-light leading-relaxed max-w-md">
+                <p>At DVL, every project begins with a deep focus on purpose. We believe a well-designed space should not only look beautiful — it should work better, feel right, and improve the daily lives of the people who inhabit it.</p>
+                <p>We work closely with our clients, building trust through transparency and delivering on every commitment — from the first consultation to the final styling of your space.</p>
               </div>
             </motion.div>
 
+            {/* Right: 3 Pillars */}
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
+              initial={{ opacity: 0, x: 24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="relative"
+              className="space-y-0 divide-y divide-stone-200 mt-4"
             >
-              <div className="aspect-[3/4] overflow-hidden bg-[#EFF5FF] shadow-[0_20px_80px_rgba(180,130,40,0.1)]">
-                <img
-                  src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1000&q=80"
-                  alt="Interior Design"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-[1500ms] ease-out"
-                />
-              </div>
-              <div className="absolute -bottom-6 -left-6 w-full h-full border-2 border-[#5B96D1]/30 -z-10" />
+              {[
+                { num: '01', title: 'Precision', desc: 'Every material, dimension, and finish is deliberate. We leave nothing to chance.' },
+                { num: '02', title: 'Permanence', desc: 'We design for longevity — spaces that look as good in 20 years as on day one.' },
+                { num: '03', title: 'Partnership', desc: 'Your vision is the brief. We listen first, then create — together.' },
+              ].map((item) => (
+                <div key={item.num} className="group flex items-start gap-8 py-8 hover:bg-stone-50 transition-colors px-2">
+                  <span className="text-[9px] font-mono text-stone-300 mt-1 flex-shrink-0">{item.num}</span>
+                  <div>
+                    <h3 className="font-serif font-bold text-[#1C1917] text-lg mb-1 group-hover:text-stone-600 transition-colors">{item.title}</h3>
+                    <p className="text-[#57534E] text-xs font-light leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
             </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* ── 3. CORE VALUES ── */}
-      <section className="bg-[#EFF5FF] py-32 border-b border-[#5B96D1]/20">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
+      {/* ── 3. CORE VALUES (Dark) ── */}
+      <section className="bg-[#1C1917] py-24 border-b border-stone-800">
+        <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-24"
+            className="flex items-center gap-3 mb-14 pb-10 border-b border-stone-800"
           >
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-[1px] w-8 bg-[#5B96D1]" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5A7BC1]">Our Pillars</span>
-              <div className="h-[1px] w-8 bg-[#5B96D1]" />
-            </div>
-            <h2 className="text-4xl lg:text-6xl font-bold text-[#1D325E] font-serif">Core Values</h2>
+            <div className="w-5 h-[1px] bg-stone-700" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-600">Core Values</span>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-stone-800">
             {[
-              { icon: FaGem, title: 'Uncompromising Quality', desc: 'Sourcing only the finest materials and partnering with master artisans to ensure every detail exudes premium craftsmanship.' },
-              { icon: FaLeaf, title: 'Sustainable Luxury', desc: 'Integrating eco-friendly practices and sustainable materials without sacrificing the refined elegance our clients expect.' },
-              { icon: FaHandshake, title: 'Collaborative Vision', desc: 'Your vision is our blueprint. We maintain absolute transparency and deep collaboration throughout the entire design journey.' }
-            ].map((val, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
+              { num: '01', title: 'Uncompromising Quality', desc: 'We source only the finest materials and partner with master craftsmen. Every detail is an opportunity to exceed expectations.' },
+              { num: '02', title: 'Sustainable Thinking', desc: 'Beauty should not come at the cost of the environment. We integrate eco-conscious choices into every project decision.' },
+              { num: '03', title: 'Collaborative Vision', desc: 'Your aspirations are our blueprint. We maintain full transparency and work alongside you from concept to completion.' },
+            ].map((val, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.15 }}
-                className="text-center group"
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className="group p-10 lg:p-12 hover:bg-stone-800/40 transition-colors"
               >
-                <div className="w-20 h-20 mx-auto rounded-full border border-[#5B96D1]/40 flex items-center justify-center mb-8 group-hover:bg-[#5B96D1] group-hover:border-[#5B96D1] transition-colors duration-500 bg-[#F7FBFF]">
-                  <val.icon className="w-8 h-8 text-[#5B96D1] group-hover:text-[#1D325E] transition-colors duration-500" strokeWidth={1.5} />
+                <div className="text-[3.5rem] font-serif font-bold text-stone-800 group-hover:text-stone-600 transition-colors leading-none mb-8">
+                  {val.num}
                 </div>
-                <h3 className="text-2xl font-bold text-[#1D325E] font-serif mb-4">{val.title}</h3>
-                <p className="text-[#4A6E9A] font-light leading-relaxed text-sm max-w-sm mx-auto">{val.desc}</p>
+                <h3 className="font-serif font-bold text-white text-xl mb-4 group-hover:text-stone-300 transition-colors">{val.title}</h3>
+                <p className="text-stone-600 text-sm font-light leading-relaxed group-hover:text-stone-500 transition-colors">{val.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 4. FOUNDER (EDITORIAL OVERLAP DESIGN) ── */}
-      <section className="py-32 lg:py-48 bg-[#F7FBFF] overflow-hidden border-b border-[#5B96D1]/20">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
-          
-          {founder ? (
-            <div className="flex flex-col lg:flex-row items-center relative">
-              
-              {/* Left Content (Overlaps Image on Desktop) */}
+      {/* ── 4. FOUNDER ── */}
+      {founder && (
+        <section className="bg-[#FAF9F5] py-24 border-b border-stone-200">
+          <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
+
+            <div className="flex items-center gap-3 mb-14">
+              <div className="w-5 h-[1px] bg-stone-400" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">The Founder</span>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
+
+              {/* Image */}
               <motion.div
-                initial={{ opacity: 0, x: -40 }}
+                initial={{ opacity: 0, x: -24 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="w-full lg:w-5/12 bg-[#EFF5FF] p-10 lg:p-16 xl:p-20 relative z-20 shadow-[0_20px_80px_rgba(180,130,40,0.1)] lg:translate-x-16"
+                className="relative aspect-[3/4] overflow-hidden"
               >
-                <div className="flex items-center gap-4 mb-10">
-                  <div className="h-[1px] w-10 bg-[#5B96D1]" />
-                  <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5A7BC1]">The Visionary</span>
-                </div>
-                
-                <h2 className="text-5xl lg:text-7xl font-bold text-[#1D325E] font-serif mb-6 leading-none">
-                  {founder.name}
-                </h2>
-                
-                <span className="text-[10px] uppercase tracking-[0.3em] text-[#5B96D1] font-bold block mb-12">
-                  {founder.title}
-                </span>
-
-                <div className="relative">
-                  <div className="absolute -top-6 -left-4 text-[6rem] text-[#5B96D1]/20 font-serif font-black leading-none pointer-events-none">"</div>
-                  <p className="text-2xl text-[#1D325E] font-light leading-relaxed mb-8 italic relative z-10 font-serif">
-                    {founder.quote}
-                  </p>
-                </div>
-                
-                <p className="text-[#4A6E9A] font-light text-sm leading-relaxed max-w-md">
-                  {founder.bio || "Dedicated to pushing the boundaries of spatial design, crafting environments that elevate the human experience through harmony, texture, and light."}
-                </p>
-              </motion.div>
-
-              {/* Right Image */}
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="w-full lg:w-7/12 relative aspect-square lg:aspect-[4/3] xl:h-[750px] z-10 mt-10 lg:mt-0"
-              >
-                <img 
-                  src={founder.image} 
-                  alt={founder.name} 
-                  className="w-full h-full object-cover shadow-xl grayscale hover:grayscale-0 transition-all duration-[1500ms]" 
+                <img
+                  src={founder.image}
+                  alt={founder.name}
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[1500ms]"
                 />
               </motion.div>
 
-            </div>
-          ) : (
-            <div className="text-center py-20">
-              <div className="w-8 h-8 border-2 border-[#5B96D1]/20 border-t-[#5B96D1] rounded-full animate-spin mx-auto" />
-            </div>
-          )}
-        </div>
-      </section>
+              {/* Text */}
+              <motion.div
+                initial={{ opacity: 0, x: 24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.15 }}
+              >
+                <span className="text-[9px] font-mono text-stone-400 block mb-4">{founder.title}</span>
+                <h2 className="font-serif font-bold text-[#1C1917] text-4xl lg:text-5xl mb-8 leading-tight">{founder.name}</h2>
+                <blockquote className="font-serif italic font-normal text-xl text-stone-400 leading-relaxed mb-8 border-l-2 border-stone-300 pl-6">
+                  "{founder.quote}"
+                </blockquote>
+                {founder.bio && (
+                  <p className="text-[#57534E] text-sm font-light leading-relaxed max-w-md">{founder.bio}</p>
+                )}
+              </motion.div>
 
-      {/* ── 5. TEAM (HIGH-FASHION GRID) ── */}
-      <section className="py-32 lg:py-48 bg-[#EFF5FF] border-b border-[#5B96D1]/20">
-        <div className="max-w-[1700px] mx-auto px-6 lg:px-14">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20 lg:mb-32">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="h-[1px] w-10 bg-[#5B96D1]" />
-                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5A7BC1]">The Masterminds</span>
-              </div>
-              <h2 className="text-4xl lg:text-6xl font-bold text-[#1D325E] font-serif">Creative Team</h2>
-            </motion.div>
-            <p className="text-[#4A6E9A] max-w-sm text-sm leading-relaxed font-light pb-2">
-              A curated collective of world-class architects, designers, and strategists dedicated to realizing your vision.
-            </p>
+            </div>
           </div>
+        </section>
+      )}
+
+      {/* ── 5. TEAM ── */}
+      <section className="bg-[#FAF9F5] py-24 border-b border-stone-200">
+        <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14 pb-10 border-b border-stone-200"
+          >
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-5 h-[1px] bg-stone-400" />
+                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">The Team</span>
+              </div>
+              <h2 className="font-serif font-bold text-[#1C1917] text-3xl lg:text-4xl leading-tight">
+                People Behind<br />
+                <span className="italic font-normal text-stone-400">Every Space.</span>
+              </h2>
+            </div>
+            <p className="text-[#57534E] text-sm font-light max-w-xs leading-relaxed">
+              A collective of architects, designers, and craftspeople — united by a commitment to exceptional work.
+            </p>
+          </motion.div>
 
           {loading ? (
-            <div className="text-center py-20">
-              <div className="w-8 h-8 border-2 border-[#5B96D1]/20 border-t-[#5B96D1] rounded-full animate-spin mx-auto" />
-            </div>
-          ) : teamMembers.length === 0 ? (
-            <div className="text-center py-32 border border-dashed border-[#5B96D1]/30 bg-[#F7FBFF]/50">
-              <FaUser className="w-12 h-12 text-[#5B96D1]/40 mx-auto mb-4" />
-              <p className="text-[#4A6E9A] font-light">No team members available yet.</p>
+            <div className="flex justify-center py-24">
+              <div className="w-6 h-6 border-2 border-stone-200 border-t-[#1C1917] rounded-full animate-spin" />
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
-              {teamMembers.map((member, index) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+              {teamMembers.map((member, i) => (
                 <motion.div
                   key={member._id}
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: index * 0.15 }}
-                  className="group flex flex-col"
+                  transition={{ duration: 0.7, delay: i * 0.1 }}
+                  className="group"
                 >
-                  {/* Clean Sharp Image */}
-                  <div className="relative w-full aspect-[3/4] overflow-hidden bg-[#F7FBFF] mb-8 shadow-sm">
+                  {/* Image */}
+                  <div className="relative aspect-[3/4] overflow-hidden bg-stone-100 mb-5">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100 group-hover:scale-[1.03] group-hover:grayscale-0 transition-all duration-[1200ms] ease-out"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-[1200ms] ease-out"
                     />
-                    
-                    {/* Social Icons Overlay on Hover */}
-                    <div className="absolute bottom-6 left-6 right-6 flex items-center justify-center gap-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
-                      {member.linkedin && (
-                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/90 backdrop-blur-sm text-[#1D325E] rounded-full flex items-center justify-center hover:bg-[#5B96D1] hover:text-white transition-colors">
-                          <FaExternalLinkAlt className="w-4 h-4" />
-                        </a>
-                      )}
-                      {member.twitter && (
-                        <a href={member.twitter} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/90 backdrop-blur-sm text-[#1D325E] rounded-full flex items-center justify-center hover:bg-[#5B96D1] hover:text-white transition-colors">
-                          <FaTwitter className="w-4 h-4" />
-                        </a>
-                      )}
-                      {member.email && (
-                        <a href={`mailto:${member.email}`} className="w-10 h-10 bg-white/90 backdrop-blur-sm text-[#1D325E] rounded-full flex items-center justify-center hover:bg-[#5B96D1] hover:text-white transition-colors">
-                          <FaEnvelope className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
-                    {/* Gradient for social icons legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1D325E]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
 
-                  {/* Refined Text Content */}
-                  <div className="flex flex-col px-2">
-                    <h3 className="text-3xl font-serif font-bold text-[#1D325E] mb-2">{member.name}</h3>
-                    <p className="text-[#5B96D1] text-[10px] uppercase tracking-[0.25em] font-bold mb-5">{member.position}</p>
-                    <div className="w-full h-[1px] bg-[#5B96D1]/20 mb-5 relative overflow-hidden">
-                      <div className="absolute top-0 left-0 h-full w-0 bg-[#5B96D1] group-hover:w-full transition-all duration-1000 ease-out" />
-                    </div>
-                    <p className="text-[#4A6E9A] font-light text-sm leading-relaxed">
-                      {member.bio}
-                    </p>
+                  {/* Text */}
+                  <h3 className="font-serif font-bold text-[#1C1917] text-lg mb-1">{member.name}</h3>
+                  <p className="text-[9px] uppercase tracking-[0.25em] text-stone-400 font-bold mb-3">{member.position}</p>
+                  <div className="w-full h-[1px] bg-stone-200 mb-3 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 h-full w-0 bg-[#1C1917] group-hover:w-full transition-all duration-700 ease-out" />
                   </div>
+                  <p className="text-[#57534E] text-xs font-light leading-relaxed">{member.bio}</p>
                 </motion.div>
               ))}
             </div>
@@ -385,63 +327,39 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 6. TIMELINE / HISTORY (VERTICAL EDITORIAL DESIGN) ── */}
-      <section className="py-32 lg:py-48 bg-[#F7FBFF] overflow-hidden">
-        <div className="max-w-[1300px] mx-auto px-6 lg:px-14">
-          
-          <div className="text-center mb-24 lg:mb-40">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-[1px] w-10 bg-[#5B96D1]" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#5A7BC1]">Timeline</span>
-              <div className="h-[1px] w-10 bg-[#5B96D1]" />
-            </div>
-            <h2 className="text-4xl lg:text-6xl font-bold text-[#1D325E] font-serif">Our Legacy</h2>
+      {/* ── 6. TIMELINE ── */}
+      <section className="bg-[#1C1917] py-24">
+        <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-3 mb-14 pb-10 border-b border-stone-800"
+          >
+            <div className="w-5 h-[1px] bg-stone-700" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-600">Our Journey</span>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-stone-800">
+            {journeySteps.map((step, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className="group p-8 lg:p-10 hover:bg-stone-800/30 transition-colors"
+              >
+                <div className="text-[3rem] font-mono font-bold text-stone-800 group-hover:text-stone-600 transition-colors leading-none mb-6">
+                  {step.year}
+                </div>
+                <h3 className="font-serif font-bold text-white text-base mb-3 group-hover:text-stone-300 transition-colors">{step.title}</h3>
+                <p className="text-stone-600 text-xs font-light leading-relaxed group-hover:text-stone-500 transition-colors">{step.desc}</p>
+              </motion.div>
+            ))}
           </div>
 
-          <div className="relative pl-8 md:pl-0">
-            {/* Continuous Vertical Line */}
-            <div className="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-[1px] bg-[#5B96D1]/30 md:-translate-x-1/2" />
-
-            <div className="space-y-24 md:space-y-32">
-              {journeySteps.map((step, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.1 }}
-                    className={`relative flex flex-col md:flex-row items-start md:items-center ${isEven ? 'md:flex-row-reverse' : ''}`}
-                  >
-                    
-                    {/* Floating Center Node */}
-                    <div className="absolute left-[39px] md:left-1/2 -translate-x-1/2 w-4 h-4 bg-[#F7FBFF] border-2 border-[#5B96D1] rounded-full z-20 shadow-[0_0_0_8px_#F7FBFF]" />
-
-                    {/* Content Block */}
-                    <div className={`w-full md:w-1/2 relative z-10 pl-16 md:pl-0 ${isEven ? 'md:pl-20' : 'md:pr-20 text-left md:text-right'}`}>
-                      
-                      {/* Massive Watermark Year */}
-                      <span className={`absolute top-1/2 -translate-y-1/2 text-[7rem] md:text-[10rem] font-bold text-[#D4E0FF]/40 font-serif pointer-events-none -z-10 ${isEven ? 'left-8 md:left-16' : 'left-8 md:auto md:right-16'}`}>
-                        {step.year}
-                      </span>
-                      
-                      <div className={`inline-block border border-[#5B96D1]/30 px-4 py-1 mb-6 bg-[#F7FBFF] text-[#5B96D1] font-bold text-sm tracking-widest`}>
-                        {step.year}
-                      </div>
-                      
-                      <h3 className="text-3xl font-bold text-[#1D325E] font-serif mb-4">{step.title}</h3>
-                      
-                      <p className="text-[#4A6E9A] font-light leading-relaxed text-sm md:text-base max-w-sm ml-0 md:ml-auto">
-                        {step.description}
-                      </p>
-                    </div>
-
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
         </div>
       </section>
 

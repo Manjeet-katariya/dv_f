@@ -178,12 +178,12 @@ export default function AdminEstimatesPage() {
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      'new': 'bg-blue-50 text-blue-700 border-blue-200',
-      'contacted': 'bg-yellow-50 text-yellow-700 border-yellow-200',
-      'negotiating': 'bg-orange-50 text-orange-700 border-orange-200',
-      'approved': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      'new': 'bg-stone-50 text-stone-800 border-stone-200',
+      'contacted': 'bg-stone-100 text-stone-750 border-stone-200',
+      'negotiating': 'bg-stone-100 text-stone-750 border-stone-200',
+      'approved': 'bg-stone-50 text-stone-850 border-emerald-200',
       'rejected': 'bg-red-50 text-red-700 border-red-200',
-      'converted': 'bg-indigo-50 text-indigo-700 border-indigo-200'
+      'converted': 'bg-stone-50 text-stone-800 border-indigo-200'
     };
     return (
       <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${styles[status] || styles['new']}`}>
@@ -202,15 +202,15 @@ export default function AdminEstimatesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[80vh] flex flex-col items-center justify-center bg-gray-50">
-        <Loader2 className="w-10 h-10 animate-spin text-[#a68a6b] mb-4" />
+      <div className="min-h-[80vh] flex flex-col items-center justify-center bg-[#FAF9F5]">
+        <Loader2 className="w-10 h-10 animate-spin text-[#1C1917] mb-4" />
         <p className="text-zinc-500 uppercase tracking-widest text-sm font-semibold">Loading Estimates...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans pb-12">
+    <div className="min-h-screen bg-[#FAF9F5] font-sans pb-12">
       
       {/* Global Floating Alert */}
       <AnimatePresence>
@@ -234,7 +234,7 @@ export default function AdminEstimatesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between h-auto sm:h-20 py-4 sm:py-0 gap-4">
             <div className="flex items-center gap-4">
-              <Link href="/admin" className="p-2 -ml-2 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors">
+              <Link href="/admin" className="p-2 -ml-2 rounded-full text-gray-500 hover:text-gray-900 hover:bg-[#FAF9F5] transition-colors">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
               <div>
@@ -251,13 +251,13 @@ export default function AdminEstimatesPage() {
                   placeholder="Search clients..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-[#a68a6b] focus:border-transparent outline-none bg-gray-50 focus:bg-white transition-all"
+                  className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-none text-sm focus:ring-2 focus:ring-[#1C1917] focus:border-transparent outline-none bg-[#FAF9F5] focus:bg-white transition-all"
                 />
               </div>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="py-2 pl-3 pr-8 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-[#a68a6b] outline-none bg-gray-50 cursor-pointer"
+                className="py-2 pl-3 pr-8 border border-gray-200 rounded-none text-sm focus:ring-2 focus:ring-[#1C1917] outline-none bg-[#FAF9F5] cursor-pointer"
               >
                 <option value="">All Statuses</option>
                 <option value="new">New</option>
@@ -277,8 +277,8 @@ export default function AdminEstimatesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Estimate List */}
-          <div className="lg:col-span-5 xl:col-span-4 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden h-[calc(100vh-140px)] flex flex-col">
-            <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center shrink-0">
+          <div className="lg:col-span-5 xl:col-span-4 bg-white rounded-none border border-gray-200 shadow-sm overflow-hidden h-[calc(100vh-140px)] flex flex-col">
+            <div className="p-4 border-b border-gray-100 bg-[#FAF9F5]/50 flex justify-between items-center shrink-0">
               <h2 className="text-sm font-bold text-gray-700 uppercase tracking-widest">Inbox</h2>
               <span className="text-xs font-semibold bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">{filteredEstimates.length}</span>
             </div>
@@ -286,7 +286,7 @@ export default function AdminEstimatesPage() {
             <div className="overflow-y-auto flex-1 custom-scrollbar">
               {filteredEstimates.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-64 text-center p-6">
-                  <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                  <div className="w-16 h-16 bg-[#FAF9F5] rounded-full flex items-center justify-center mb-4">
                     <Inbox className="w-8 h-8 text-gray-300" />
                   </div>
                   <p className="text-gray-900 font-medium">No estimates found</p>
@@ -299,8 +299,8 @@ export default function AdminEstimatesPage() {
                     onClick={() => setSelectedEstimate(estimate)}
                     className={`p-5 border-b border-gray-100 cursor-pointer transition-all ${
                       selectedEstimate?._id === estimate._id 
-                        ? 'bg-blue-50/50 border-l-4 border-l-blue-500' 
-                        : 'hover:bg-gray-50 border-l-4 border-l-transparent'
+                        ? 'bg-stone-50/50 border-l-4 border-l-blue-500' 
+                        : 'hover:bg-[#FAF9F5] border-l-4 border-l-transparent'
                     }`}
                   >
                     <div className="flex justify-between items-start mb-2 gap-2">
@@ -314,7 +314,7 @@ export default function AdminEstimatesPage() {
                     </div>
                     
                     {estimate.calculatedEstimate && (
-                      <p className="text-[#a68a6b] font-bold text-sm mb-3">
+                      <p className="text-[#1C1917] font-bold text-sm mb-3">
                         {formatCurrency(estimate.calculatedEstimate.totalEstimate)}
                       </p>
                     )}
@@ -346,12 +346,12 @@ export default function AdminEstimatesPage() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 key={selectedEstimate._id}
-                className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden"
+                className="bg-white rounded-none border border-gray-200 shadow-sm overflow-hidden"
               >
                 {/* Detail Header */}
-                <div className="p-6 md:p-8 border-b border-gray-100 bg-gray-50/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="p-6 md:p-8 border-b border-gray-100 bg-[#FAF9F5]/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold">
+                    <div className="w-14 h-14 bg-stone-100 text-[#1C1917] rounded-full flex items-center justify-center text-xl font-bold">
                       {selectedEstimate.customerName.charAt(0).toUpperCase()}
                     </div>
                     <div>
@@ -363,7 +363,7 @@ export default function AdminEstimatesPage() {
                   </div>
                   <button
                     onClick={() => setShowEmailModal(true)}
-                    className="w-full sm:w-auto bg-slate-900 hover:bg-[#a68a6b] text-white px-5 py-2.5 rounded-lg font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
+                    className="w-full sm:w-auto bg-slate-900 hover:bg-[#1C1917] text-white px-5 py-2.5 rounded-none font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
                   >
                     <Send className="w-4 h-4" />
                     Email Quote
@@ -395,8 +395,8 @@ export default function AdminEstimatesPage() {
 
                   {/* Project Specs */}
                   <div className="mb-8">
-                    <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><Layers className="w-5 h-5 text-[#a68a6b]"/> Project Specifications</h3>
-                    <div className="bg-gray-50 rounded-xl p-5 border border-gray-100 grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+                    <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><Layers className="w-5 h-5 text-[#1C1917]"/> Project Specifications</h3>
+                    <div className="bg-[#FAF9F5] rounded-none p-5 border border-gray-100 grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
                       <div>
                         <span className="block text-gray-500 mb-1">Type</span>
                         <span className="font-semibold text-gray-900 capitalize">{selectedEstimate.projectType}</span>
@@ -419,27 +419,27 @@ export default function AdminEstimatesPage() {
                   {/* Cost Breakdown */}
                   {selectedEstimate.calculatedEstimate && (
                     <div className="mb-8">
-                      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><Calculator className="w-5 h-5 text-[#a68a6b]"/> Estimated Cost Breakdown</h3>
-                      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                        <div className="p-4 flex justify-between items-center border-b border-gray-100 hover:bg-gray-50">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><Calculator className="w-5 h-5 text-[#1C1917]"/> Estimated Cost Breakdown</h3>
+                      <div className="bg-white border border-gray-200 rounded-none overflow-hidden shadow-sm">
+                        <div className="p-4 flex justify-between items-center border-b border-gray-100 hover:bg-[#FAF9F5]">
                           <span className="text-gray-600 font-medium">Construction & Core</span>
                           <span className="font-bold text-gray-900">{formatCurrency(selectedEstimate.calculatedEstimate.breakdown.construction)}</span>
                         </div>
-                        <div className="p-4 flex justify-between items-center border-b border-gray-100 hover:bg-gray-50">
+                        <div className="p-4 flex justify-between items-center border-b border-gray-100 hover:bg-[#FAF9F5]">
                           <span className="text-gray-600 font-medium">Materials & Finishes</span>
                           <span className="font-bold text-gray-900">{formatCurrency(selectedEstimate.calculatedEstimate.breakdown.materials)}</span>
                         </div>
-                        <div className="p-4 flex justify-between items-center border-b border-gray-100 hover:bg-gray-50">
+                        <div className="p-4 flex justify-between items-center border-b border-gray-100 hover:bg-[#FAF9F5]">
                           <span className="text-gray-600 font-medium">Labor & Management</span>
                           <span className="font-bold text-gray-900">{formatCurrency(selectedEstimate.calculatedEstimate.breakdown.labor)}</span>
                         </div>
-                        <div className="p-4 flex justify-between items-center border-b border-gray-100 hover:bg-gray-50">
+                        <div className="p-4 flex justify-between items-center border-b border-gray-100 hover:bg-[#FAF9F5]">
                           <span className="text-gray-600 font-medium">Premium Features</span>
                           <span className="font-bold text-gray-900">{formatCurrency(selectedEstimate.calculatedEstimate.breakdown.features)}</span>
                         </div>
                         <div className="p-5 bg-slate-900 text-white flex justify-between items-center">
                           <span className="font-bold uppercase tracking-wider text-sm">Total Estimated Value</span>
-                          <span className="text-xl font-bold text-[#a68a6b]">
+                          <span className="text-xl font-bold text-[#1C1917]">
                             {formatCurrency(selectedEstimate.calculatedEstimate.totalEstimate)}
                           </span>
                         </div>
@@ -453,7 +453,7 @@ export default function AdminEstimatesPage() {
                       <h3 className="text-sm font-bold text-gray-900 mb-3">Requested Features</h3>
                       <div className="flex flex-wrap gap-2">
                         {selectedEstimate.features.map(f => (
-                          <span key={f} className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-md font-medium border border-gray-200">
+                          <span key={f} className="px-3 py-1 bg-[#FAF9F5] text-gray-700 text-xs rounded-md font-medium border border-gray-200">
                             {f}
                           </span>
                         ))}
@@ -472,7 +472,7 @@ export default function AdminEstimatesPage() {
                           value={selectedEstimate.status}
                           onChange={(e) => updateStatus(selectedEstimate._id, e.target.value, selectedEstimate.adminNotes)}
                           disabled={updating === selectedEstimate._id}
-                          className="w-full appearance-none bg-white border border-gray-300 px-4 py-2.5 rounded-lg text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#a68a6b] cursor-pointer disabled:opacity-50"
+                          className="w-full appearance-none bg-white border border-gray-300 px-4 py-2.5 rounded-none text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1C1917] cursor-pointer disabled:opacity-50"
                         >
                           <option value="new">🆕 New</option>
                           <option value="contacted">📞 Contacted</option>
@@ -499,7 +499,7 @@ export default function AdminEstimatesPage() {
                         }}
                         onBlur={(e) => updateStatus(selectedEstimate._id, selectedEstimate.status, e.target.value)}
                         placeholder="Add private notes about this quote..."
-                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#a68a6b] resize-none"
+                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-none text-sm focus:outline-none focus:ring-2 focus:ring-[#1C1917] resize-none"
                         rows={3}
                       />
                       <p className="text-[10px] text-gray-400 mt-1 flex justify-end">Saves automatically on click away</p>
@@ -508,8 +508,8 @@ export default function AdminEstimatesPage() {
                 </div>
               </motion.div>
             ) : (
-              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm h-[calc(100vh-140px)] flex flex-col items-center justify-center text-center p-8">
-                <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+              <div className="bg-white rounded-none border border-gray-200 shadow-sm h-[calc(100vh-140px)] flex flex-col items-center justify-center text-center p-8">
+                <div className="w-20 h-20 bg-[#FAF9F5] rounded-full flex items-center justify-center mb-6">
                   <Calculator className="w-10 h-10 text-gray-300" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">No Estimate Selected</h3>
@@ -535,11 +535,11 @@ export default function AdminEstimatesPage() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden"
+              className="relative w-full max-w-2xl bg-white rounded-none shadow-2xl overflow-hidden"
             >
-              <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+              <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-[#FAF9F5]/50">
                 <h3 className="text-lg font-bold text-gray-900">Compose Email Quote</h3>
-                <button onClick={() => setShowEmailModal(false)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
+                <button onClick={() => setShowEmailModal(false)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-[#FAF9F5] rounded-full transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -547,7 +547,7 @@ export default function AdminEstimatesPage() {
               <form onSubmit={handleSendEmail} className="p-6 space-y-5">
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">To</label>
-                  <div className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 flex items-center gap-2">
+                  <div className="px-4 py-3 bg-[#FAF9F5] border border-gray-200 rounded-none text-sm text-gray-600 flex items-center gap-2">
                     <User className="w-4 h-4 text-gray-400" />
                     <span className="font-medium">{selectedEstimate.customerName}</span>
                     <span className="text-gray-400">&lt;{selectedEstimate.email}&gt;</span>
@@ -561,7 +561,7 @@ export default function AdminEstimatesPage() {
                     value={emailSubject}
                     onChange={(e) => setEmailSubject(e.target.value)}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a68a6b] text-sm"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-[#1C1917] text-sm"
                     placeholder="Your Architecture Quote - [Project Name]"
                   />
                 </div>
@@ -573,7 +573,7 @@ export default function AdminEstimatesPage() {
                     onChange={(e) => setEmailMessage(e.target.value)}
                     required
                     rows={8}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#a68a6b] text-sm resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-[#1C1917] text-sm resize-none"
                     placeholder={`Hi ${selectedEstimate.customerName},\n\nThank you for reaching out regarding your ${selectedEstimate.projectType} project. Based on your inputs, the estimated cost is ${selectedEstimate.calculatedEstimate ? formatCurrency(selectedEstimate.calculatedEstimate.totalEstimate) : 'TBD'}.\n\nLet's schedule a call to discuss this further...`}
                   />
                 </div>
@@ -582,14 +582,14 @@ export default function AdminEstimatesPage() {
                   <button
                     type="button"
                     onClick={() => setShowEmailModal(false)}
-                    className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium text-sm transition-colors"
+                    className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-none hover:bg-[#FAF9F5] font-medium text-sm transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={sendingEmail}
-                    className="px-6 py-2.5 bg-slate-900 hover:bg-[#a68a6b] text-white rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-colors disabled:opacity-70"
+                    className="px-6 py-2.5 bg-slate-900 hover:bg-[#1C1917] text-white rounded-none font-medium text-sm flex items-center justify-center gap-2 transition-colors disabled:opacity-70"
                   >
                     {sendingEmail ? (
                       <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</>
