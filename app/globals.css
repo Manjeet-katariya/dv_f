@@ -1,11 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-montserrat);
+  --font-serif: var(--font-playfair);
+  --color-primary: #1C1917;
+  --color-secondary: #FAF9F5;
+}
+
 /* Premium light theme scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF9F5;
+  background: var(--color-secondary);
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(28, 25, 23, 0.25);
@@ -28,5 +35,3 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(28, 25, 23, 0.5);
 }
-
-

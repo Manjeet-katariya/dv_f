@@ -64,31 +64,7 @@ export default function ServicesPage() {
         {/* Strong bottom gradient so text is readable */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10" />
 
-        {/* Top strip */}
-        <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-8 lg:px-16 pt-8 z-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center gap-3"
-          >
-            <div className="w-5 h-[1px] bg-white/40" />
-            <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-white/40">Services</span>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="hidden lg:flex items-center gap-10"
-          >
-            {[['500+', 'Projects'], ['15+', 'Years'], ['4', 'Disciplines']].map(([val, lbl]) => (
-              <div key={lbl} className="text-right">
-                <div className="text-base font-serif font-bold text-white/70">{val}</div>
-                <div className="text-[8px] uppercase tracking-[0.2em] text-white/30">{lbl}</div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+
 
         {/* Bottom-left: Headline */}
         <div className="absolute bottom-0 left-0 right-0 px-8 lg:px-16 pb-12 z-10">
@@ -97,9 +73,9 @@ export default function ServicesPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2 }}
           >
-            <h1 className="font-serif font-bold text-white text-[clamp(3rem,6.5vw,6rem)] leading-[0.95] tracking-tight">
+            <h1 className="font-serif text-white text-[clamp(3.5rem,7vw,6.5rem)] leading-[0.95] tracking-tight">
               What We<br />
-              <span className="italic font-normal text-white/60">Create For You.</span>
+              <span className="italic font-light text-white/70">Create For You.</span>
             </h1>
             <p className="text-white/45 text-sm font-light mt-5 max-w-sm leading-relaxed">
               End-to-end architectural and interior design services — from the first sketch to a curated handover.
@@ -146,7 +122,7 @@ export default function ServicesPage() {
                     <div className={`text-[8px] font-bold uppercase tracking-[0.3em] mb-2 transition-colors duration-300 ${hovered === idx ? 'text-stone-600' : 'text-stone-400'}`}>
                       {service.tag}
                     </div>
-                    <h2 className={`font-serif font-bold text-2xl lg:text-3xl transition-colors duration-300 ${hovered === idx ? 'text-white' : 'text-[#1C1917]'}`}>
+                    <h2 className={`font-serif text-3xl lg:text-4xl transition-colors duration-300 ${hovered === idx ? 'text-white' : 'text-[#1C1917]'}`}>
                       {service.title}
                     </h2>
                   </div>
@@ -219,8 +195,8 @@ export default function ServicesPage() {
                 transition={{ delay: i * 0.1 }}
                 className="p-10 lg:p-12"
               >
-                <div className="text-[2.5rem] font-serif text-stone-200 font-bold leading-none mb-6">{item.num}</div>
-                <h3 className="font-serif font-bold text-[#1C1917] text-lg mb-3">{item.title}</h3>
+                <div className="text-[3rem] font-serif text-stone-200 leading-none mb-6">{item.num}</div>
+                <h3 className="font-serif text-[#1C1917] text-xl mb-3">{item.title}</h3>
                 <p className="text-[#57534E] text-sm font-light leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
@@ -236,8 +212,8 @@ export default function ServicesPage() {
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-14 pb-10 border-b border-stone-800">
             <div className="flex items-center gap-3">
               <div className="w-5 h-[1px] bg-stone-700" />
-              <h2 className="font-serif font-bold text-white text-2xl lg:text-3xl">
-                Five Steps to Your <span className="italic font-normal text-stone-500">Perfect Space.</span>
+              <h2 className="font-serif text-white text-4xl lg:text-5xl">
+                Five Steps to Your <span className="italic font-light text-stone-500">Perfect Space.</span>
               </h2>
             </div>
             <p className="text-stone-600 text-sm font-light max-w-xs">A transparent, proven workflow. No surprises.</p>
@@ -262,7 +238,7 @@ export default function ServicesPage() {
                   <div className="w-16 h-16 rounded-full border border-stone-800 group-hover:border-stone-600 group-hover:bg-stone-800 flex items-center justify-center mb-6 transition-colors duration-300 bg-[#1C1917]">
                     <span className="text-[9px] font-mono text-stone-600 group-hover:text-stone-400 transition-colors">{step.num}</span>
                   </div>
-                  <h3 className="font-serif font-bold text-white text-base mb-2 group-hover:text-stone-300 transition-colors">
+                  <h3 className="font-serif text-white text-lg mb-2 group-hover:text-stone-300 transition-colors">
                     {step.title}
                   </h3>
                   <p className="text-stone-600 text-xs font-light leading-relaxed group-hover:text-stone-500 transition-colors">
@@ -288,9 +264,9 @@ export default function ServicesPage() {
               <div className="w-5 h-[1px] bg-stone-300" />
               <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-400">Get Started</span>
             </div>
-            <h2 className="font-serif font-bold text-[#1C1917] text-3xl lg:text-4xl leading-tight mb-3">
+            <h2 className="font-serif text-[#1C1917] text-4xl lg:text-5xl leading-tight mb-3">
               Ready to build something<br />
-              <span className="italic font-normal text-stone-400">remarkable?</span>
+              <span className="italic font-light text-stone-400">remarkable?</span>
             </h2>
             <p className="text-[#57534E] text-sm font-light max-w-md">
               No obligation. Just an honest conversation about what your space could become.

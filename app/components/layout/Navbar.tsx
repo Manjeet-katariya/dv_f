@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Menu } from 'lucide-react';
 
 const FacebookIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -37,18 +37,32 @@ interface SocialLinks {
   linkedin?: string;
 }
 
-const navLinks = [
-  { name: 'Home', href: '/', num: '01' },
-  { name: 'Portfolio', href: '/portfolio', num: '02' },
-  { name: 'Services', href: '/services', num: '03' },
-  { name: 'About', href: '/about', num: '04' },
-  { name: 'Calculator', href: '/calculator', num: '05' },
-  { name: 'Contact', href: '/contact', num: '06' },
+const leftLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Portfolio', href: '/portfolio' },
+  { name: 'Services', href: '/services' },
 ];
+
+const rightLinks = [
+  { name: 'About', href: '/about' },
+  { name: 'Calculator', href: '/calculator' },
+  { name: 'Contact', href: '/contact' },
+];
+
+const allLinks = [...leftLinks, ...rightLinks];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [socialLinks, setSocialLinks] = useState<SocialLinks>({});
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (isOpen) document.body.style.overflow = 'hidden';
@@ -88,65 +102,81 @@ export default function Navbar() {
     { key: 'linkedin', href: socialLinks.linkedin, Icon: LinkedInIcon },
   ].filter(s => s.href);
 
+  // Chevron style borders and colors
+  const borderClass = scrolled ? 'border-stone-700/50' : 'border-white/20';
+  const textClass = scrolled ? 'text-white hover:text-stone-300' : 'text-white hover:text-stone-300';
+  const bgClass = scrolled ? 'bg-[#1C1917]/60 backdrop-blur-md' : 'bg-transparent';
+  const hoverBgClass = scrolled ? 'hover:bg-white/5' : 'hover:bg-black/10';
+
   return (
     <>
-      {/* ── NAVBAR ── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-stone-100 shadow-sm">
-        <div className="max-w-[1800px] mx-auto px-8 lg:px-16">
-          <div className="flex items-center justify-between h-20">
+      {/* ── DESKTOP GRID NAVBAR ── */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${borderClass} ${bgClass} hidden lg:block`}>
+        {/* We use a grid or flex to perfectly divide the screen */}
+        <div className="flex w-full h-[90px] xl:h-[110px]">
+          
+          {/* Left Links */}
+          {leftLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className={`flex-1 border-r ${borderClass} flex items-center justify-center font-serif text-lg xl:text-xl transition-all duration-300 ${textClass} ${hoverBgClass}`}
+            >
+              {link.name}
+            </Link>
+          ))}
 
-            {/* Logo */}
-            <Link href="/" className="group z-10 relative">
+          {/* Center Logo Area (wider) */}
+          <div className={`flex-[1.5] xl:flex-[1.8] border-r ${borderClass} flex flex-col items-center justify-center ${scrolled ? 'bg-transparent' : 'bg-black/10'}`}>
+            <Link href="/" className="flex flex-col items-center group">
               <img
                 src="/logo-dvl.png"
                 alt="DVL Architects"
-                className="h-10 w-10 object-cover rounded-full border border-stone-200 shadow-sm opacity-90 group-hover:opacity-100 transition-opacity"
+                className="h-10 w-10 xl:h-12 xl:w-12 object-cover rounded-full border border-white/30 shadow-sm opacity-90 group-hover:opacity-100 transition-all duration-300"
               />
+              <span className={`mt-2 font-serif text-[10px] xl:text-[12px] tracking-[0.3em] uppercase ${scrolled ? 'text-white' : 'text-white'}`}>
+                DVL Architects
+              </span>
             </Link>
-
-            {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#57534E] hover:text-[#1C1917] transition-colors relative group py-2"
-                >
-                  {link.name}
-                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#1C1917] transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
-            </div>
-
-            {/* Right actions */}
-            <div className="flex items-center gap-6 z-10">
-              {/* Desktop Start Project Button */}
-              <Link
-                href="/contact"
-                className="hidden lg:inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] px-6 py-2.5 rounded-full border border-[#1C1917] text-[#1C1917] hover:bg-[#1C1917] hover:text-[#FAF9F5] transition-all duration-300"
-              >
-                Start Project
-              </Link>
-
-              {/* Mobile Menu trigger */}
-              <button
-                onClick={() => setIsOpen(true)}
-                className="lg:hidden flex items-center gap-3 group relative"
-                aria-label="Open navigation"
-              >
-                <div className="flex flex-col gap-[5px]">
-                  <span className="block w-7 h-[1px] bg-[#1C1917] transition-all duration-300 group-hover:w-9" />
-                  <span className="block w-5 h-[1px] bg-[#1C1917] transition-all duration-300 group-hover:w-9" />
-                  <span className="block w-7 h-[1px] bg-[#1C1917] transition-all duration-300 group-hover:w-9" />
-                </div>
-              </button>
-            </div>
-
           </div>
+
+          {/* Right Links */}
+          {rightLinks.map((link, idx) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className={`flex-1 flex items-center justify-center font-serif text-lg xl:text-xl transition-all duration-300 ${textClass} ${hoverBgClass} ${idx !== rightLinks.length - 1 ? `border-r ${borderClass}` : ''}`}
+            >
+              {link.name}
+            </Link>
+          ))}
+
         </div>
       </nav>
 
-      {/* ── FULLSCREEN OVERLAY MENU ── */}
+      {/* ── MOBILE NAVBAR ── */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${borderClass} ${bgClass} lg:hidden`}>
+        <div className="flex items-center justify-between h-20 px-6">
+          <Link href="/" className="flex items-center gap-3">
+            <img
+              src="/logo-dvl.png"
+              alt="DVL"
+              className="h-9 w-9 object-cover rounded-full border border-white/30"
+            />
+            <span className="font-serif text-[10px] tracking-[0.2em] uppercase text-white">DVL</span>
+          </Link>
+
+          <button
+            onClick={() => setIsOpen(true)}
+            className="text-white hover:text-stone-300 transition-colors"
+            aria-label="Open navigation"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
+      </nav>
+
+      {/* ── FULLSCREEN OVERLAY MENU (Mobile) ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -156,49 +186,45 @@ export default function Navbar() {
             transition={{ duration: 0.4 }}
             className="fixed inset-0 z-[100] flex"
           >
-            {/* Left: Nav content */}
+            {/* Nav content */}
             <motion.div
-              initial={{ x: '-100%' }}
+              initial={{ x: '100%' }}
               animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
+              exit={{ x: '100%' }}
               transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-              className="relative w-full lg:w-[58%] bg-[#FAF9F5] flex flex-col px-10 lg:px-20 py-8 overflow-y-auto border-r border-stone-200"
+              className="relative w-full bg-[#1C1917] flex flex-col px-8 py-8 overflow-y-auto"
             >
               {/* Top row */}
               <div className="flex items-center justify-between mb-16 flex-shrink-0">
-                <img src="/logo-dvl.png" alt="DVL Architects" className="h-9 w-9 object-cover rounded-full border border-stone-200 shadow-sm" />
+                <div className="flex items-center gap-3">
+                  <img src="/logo-dvl.png" alt="DVL" className="h-9 w-9 object-cover rounded-full border border-stone-700" />
+                  <span className="font-serif text-[10px] tracking-[0.2em] uppercase text-white">DVL</span>
+                </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-3 group"
+                  className="flex items-center justify-center w-10 h-10 border border-stone-700 text-white rounded-full hover:bg-white hover:text-[#1C1917] transition-all"
                 >
-                  <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#878076] group-hover:text-[#1C1917] transition-colors">Close</span>
-                  <div className="w-9 h-9 border border-stone-200 flex items-center justify-center group-hover:border-stone-400 transition-colors">
-                    <X className="w-4 h-4 text-[#57534E] group-hover:text-[#1C1917] transition-colors" />
-                  </div>
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Nav links */}
-              <nav className="flex-1">
-                {navLinks.map((link, i) => (
+              <nav className="flex-1 flex flex-col justify-center gap-6">
+                {allLinks.map((link, i) => (
                   <motion.div
                     key={link.name}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 + i * 0.07, duration: 0.4 }}
                   >
                     <Link
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="group flex items-baseline gap-6 py-5 border-b border-stone-200/60 hover:border-stone-400 transition-all"
+                      className="group flex items-center justify-between py-4 border-b border-stone-800"
                     >
-                      <span className="text-[10px] font-mono text-[#1C1917]/30 group-hover:text-[#1C1917]/80 transition-colors w-6 flex-shrink-0">
-                        {link.num}
-                      </span>
-                      <span className="text-[clamp(2.5rem,6vw,4.5rem)] font-serif font-bold text-[#1C1917] group-hover:text-stone-500 transition-colors leading-none tracking-tight">
+                      <span className="text-4xl font-serif text-white group-hover:text-stone-400 transition-colors leading-none tracking-tight">
                         {link.name}
                       </span>
-                      <span className="ml-auto text-[#1C1917] opacity-0 group-hover:opacity-100 transition-opacity text-lg">↗</span>
                     </Link>
                   </motion.div>
                 ))}
@@ -209,69 +235,28 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.65 }}
-                className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pt-10 mt-6 border-t border-stone-200/80 flex-shrink-0"
+                className="pt-10 mt-6 border-t border-stone-800 flex-shrink-0 flex justify-between items-end"
               >
                 {/* Social */}
                 {socials.length > 0 && (
                   <div>
-                    <p className="text-[8px] font-bold uppercase tracking-[0.4em] text-[#878076] mb-4">Follow Us</p>
-                    <div className="flex gap-5">
+                    <p className="text-[8px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-4">Follow Us</p>
+                    <div className="flex gap-4">
                       {socials.map(({ key, href, Icon }) => (
                         <a key={key} href={href} target="_blank" rel="noopener noreferrer"
                           onClick={() => trackSocialClick(key)}
-                          className="text-[#57534E] hover:text-[#1C1917] transition-colors">
+                          className="text-stone-400 hover:text-white transition-colors">
                           <Icon />
                         </a>
                       ))}
                     </div>
                   </div>
                 )}
-
-                <Link
-                  href="/contact"
-                  onClick={() => setIsOpen(false)}
-                  className="inline-flex items-center gap-3 text-[9px] font-bold uppercase tracking-[0.3em] px-7 py-3 bg-[#1C1917] text-[#FAF9F5] hover:bg-stone-800 transition-colors"
-                >
-                  Start Project
-                </Link>
-              </motion.div>
-            </motion.div>
-
-            {/* Right: Architecture image panel (desktop only) */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="hidden lg:block flex-1 relative overflow-hidden bg-[#F4F3EE]"
-              onClick={() => setIsOpen(false)}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1400&q=80"
-                alt=""
-                className="w-full h-full object-cover opacity-45 grayscale hover:grayscale-0 transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#FAF9F5] via-[#FAF9F5]/40 to-transparent" />
-
-              {/* Contact info on right panel */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="absolute bottom-16 left-16"
-              >
-                <p className="text-[8px] font-bold uppercase tracking-[0.4em] text-[#1C1917]/60 mb-5">Get In Touch</p>
-                <p className="text-[#57534E] text-sm mb-2">+91-8619633247</p>
-                <p className="text-[#57534E] text-sm">sparchitects93@gmail.com</p>
-                <p className="text-[#878076] text-xs mt-3">Jaipur, Rajasthan, India</p>
               </motion.div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Spacer */}
-      <div className="h-20" />
     </>
   );
 }

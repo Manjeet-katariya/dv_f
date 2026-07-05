@@ -28,6 +28,8 @@ const fallbackProjects: Project[] = [
   { _id: "p6", title: "The Nordic Loft", category: "residential", description: "Minimalist Nordic design.", location: "Oslo, Norway", completionYear: 2023, client: "Private", featuredImage: "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1200&q=80", images: [], isActive: true, order: 6 },
 ];
 
+const customEase = [0.16, 1, 0.3, 1];
+
 export default function PortfolioPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'residential' | 'commercial'>('all');
@@ -75,119 +77,98 @@ export default function PortfolioPage() {
   const filtered = selectedCategory === 'all' ? projects : projects.filter(p => p.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5]">
+    <div className="min-h-screen bg-[#FAF9F5] font-sans selection:bg-[#1C1917] selection:text-[#FAF9F5]">
 
-      {/* ── PAGE HEADER with text + card ── */}
-      <section className="pt-12 pb-0 bg-[#FAF9F5] border-b border-stone-200">
-        <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
+      {/* ── HERO (Cinematic Header) ── */}
+      <section className="relative w-full h-[60vh] min-h-[500px] bg-[#1C1917] overflow-hidden flex flex-col justify-end pt-32 pb-16">
+        <motion.div
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 2, ease: customEase }}
+          className="absolute inset-0 z-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?q=80&w=1920"
+            alt="DVL Archive"
+            className="w-full h-full object-cover opacity-40 grayscale"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1C1917] via-transparent to-black/30" />
+        </motion.div>
 
-          {/* Top row: label only */}
+        <div className="relative z-10 max-w-[1700px] mx-auto px-8 lg:px-16 w-full flex flex-col md:flex-row md:items-end justify-between gap-8">
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center gap-3 mb-10"
+            transition={{ duration: 1.2, delay: 0.2, ease: customEase }}
           >
-            <div className="w-5 h-[1px] bg-stone-400" />
-            <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Selected Works</span>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-[1px] bg-stone-500" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400">Our Archive</span>
+            </div>
+            <h1 className="font-serif text-white tracking-tight leading-[1.0] text-[clamp(4rem,8vw,7rem)]">
+              Selected<br />
+              <span className="italic font-light text-stone-400">Works.</span>
+            </h1>
           </motion.div>
-
-          {/* Main header: text left + card right */}
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-end pb-12">
-
-            {/* Left: Heading + description */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-            >
-              <h1 className="text-4xl lg:text-5xl font-serif font-bold text-[#1C1917] tracking-tight leading-[1.1] mb-5">
-                This is our<br />
-                <span className="italic font-normal text-stone-400">Portfolio</span> of<br />
-                Our Projects.
-              </h1>
-              <p className="text-[#57534E] text-sm font-light leading-relaxed max-w-sm">
-                Every space we design carries a story — of the client, the land, and the craft. Browse our curated archive of residential and commercial works.
-              </p>
-            </motion.div>
-
-            {/* Right: Info card */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.25 }}
-              className="bg-[#1C1917] text-white p-8 lg:p-10 relative overflow-hidden"
-            >
-              {/* Decorative corner line */}
-              <div className="absolute top-6 right-6 w-10 h-10 border-t border-r border-white/10" />
-
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500 block mb-6">DVL Architects</span>
-
-              <p className="text-xl font-serif font-bold text-white leading-snug mb-8">
-                "We believe great spaces don't just look beautiful — they feel alive."
-              </p>
-
-              <div className="grid grid-cols-3 gap-4 border-t border-stone-700 pt-6">
-                <div>
-                  <div className="text-2xl font-serif font-bold text-white">500+</div>
-                  <div className="text-[8px] uppercase tracking-[0.2em] text-stone-500 mt-0.5">Projects</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-serif font-bold text-white">15+</div>
-                  <div className="text-[8px] uppercase tracking-[0.2em] text-stone-500 mt-0.5">Years</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-serif font-bold text-white">2</div>
-                  <div className="text-[8px] uppercase tracking-[0.2em] text-stone-500 mt-0.5">Typologies</div>
-                </div>
-              </div>
-            </motion.div>
-
-          </div>
+          
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="text-stone-400 font-light text-sm max-w-xs leading-relaxed"
+          >
+            A curated collection of residential and commercial spaces designed to inspire and endure.
+          </motion.p>
         </div>
       </section>
 
-      {/* ── FILTER BAR — sticky below header ── */}
-      <div className="sticky top-[72px] z-30 bg-[#FAF9F5]/95 backdrop-blur-sm border-b border-stone-200">
-        <div className="max-w-[1700px] mx-auto px-8 lg:px-16 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* ── FILTER BAR (Ultra-Minimal) ── */}
+      <div className="sticky top-[72px] z-30 bg-[#FAF9F5]/90 backdrop-blur-md border-b border-stone-200">
+        <div className="max-w-[1700px] mx-auto px-8 lg:px-16 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="flex items-center gap-1 bg-stone-100 rounded-sm p-1 w-fit"
+            className="flex items-center gap-6"
           >
             {(['all', 'residential', 'commercial'] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 text-[9px] font-bold uppercase tracking-[0.25em] rounded-sm transition-all duration-300 ${
-                  selectedCategory === cat
-                    ? 'bg-[#1C1917] text-white shadow-sm'
-                    : 'text-stone-500 hover:text-[#1C1917]'
-                }`}
+                className="relative group text-[10px] font-bold uppercase tracking-[0.25em] transition-colors"
               >
-                {cat === 'all' ? 'All' : cat}
+                <span className={`${selectedCategory === cat ? 'text-[#1C1917]' : 'text-stone-400 group-hover:text-stone-600'}`}>
+                  {cat === 'all' ? 'All Projects' : cat}
+                </span>
+                {/* Active Underline */}
+                {selectedCategory === cat && (
+                  <motion.div
+                    layoutId="activeFilter"
+                    className="absolute -bottom-2 left-0 right-0 h-[1px] bg-[#1C1917]"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
               </button>
             ))}
           </motion.div>
 
           {!loading && (
-            <span className="text-[9px] uppercase tracking-[0.3em] font-bold text-stone-400">
-              {filtered.length} {selectedCategory === 'all' ? 'Projects' : selectedCategory} found
+            <span className="text-[9px] uppercase tracking-[0.3em] font-medium text-stone-400">
+              {filtered.length} Results
             </span>
           )}
         </div>
       </div>
 
       {/* ── GALLERY GRID ── */}
-      <section className="py-8 pb-24 bg-[#FAF9F5]">
+      <section className="py-16 pb-32 bg-[#FAF9F5]">
         <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
 
           {loading ? (
             <div className="flex justify-center items-center py-48">
-              <div className="flex flex-col items-center gap-3">
+              <div className="flex flex-col items-center gap-4">
                 <Loader2 className="w-6 h-6 text-stone-400 animate-spin" />
-                <span className="text-[9px] uppercase tracking-[0.3em] text-stone-400 font-bold">Loading</span>
+                <span className="text-[10px] uppercase tracking-[0.4em] text-stone-400 font-bold">Curating</span>
               </div>
             </div>
           ) : filtered.length === 0 ? (
@@ -195,60 +176,65 @@ export default function PortfolioPage() {
               <p className="text-stone-400 text-sm font-light">No projects in this category.</p>
             </div>
           ) : (
-            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14">
+            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
               <AnimatePresence mode="popLayout">
                 {filtered.map((project, index) => (
                   <motion.div
                     layout
-                    initial={{ opacity: 0, y: 24 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.55, delay: index * 0.05 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.8, delay: index * 0.05, ease: customEase }}
                     key={project._id}
                   >
                     <Link href={`/portfolio/${project._id}`} className="group block">
 
-                      {/* Image — different aspect ratios for visual interest */}
+                      {/* Image Frame — Cinematic Ratios */}
                       <div className={`relative w-full overflow-hidden bg-stone-100 ${
-                        index % 5 === 0 ? 'aspect-[3/4]' :
-                        index % 5 === 1 ? 'aspect-[4/3]' :
-                        index % 5 === 2 ? 'aspect-[1/1]' :
-                        index % 5 === 3 ? 'aspect-[4/5]' :
-                        'aspect-[3/2]'
+                        index % 6 === 0 ? 'aspect-[4/5]' :
+                        index % 6 === 1 ? 'aspect-[3/2]' :
+                        index % 6 === 2 ? 'aspect-[1/1]' :
+                        index % 6 === 3 ? 'aspect-[3/4]' :
+                        index % 6 === 4 ? 'aspect-[16/9]' :
+                        'aspect-[4/3]'
                       }`}>
                         <img
                           src={project.featuredImage}
                           alt={project.title}
-                          className="w-full h-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-106"
+                          className="w-full h-full object-cover transition-all duration-[2000ms] ease-out grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100"
                         />
-
-                        {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-[#1C1917]/0 group-hover:bg-[#1C1917]/20 transition-all duration-700" />
-
-                        {/* Arrow badge — appears on hover */}
-                        <div className="absolute top-4 right-4 w-8 h-8 bg-white flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400 shadow-sm">
-                          <ArrowUpRight className="w-4 h-4 text-[#1C1917]" />
-                        </div>
-
-                        {/* Category pill — always visible */}
-                        <div className="absolute bottom-4 left-4">
-                          <span className="bg-white/90 text-[#1C1917] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.2em]">
-                            {project.category}
-                          </span>
+                        
+                        {/* Elegant overlay badge */}
+                        <div className="absolute top-5 left-5 overflow-hidden">
+                          <motion.div 
+                            initial={{ y: -20, opacity: 0 }}
+                            whileHover={{ y: 0, opacity: 1 }}
+                            className="bg-white text-[#1C1917] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.2em] translate-y-[-120%] group-hover:translate-y-0 transition-transform duration-500 ease-out"
+                          >
+                            View Project
+                          </motion.div>
                         </div>
                       </div>
 
-                      {/* Text — minimal, no icons */}
-                      <div className="mt-4 flex items-start justify-between">
+                      {/* Text Layout */}
+                      <div className="mt-6 flex items-start justify-between">
                         <div>
-                          <h3 className="text-sm font-serif font-bold text-[#1C1917] group-hover:text-stone-500 transition-colors leading-snug mb-1">
+                          <h3 className="text-2xl font-serif text-[#1C1917] group-hover:text-stone-500 transition-colors leading-snug mb-2">
                             {project.title}
                           </h3>
-                          <p className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-medium">
-                            {project.location} · {project.completionYear}
-                          </p>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[9px] uppercase tracking-[0.25em] text-stone-400 font-bold">
+                              {project.category}
+                            </span>
+                            <span className="w-3 h-[1px] bg-stone-300" />
+                            <span className="text-[9px] uppercase tracking-[0.25em] text-stone-400 font-medium">
+                              {project.location}
+                            </span>
+                          </div>
                         </div>
-                        <span className="text-[9px] font-mono text-stone-300 mt-0.5 flex-shrink-0 ml-4">
+                        
+                        {/* Numbering */}
+                        <span className="text-sm font-mono text-stone-300 group-hover:text-[#1C1917] transition-colors mt-1">
                           {String(index + 1).padStart(2, '0')}
                         </span>
                       </div>
@@ -261,20 +247,20 @@ export default function PortfolioPage() {
           )}
 
           {/* Infinite scroll trigger */}
-          <div ref={loadMoreRef} className="flex justify-center pt-20 pb-8">
+          <div ref={loadMoreRef} className="flex justify-center pt-28 pb-10">
             {loadingMore && (
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col items-center gap-3">
                 <Loader2 className="w-5 h-5 text-stone-400 animate-spin" />
-                <span className="text-[9px] uppercase tracking-[0.3em] text-stone-400 font-bold">Loading more</span>
+                <span className="text-[9px] uppercase tracking-[0.3em] text-stone-400 font-bold">Discovering</span>
               </div>
             )}
             {!hasMore && !loadingMore && pagination.totalRecords > 0 && (
-              <div className="flex items-center gap-5">
-                <div className="w-10 h-px bg-stone-300" />
-                <span className="text-[9px] uppercase tracking-[0.3em] text-stone-400 font-bold">
-                  {pagination.totalRecords} works total
+              <div className="flex items-center gap-6">
+                <div className="w-16 h-[1px] bg-stone-300" />
+                <span className="text-[9px] uppercase tracking-[0.4em] text-stone-400 font-bold">
+                  {pagination.totalRecords} Masterpieces
                 </span>
-                <div className="w-10 h-px bg-stone-300" />
+                <div className="w-16 h-[1px] bg-stone-300" />
               </div>
             )}
           </div>

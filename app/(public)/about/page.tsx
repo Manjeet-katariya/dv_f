@@ -79,9 +79,9 @@ export default function AboutPage() {
               <div className="w-5 h-[1px] bg-stone-600" />
               <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">About the Studio</span>
             </div>
-            <h1 className="font-serif font-bold text-white text-[clamp(2.4rem,4.5vw,4rem)] leading-[1.05] tracking-tight mb-8">
+            <h1 className="font-serif text-white text-[clamp(3rem,5vw,5rem)] leading-[1.05] tracking-tight mb-8">
               We design spaces<br />
-              <span className="italic font-normal text-stone-400">that outlast</span><br />
+              <span className="italic font-light text-stone-400">that outlast</span><br />
               trends.
             </h1>
             <p className="text-stone-500 text-sm font-light leading-relaxed max-w-sm">
@@ -98,8 +98,8 @@ export default function AboutPage() {
           >
             {[['500+', 'Projects Delivered'], ['15+', 'Years of Practice']].map(([val, lbl]) => (
               <div key={lbl}>
-                <div className="text-3xl font-serif font-bold text-white mb-1">{val}</div>
-                <div className="text-[8px] uppercase tracking-[0.25em] text-stone-600">{lbl}</div>
+                <div className="text-4xl font-serif text-white mb-1">{val}</div>
+                <div className="text-[9px] uppercase tracking-[0.25em] text-stone-500 mt-2">{lbl}</div>
               </div>
             ))}
           </motion.div>
@@ -137,10 +137,10 @@ export default function AboutPage() {
                 <div className="w-5 h-[1px] bg-stone-400" />
                 <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Our Ethos</span>
               </div>
-              <h2 className="font-serif text-3xl lg:text-4xl font-bold text-[#1C1917] leading-tight mb-3">
+              <h2 className="font-serif text-4xl lg:text-5xl text-[#1C1917] leading-tight mb-3">
                 Great design is not
               </h2>
-              <h2 className="font-serif text-3xl lg:text-4xl italic font-normal text-stone-400 leading-tight mb-10">
+              <h2 className="font-serif text-4xl lg:text-5xl italic font-light text-stone-400 leading-tight mb-10">
                 decoration. It is clarity.
               </h2>
               <div className="space-y-5 text-[#57534E] text-sm font-light leading-relaxed max-w-md">
@@ -165,7 +165,7 @@ export default function AboutPage() {
                 <div key={item.num} className="group flex items-start gap-8 py-8 hover:bg-stone-50 transition-colors px-2">
                   <span className="text-[9px] font-mono text-stone-300 mt-1 flex-shrink-0">{item.num}</span>
                   <div>
-                    <h3 className="font-serif font-bold text-[#1C1917] text-lg mb-1 group-hover:text-stone-600 transition-colors">{item.title}</h3>
+                    <h3 className="font-serif text-[#1C1917] text-xl mb-2 group-hover:text-stone-600 transition-colors">{item.title}</h3>
                     <p className="text-[#57534E] text-xs font-light leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
@@ -204,10 +204,10 @@ export default function AboutPage() {
                 transition={{ delay: i * 0.1, duration: 0.6 }}
                 className="group p-10 lg:p-12 hover:bg-stone-800/40 transition-colors"
               >
-                <div className="text-[3.5rem] font-serif font-bold text-stone-800 group-hover:text-stone-600 transition-colors leading-none mb-8">
+                <div className="text-[4rem] font-serif text-stone-800 group-hover:text-stone-600 transition-colors leading-none mb-8">
                   {val.num}
                 </div>
-                <h3 className="font-serif font-bold text-white text-xl mb-4 group-hover:text-stone-300 transition-colors">{val.title}</h3>
+                <h3 className="font-serif text-white text-2xl mb-4 group-hover:text-stone-300 transition-colors">{val.title}</h3>
                 <p className="text-stone-600 text-sm font-light leading-relaxed group-hover:text-stone-500 transition-colors">{val.desc}</p>
               </motion.div>
             ))}
@@ -250,8 +250,8 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, delay: 0.15 }}
               >
                 <span className="text-[9px] font-mono text-stone-400 block mb-4">{founder.title}</span>
-                <h2 className="font-serif font-bold text-[#1C1917] text-4xl lg:text-5xl mb-8 leading-tight">{founder.name}</h2>
-                <blockquote className="font-serif italic font-normal text-xl text-stone-400 leading-relaxed mb-8 border-l-2 border-stone-300 pl-6">
+                <h2 className="font-serif text-[#1C1917] text-5xl lg:text-6xl mb-8 leading-tight">{founder.name}</h2>
+                <blockquote className="font-serif italic font-light text-2xl text-stone-400 leading-relaxed mb-8 border-l-2 border-stone-300 pl-6">
                   "{founder.quote}"
                 </blockquote>
                 {founder.bio && (
@@ -279,9 +279,9 @@ export default function AboutPage() {
                 <div className="w-5 h-[1px] bg-stone-400" />
                 <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">The Team</span>
               </div>
-              <h2 className="font-serif font-bold text-[#1C1917] text-3xl lg:text-4xl leading-tight">
+              <h2 className="font-serif text-[#1C1917] text-4xl lg:text-5xl leading-tight">
                 People Behind<br />
-                <span className="italic font-normal text-stone-400">Every Space.</span>
+                <span className="italic font-light text-stone-400">Every Space.</span>
               </h2>
             </div>
             <p className="text-[#57534E] text-sm font-light max-w-xs leading-relaxed">
@@ -314,8 +314,8 @@ export default function AboutPage() {
                   </div>
 
                   {/* Text */}
-                  <h3 className="font-serif font-bold text-[#1C1917] text-lg mb-1">{member.name}</h3>
-                  <p className="text-[9px] uppercase tracking-[0.25em] text-stone-400 font-bold mb-3">{member.position}</p>
+                  <h3 className="font-serif text-[#1C1917] text-xl mb-2">{member.name}</h3>
+                  <p className="text-[9px] uppercase tracking-[0.25em] text-stone-400 font-bold mb-4">{member.position}</p>
                   <div className="w-full h-[1px] bg-stone-200 mb-3 relative overflow-hidden">
                     <div className="absolute top-0 left-0 h-full w-0 bg-[#1C1917] group-hover:w-full transition-all duration-700 ease-out" />
                   </div>
@@ -351,10 +351,10 @@ export default function AboutPage() {
                 transition={{ delay: i * 0.1, duration: 0.6 }}
                 className="group p-8 lg:p-10 hover:bg-stone-800/30 transition-colors"
               >
-                <div className="text-[3rem] font-mono font-bold text-stone-800 group-hover:text-stone-600 transition-colors leading-none mb-6">
+                <div className="text-[3.5rem] font-serif text-stone-800 group-hover:text-stone-600 transition-colors leading-none mb-6">
                   {step.year}
                 </div>
-                <h3 className="font-serif font-bold text-white text-base mb-3 group-hover:text-stone-300 transition-colors">{step.title}</h3>
+                <h3 className="font-serif text-white text-lg mb-3 group-hover:text-stone-300 transition-colors">{step.title}</h3>
                 <p className="text-stone-600 text-xs font-light leading-relaxed group-hover:text-stone-500 transition-colors">{step.desc}</p>
               </motion.div>
             ))}

@@ -1,9 +1,17 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Playfair_Display, Montserrat } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/app/context/AuthContext';
 
-const inter = Inter({ subsets: ['latin'] });
+const playfair = Playfair_Display({ 
+  subsets: ['latin'],
+  variable: '--font-playfair'
+});
+
+const montserrat = Montserrat({ 
+  subsets: ['latin'],
+  variable: '--font-montserrat'
+});
 
 export const metadata: Metadata = {
   title: 'DVL Architects - Refined Architecture & Interiors',
@@ -20,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} overflow-x-hidden bg-[#FAF9F5] text-[#1C1917]`} suppressHydrationWarning>
+      <body className={`${montserrat.className} ${playfair.variable} ${montserrat.variable} overflow-x-hidden bg-[#FAF9F5] text-[#1C1917] font-sans antialiased selection:bg-[#1C1917] selection:text-white`} suppressHydrationWarning>
         <AuthProvider>
           {children}
         </AuthProvider>

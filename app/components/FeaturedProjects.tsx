@@ -7,30 +7,32 @@ import { ArrowUpRight } from 'lucide-react';
 
 const fallbackProjects = [
   {
-    id: 'glass-pavilion',
+    _id: 'glass-pavilion',
     title: 'The Glass Pavilion',
-    category: 'Residential',
+    category: 'residential',
     location: 'Swiss Alps',
-    year: '2024',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
+    completionYear: 2024,
+    featuredImage: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
   },
   {
-    id: 'aura-tower',
+    _id: 'aura-tower',
     title: 'Aura Skyscraper',
-    category: 'Commercial',
+    category: 'commercial',
     location: 'Dubai, UAE',
-    year: '2023',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
+    completionYear: 2023,
+    featuredImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80',
   },
   {
-    id: 'zenith-estate',
+    _id: 'zenith-estate',
     title: 'Zenith Estate',
-    category: 'Luxury Villa',
+    category: 'residential',
     location: 'Malibu, CA',
-    year: '2023',
-    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80',
+    completionYear: 2023,
+    featuredImage: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80',
   },
 ];
+
+const customEase = [0.16, 1, 0.3, 1];
 
 export default function FeaturedProjects() {
   const [projects, setProjects] = useState<any[]>([]);
@@ -61,87 +63,119 @@ export default function FeaturedProjects() {
 
   if (loading) {
     return (
-      <section className="bg-[#FAF9F5] py-24 flex items-center justify-center border-t border-stone-200">
-        <div className="flex items-center gap-4 text-[#878076]">
-          <div className="w-4 h-4 border border-stone-300 border-t-[#1C1917] rounded-full animate-spin" />
-          <span className="text-[9px] uppercase tracking-[0.3em] font-bold text-stone-500">Loading Portfolio</span>
+      <section className="bg-[#FAF9F5] py-32 flex items-center justify-center">
+        <div className="flex items-center gap-4 text-stone-400">
+          <div className="w-5 h-5 border-[2px] border-stone-200 border-t-[#1C1917] rounded-full animate-spin" />
+          <span className="text-[9px] uppercase tracking-[0.4em] font-bold">Curating</span>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="bg-[#FAF9F5] border-t border-stone-200 py-24">
-      <div className="max-w-[1800px] mx-auto px-8 lg:px-20">
+    <section className="bg-[#FAF9F5] py-24 lg:py-32">
+      <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
 
         {/* ── HEADER ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14 pb-8 border-b border-stone-200"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 1, ease: customEase }}
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20"
         >
           <div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-6 h-[1px] bg-stone-400" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Selected Works</span>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-8 h-[1px] bg-stone-500" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400">Our Archive</span>
             </div>
-            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-[#1C1917]">
-              Our Portfolio
+            <h2 className="text-5xl lg:text-7xl font-serif text-[#1C1917] tracking-tight leading-none">
+              Selected <span className="italic font-light text-stone-400">Works.</span>
             </h2>
           </div>
 
           <Link
             href="/portfolio"
-            className="group inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#1C1917] hover:text-stone-500 transition-colors"
+            className="group inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#1C1917] transition-colors"
           >
-            <span className="border-b border-[#1C1917]/20 group-hover:border-stone-500 pb-0.5 transition-colors">View All Projects</span>
+            <span className="border-b border-[#1C1917]/20 group-hover:border-[#1C1917] pb-1 transition-colors">View Complete Archive</span>
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
         </motion.div>
 
-        {/* ── GALLERY GRID (clean, no card boxes) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        {/* ── GALLERY GRID (Cinematic) ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
           {displayed.map((project, idx) => {
-            const projectImg = project.image || project.featuredImage;
-            const projectYear = project.year || project.completionYear;
-            const projectId = project._id || project.id;
+            const projectImg = project.featuredImage || project.image || 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1200';
+            const projectYear = project.completionYear || project.year || '';
+            const projectId = project._id || project.id || idx.toString();
+            const projectCat = project.category || 'Architecture';
+            const projectTitle = project.title || 'Untitled Project';
 
             return (
               <motion.div
                 key={projectId}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: idx * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: idx * 0.1, ease: customEase }}
               >
                 <Link href={`/portfolio/${projectId}`} className="group block">
-                  {/* Image */}
-                  <div className="relative w-full aspect-[4/3] overflow-hidden border border-stone-200 mb-4">
-                    <img
-                      src={projectImg}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-105"
-                    />
+                  
+                  {/* Image Frame */}
+                  <div className={`relative w-full overflow-hidden bg-stone-100 ${
+                    idx === 0 ? 'aspect-[4/5]' :
+                    idx === 1 ? 'aspect-[3/4]' :
+                    'aspect-[1/1]'
+                  }`}>
+                    {projectImg ? (
+                      <img
+                        src={projectImg}
+                        alt={projectTitle}
+                        className="w-full h-full object-cover transition-all duration-[2000ms] ease-out grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-stone-200" />
+                    )}
+                    
+                    {/* Hover Badge */}
+                    <div className="absolute top-5 left-5 overflow-hidden">
+                      <motion.div 
+                        initial={{ y: -20, opacity: 0 }}
+                        whileHover={{ y: 0, opacity: 1 }}
+                        className="bg-white text-[#1C1917] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.2em] translate-y-[-120%] group-hover:translate-y-0 transition-transform duration-500 ease-out"
+                      >
+                        Explore Space
+                      </motion.div>
+                    </div>
                   </div>
 
-                  {/* Text — no card, clean typography */}
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[8px] font-bold uppercase tracking-[0.25em] text-stone-400">
-                        {project.category} · {projectYear}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-serif font-bold text-[#1C1917] group-hover:text-stone-500 transition-colors leading-snug">
-                      {project.title}
+                  {/* Text Details */}
+                  <div className="mt-6">
+                    <h3 className="text-2xl font-serif text-[#1C1917] group-hover:text-stone-500 transition-colors leading-snug mb-2">
+                      {projectTitle}
                     </h3>
-                    <p className="text-xs text-stone-500 font-light mt-1">{project.location}</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[9px] uppercase tracking-[0.25em] text-stone-400 font-bold">
+                        {projectCat}
+                      </span>
+                      {project.location && (
+                        <>
+                          <span className="w-3 h-[1px] bg-stone-300" />
+                          <span className="text-[9px] uppercase tracking-[0.25em] text-stone-400 font-medium">
+                            {project.location}
+                          </span>
+                        </>
+                      )}
+                    </div>
                   </div>
+
                 </Link>
               </motion.div>
             );
           })}
         </div>
+        
       </div>
     </section>
   );

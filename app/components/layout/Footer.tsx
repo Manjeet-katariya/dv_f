@@ -88,70 +88,71 @@ const Footer = () => {
     { key: 'linkedin', href: socialLinks.linkedin, Icon: LinkedinIcon },
   ].filter(s => s.href);
 
-  const footerLinks = [
+  const leftLinks = [
     { name: 'Home', href: '/' },
     { name: 'Portfolio', href: '/portfolio' },
     { name: 'Services', href: '/services' },
+  ];
+
+  const rightLinks = [
     { name: 'About', href: '/about' },
-    { name: 'Team', href: '/team' },
-    { name: 'Blogs', href: '/blogs' },
     { name: 'Calculator', href: '/calculator' },
     { name: 'Contact', href: '/contact' },
   ];
 
   return (
-    <footer className="bg-[#F4F3EE] relative border-t border-stone-200">
-      {/* Top accent line */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-stone-200 to-transparent opacity-30" />
+    <footer className="bg-[#1C1917] text-white relative border-t border-stone-800">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-14 pt-24 pb-12">
 
-      <div className="max-w-[1700px] mx-auto px-6 lg:px-14 pt-16 pb-12">
+        {/* ── CENTRAL LOGO & ETHOS ── */}
+        <div className="flex flex-col items-center justify-center text-center mb-24">
+          <Link href="/" className="inline-block mb-6 group">
+            <img
+              src="/logo-dvl.png"
+              alt="DVL Architects"
+              className="h-16 w-16 md:h-20 md:w-20 object-cover rounded-full border border-stone-700 shadow-sm opacity-90 group-hover:opacity-100 transition-opacity mx-auto"
+            />
+            <span className="block mt-6 font-serif text-[12px] md:text-[14px] tracking-[0.4em] uppercase text-white">
+              DVL Architects
+            </span>
+          </Link>
+          <p className="max-w-md text-[11px] md:text-[12px] font-light text-stone-400 leading-relaxed tracking-wide mb-8">
+            Crafting exceptional spaces that blend luxury, functionality, and timeless design. Transforming visions into architectural masterpieces.
+          </p>
 
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          {socials.length > 0 && (
+            <div className="flex items-center gap-4 justify-center">
+              {socials.map(({ key, href, Icon }) => (
+                <a
+                  key={key}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={key}
+                  onClick={() => trackSocialClick(key)}
+                  className="flex items-center justify-center w-10 h-10 border border-stone-700 rounded-full text-stone-400 hover:text-[#1C1917] hover:border-white hover:bg-white transition-all duration-300"
+                >
+                  <Icon />
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
 
-          {/* Logo & Description */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-6">
-              <img
-                src="/logo-dvl.png"
-                alt="DVL Architects"
-                className="h-14 w-14 object-cover rounded-full border border-stone-200 shadow-sm opacity-90 hover:opacity-100 transition-opacity"
-              />
-            </Link>
-            <p className="text-[11px] font-light text-[#57534E] leading-relaxed tracking-wide mb-6">
-              Crafting exceptional spaces that blend luxury, functionality, and timeless design. Transforming visions into architectural masterpieces.
-            </p>
-
-            {socials.length > 0 && (
-              <div className="flex items-center gap-3">
-                {socials.map(({ key, href, Icon }) => (
-                  <a
-                    key={key}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={key}
-                    onClick={() => trackSocialClick(key)}
-                    className="flex items-center justify-center w-8 h-8 border border-stone-200/60 text-[#57534E] hover:text-[#1C1917] hover:border-stone-400 hover:bg-stone-50 transition-all duration-300"
-                  >
-                    <Icon />
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Quick Links */}
-          <div className="lg:col-span-1">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#1C1917] mb-8">
-              Quick Links
+        {/* ── SYMMETRICAL LINKS & CONTACT ── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24 mb-16 text-center md:text-left">
+          
+          {/* Left: Quick Links */}
+          <div className="flex flex-col md:items-end">
+            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-6">
+              Navigation
             </h3>
-            <div className="space-y-3">
-              {footerLinks.map(link => (
+            <div className="flex flex-col gap-4">
+              {leftLinks.map(link => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="block text-[10px] font-medium uppercase tracking-[0.15em] text-[#57534E] hover:text-[#1C1917] transition-colors duration-300"
+                  className="font-serif text-lg text-stone-300 hover:text-white transition-colors duration-300"
                 >
                   {link.name}
                 </Link>
@@ -159,61 +160,59 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Contact Info */}
-          <div className="lg:col-span-1">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#1C1917] mb-8">
-              Contact Info
+          {/* Center: Contact Info */}
+          <div className="flex flex-col items-center text-center border-t border-b md:border-t-0 md:border-b-0 md:border-l md:border-r border-stone-800 py-10 md:py-0 md:px-10">
+            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-6">
+              Studio
             </h3>
-            <div className="space-y-4 text-[11px] font-light text-[#57534E] leading-relaxed">
-              <div>
-                <p className="font-semibold text-[#878076] text-[10px] uppercase tracking-wider mb-1">STUDIO ADDRESS</p>
-                <p>{contactDetails?.address?.street ? `${contactDetails.address.street}` : 'Jaike-e-Jaipur Chowpatty'}<br />
-                  {contactDetails?.address?.city ? `${contactDetails.address.city}, ${contactDetails.address.state}` : 'Sirsi Road, Jaipur - 302012'}<br />
-                  {contactDetails?.address?.country || 'Rajasthan, India'}</p>
-              </div>
-              <div>
-                <p className="font-semibold text-[#878076] text-[10px] uppercase tracking-wider mb-1">PHONE</p>
-                <a href={`tel:${contactDetails?.phone || '+918619633247'}`} className="hover:text-[#1C1917] transition-colors">
+            <div className="space-y-4 text-[11px] font-light text-stone-300 leading-relaxed">
+              <p>
+                {contactDetails?.address?.street ? `${contactDetails.address.street}` : 'Jaike-e-Jaipur Chowpatty'}<br />
+                {contactDetails?.address?.city ? `${contactDetails.address.city}, ${contactDetails.address.state}` : 'Sirsi Road, Jaipur - 302012'}<br />
+                {contactDetails?.address?.country || 'Rajasthan, India'}
+              </p>
+              <p>
+                <a href={`tel:${contactDetails?.phone || '+918619633247'}`} className="hover:text-white transition-colors">
                   {contactDetails?.phone || '+91-8619633247'}
                 </a>
-              </div>
-              <div>
-                <p className="font-semibold text-[#878076] text-[10px] uppercase tracking-wider mb-1">EMAIL</p>
-                <a href={`mailto:${contactDetails?.email || 'sparchitects93@gmail.com'}`} className="hover:text-[#1C1917] transition-colors">
+              </p>
+              <p>
+                <a href={`mailto:${contactDetails?.email || 'sparchitects93@gmail.com'}`} className="hover:text-white transition-colors">
                   {contactDetails?.email || 'sparchitects93@gmail.com'}
                 </a>
-              </div>
+              </p>
             </div>
           </div>
 
-          {/* CTA */}
-          <div className="lg:col-span-1">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#1C1917] mb-8">
-              Connect
+          {/* Right: More Links / Connect */}
+          <div className="flex flex-col md:items-start">
+            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-6">
+              Explore
             </h3>
-
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center text-[9px] font-black uppercase tracking-[0.2em] px-6 py-3 bg-[#1C1917] text-[#FAF9F5] hover:bg-stone-800 transition-all duration-300 shadow-[0_2px_16px_rgba(28,25,23,0.15)] hover:shadow-[0_4px_24px_rgba(28,25,23,0.25)]"
-            >
-              Start Project
-            </Link>
+            <div className="flex flex-col gap-4 mb-8">
+              {rightLinks.map(link => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="font-serif text-lg text-stone-300 hover:text-white transition-colors duration-300"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
           </div>
 
         </div>
 
-        {/* Bottom Section */}
-        <div className="pt-8 border-t border-stone-200/80">
+        {/* ── BOTTOM ROW ── */}
+        <div className="pt-8 border-t border-stone-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[9px] uppercase tracking-[0.2em] text-[#878076] font-light">
+            <p className="text-[9px] uppercase tracking-[0.2em] text-stone-500 font-light text-center">
               © {year} DVL Architects. All rights reserved.
             </p>
-            <p className="text-[9px] uppercase tracking-[0.2em] text-[#878076] font-light">
+            <p className="text-[9px] uppercase tracking-[0.2em] text-stone-500 font-light text-center">
               Designed & Developed by{' '}
-              <a
-                href="#"
-                className="text-[#1C1917] hover:text-stone-500 transition-colors font-medium"
-              >
+              <a href="#" className="text-stone-300 hover:text-white transition-colors font-medium">
                 Nine Degree
               </a>
             </p>
@@ -221,9 +220,6 @@ const Footer = () => {
         </div>
 
       </div>
-
-      {/* Bottom line */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
     </footer>
   );
 };

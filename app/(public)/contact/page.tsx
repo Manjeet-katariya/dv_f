@@ -89,9 +89,9 @@ export default function ContactPage() {
               <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Get In Touch</span>
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-              <h1 className="font-serif font-bold text-white text-[clamp(2.5rem,5vw,4rem)] leading-tight">
+              <h1 className="font-serif text-white text-[clamp(3rem,6vw,5.5rem)] leading-[1.05] tracking-tight">
                 Start a Conversation.<br />
-                <span className="italic font-normal text-stone-500">We're listening.</span>
+                <span className="italic font-light text-stone-500">We're listening.</span>
               </h1>
               <p className="text-stone-400 text-sm font-light max-w-sm leading-relaxed lg:pb-2">
                 Whether you have a clear vision or just a blank canvas — reach out and let's talk about what your space could become.
@@ -117,9 +117,9 @@ export default function ContactPage() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-stone-50 rounded-full blur-3xl pointer-events-none" />
             
             <div>
-              <h2 className="text-4xl lg:text-5xl font-serif text-[#1C1917] font-bold leading-tight mb-8">
+              <h2 className="font-serif text-[#1C1917] text-5xl lg:text-6xl leading-tight mb-6">
                 Initiate a <br className="hidden xl:block" />
-                <span className="italic font-normal text-stone-500">Dialogue.</span>
+                <span className="italic font-light text-stone-500">Dialogue.</span>
               </h2>
               <p className="text-[#57534E] text-base leading-relaxed font-light mb-12 max-w-md">
                 Together, let’s bring something extraordinary to life. Whether you have a clear vision or just a blank canvas, our team is ready to help you bring your architectural dreams to life.
@@ -129,13 +129,13 @@ export default function ContactPage() {
             <div className="space-y-8 border-t border-stone-200 pt-10">
               <div>
                 <span className="text-[9px] uppercase tracking-[0.3em] text-stone-400 font-bold block mb-2">Direct Line</span>
-                <a href={`tel:${contactDetails?.phone || '+918619633247'}`} className="text-xl font-serif text-[#1C1917] hover:text-stone-600 transition-colors font-semibold font-serif">
+                <a href={`tel:${contactDetails?.phone || '+918619633247'}`} className="text-xl font-serif text-[#1C1917] hover:text-stone-600 transition-colors">
                   {loadingContact ? 'Loading...' : (contactDetails?.phone || '+91-8619633247')}
                 </a>
               </div>
               <div>
                 <span className="text-[9px] uppercase tracking-[0.3em] text-stone-400 font-bold block mb-2">Digital Desk</span>
-                <a href={`mailto:${contactDetails?.email || 'sparchitects93@gmail.com'}`} className="text-xl font-serif text-[#1C1917] hover:text-stone-600 transition-colors font-semibold font-serif">
+                <a href={`mailto:${contactDetails?.email || 'sparchitects93@gmail.com'}`} className="text-xl font-serif text-[#1C1917] hover:text-stone-600 transition-colors">
                   {loadingContact ? 'Loading...' : (contactDetails?.email || 'sparchitects93@gmail.com')}
                 </a>
               </div>
@@ -254,7 +254,7 @@ export default function ContactPage() {
                 <Calculator className="w-8 h-8 text-stone-600 group-hover:text-[#FAF9F5] transition-colors duration-500" strokeWidth={1.5} />
               </div>
               <div>
-                <h3 className="text-3xl font-bold text-[#1C1917] font-serif mb-2">Require a quick cost projection?</h3>
+                <h3 className="text-4xl font-serif text-[#1C1917] mb-3">Require a quick cost projection?</h3>
                 <p className="text-[#57534E] font-light text-sm">Utilize our smart estimation tool for instant clarity before consulting.</p>
               </div>
             </div>
@@ -278,7 +278,7 @@ export default function ContactPage() {
               <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-500">The Atelier</span>
               <div className="h-[1px] w-10 bg-stone-300" />
             </div>
-            <h2 className="text-3xl font-bold text-[#1C1917] font-serif">Visit Our Studio</h2>
+            <h2 className="text-4xl font-serif text-[#1C1917]">Visit Our Studio</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

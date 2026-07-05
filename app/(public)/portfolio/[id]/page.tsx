@@ -146,67 +146,10 @@ export default function ProjectDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             
-            {/* Left Col: Story & Gallery */}
-            <div className="lg:col-span-8">
-              <h2 className="text-2xl md:text-3xl font-serif text-[#1C1917] mb-6 pb-4 border-b border-stone-200">Project Overview</h2>
-              <p className="text-base md:text-lg text-[#57534E] leading-relaxed font-light mb-16 whitespace-pre-line">
-                {project.description}
-              </p>
-
-              {/* Dynamic Mosaic Image Gallery */}
-              {project.images.length > 0 && (
-                <div className="mb-16">
-                  <div className="flex items-center gap-3 mb-8">
-                    <Grid3x3 className="w-5 h-5 md:w-6 md:h-6 text-stone-600" />
-                    <h3 className="text-xl md:text-2xl font-serif text-[#1C1917]">Gallery</h3>
-                  </div>
-                  
-                  {/* Grid Setup: auto-rows to keep items strictly proportioned */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[250px] gap-4">
-                    {project.images.map((img, idx) => (
-                      <div 
-                        key={idx} 
-                        onClick={() => openLightbox(idx)}
-                        className={`group relative overflow-hidden bg-[#F4F3EE] cursor-pointer rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 ${getGallerySpan(idx)}`}
-                      >
-                        <img 
-                          src={img} 
-                          alt={`Gallery ${idx + 1}`} 
-                          className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-                        />
-                        {/* Hover Overlay */}
-                        <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center">
-                          <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                            <Eye className="w-6 h-6 text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Videos */}
-              {project.videos && project.videos.length > 0 && (
-                <div>
-                  <div className="flex items-center gap-3 mb-8">
-                    <Play className="w-5 h-5 md:w-6 md:h-6 text-stone-600" />
-                    <h3 className="text-xl md:text-2xl font-serif text-[#1C1917]">Cinematic Tour</h3>
-                  </div>
-                  <div className="grid grid-cols-1 gap-6">
-                    {project.videos.map((vid, idx) => (
-                      <div key={idx} className="aspect-video bg-black rounded-sm overflow-hidden shadow-lg border-4 border-stone-100">
-                        <video src={vid} controls className="w-full h-full object-cover" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Right Col: Details Card */}
-            <div className="lg:col-span-4">
-              <div className="sticky top-32 bg-[#FAF9F5] border border-stone-200 p-6 md:p-8 rounded-sm shadow-sm">
+            {/* Left Col: Details & Story (Content) */}
+            <div className="lg:col-span-4 flex flex-col gap-12">
+              {/* Details Card */}
+              <div className="bg-[#FAF9F5] border border-stone-200 p-6 md:p-8 rounded-sm shadow-sm">
                 <h3 className="text-lg md:text-xl font-serif text-[#1C1917] mb-6">Project Details</h3>
                 
                 <div className="space-y-6 mb-8">
@@ -252,81 +195,116 @@ export default function ProjectDetailPage() {
                   </Link>
                 </div>
               </div>
+
+              {/* Story / Overview */}
+              <div>
+                <h2 className="text-2xl md:text-3xl font-serif text-[#1C1917] mb-6 pb-4 border-b border-stone-200">Project Overview</h2>
+                <p className="text-base md:text-lg text-[#57534E] leading-relaxed font-light whitespace-pre-line">
+                  {project.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Right Col: Gallery & Videos (Images) */}
+            <div className="lg:col-span-8">
+              
+              {/* Inline Interactive Gallery */}
+              {project.images.length > 0 && (
+                <div className="mb-16">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Grid3x3 className="w-5 h-5 md:w-6 md:h-6 text-stone-600" />
+                    <h3 className="text-xl md:text-2xl font-serif text-[#1C1917]">Gallery</h3>
+                  </div>
+                  
+                  <div className="flex flex-col md:flex-row gap-4 h-[400px] md:h-[600px]">
+                    
+                    {/* Thumbnails Sidebar (Left) */}
+                    {/* Added custom inline styles to hide scrollbar cross-browser */}
+                    <div 
+                      className="flex-[1] flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-y-auto pb-2 md:pb-0"
+                      style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
+                    >
+                      {/* Webkit scrollbar hide inline style injected via global css class usually, but style tag works here */}
+                      <style>{`
+                        .flex-\\[1\\]::-webkit-scrollbar {
+                          display: none;
+                        }
+                      `}</style>
+                      
+                      {project.images.map((img, idx) => (
+                        <div 
+                          key={idx}
+                          onClick={() => setLightboxIndex(idx)}
+                          className={`relative cursor-pointer w-[120px] md:w-full h-[80px] md:h-[140px] flex-shrink-0 overflow-hidden rounded-md transition-all duration-300 ${
+                            lightboxIndex === idx ? 'ring-2 ring-offset-2 ring-[#1C1917] opacity-100' : 'opacity-60 hover:opacity-100'
+                          }`}
+                        >
+                          <img 
+                            src={img} 
+                            alt={`Thumbnail ${idx + 1}`} 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Main Large Image (Right) */}
+                    <div className="flex-[3] relative rounded-md overflow-hidden bg-[#F4F3EE] shadow-sm group">
+                      <AnimatePresence mode="wait">
+                        <motion.img
+                          key={lightboxIndex}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          src={project.images[lightboxIndex]}
+                          alt="Main Gallery View"
+                          className="w-full h-full object-cover"
+                        />
+                      </AnimatePresence>
+                      
+                      {/* Navigation Arrows */}
+                      <button 
+                        onClick={() => navigateLightbox('prev')} 
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 hover:bg-white text-stone-800 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      <button 
+                        onClick={() => navigateLightbox('next')} 
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 hover:bg-white text-stone-800 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+              )}
+
+              {/* Videos */}
+              {project.videos && project.videos.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-3 mb-8">
+                    <Play className="w-5 h-5 md:w-6 md:h-6 text-stone-600" />
+                    <h3 className="text-xl md:text-2xl font-serif text-[#1C1917]">Cinematic Tour</h3>
+                  </div>
+                  <div className="grid grid-cols-1 gap-6">
+                    {project.videos.map((vid, idx) => (
+                      <div key={idx} className="aspect-video bg-black rounded-sm overflow-hidden shadow-lg border-4 border-stone-100">
+                        <video src={vid} controls className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* --- LIGHT THEME LIGHTBOX MODAL --- */}
-      <AnimatePresence>
-        {lightboxOpen && project && (
-          <motion.div
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-white/95 backdrop-blur-md flex items-center justify-center"
-            onClick={closeLightbox}
-          >
-            {/* Close Button */}
-            <button 
-              onClick={closeLightbox} 
-              className="absolute top-4 right-4 md:top-6 md:right-6 z-10 p-2 md:p-3 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] hover:bg-stone-200 rounded-full transition-colors shadow-sm"
-            >
-              <X className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
-            
-            {/* Previous Button (Desktop) */}
-            <button 
-              onClick={(e) => { e.stopPropagation(); navigateLightbox('prev'); }} 
-              className="absolute left-6 top-1/2 -translate-y-1/2 z-10 p-3 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] hover:bg-stone-200 rounded-full transition-colors shadow-sm hidden md:block"
-            >
-              <ChevronLeft className="w-8 h-8" />
-            </button>
-            
-            {/* Image Container */}
-            <div className="relative w-full max-w-7xl max-h-[90vh] mx-auto px-4 md:px-20 flex flex-col items-center justify-center" onClick={(e) => e.stopPropagation()}>
-              
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={lightboxIndex}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                  src={project.images[lightboxIndex]}
-                  alt="Enlarged gallery view"
-                  className="max-w-full max-h-[70vh] md:max-h-[80vh] object-contain shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-sm border border-stone-200"
-                />
-              </AnimatePresence>
 
-              {/* Mobile Controls (Visible only on small screens) */}
-              <div className="flex md:hidden items-center justify-center gap-6 mt-6">
-                <button onClick={(e) => { e.stopPropagation(); navigateLightbox('prev'); }} className="p-2 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] rounded-full shadow-sm"><ChevronLeft className="w-5 h-5" /></button>
-                <div className="text-[#878076] tracking-widest text-xs font-bold">
-                  {lightboxIndex + 1} / {project.images.length}
-                </div>
-                <button onClick={(e) => { e.stopPropagation(); navigateLightbox('next'); }} className="p-2 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] rounded-full shadow-sm"><ChevronRight className="w-5 h-5" /></button>
-              </div>
-
-              {/* Desktop Counter */}
-              <div className="hidden md:block text-center text-[#878076] mt-6 tracking-widest text-sm font-bold uppercase">
-                {lightboxIndex + 1} <span className="mx-2 font-normal text-zinc-300">|</span> {project.images.length}
-              </div>
-            </div>
-
-            {/* Next Button (Desktop) */}
-            <button 
-              onClick={(e) => { e.stopPropagation(); navigateLightbox('next'); }} 
-              className="absolute right-6 top-1/2 -translate-y-1/2 z-10 p-3 bg-[#F4F3EE] text-[#878076] hover:text-[#1C1917] hover:bg-stone-200 rounded-full transition-colors shadow-sm hidden md:block"
-            >
-              <ChevronRight className="w-8 h-8" />
-            </button>
-
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
