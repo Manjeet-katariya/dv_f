@@ -61,13 +61,12 @@ export default function Home() {
 
   return (
     <div className="bg-[#FAF9F5] text-[#1C1917] font-sans selection:bg-[#1C1917] selection:text-[#FAF9F5]">
-
       {/* ── 01 — HERO (Full Screen Cinematic) ── */}
-      <section className="relative w-full h-screen min-h-[600px] overflow-hidden flex flex-col items-center justify-center">
+      <section className="relative w-full h-[80dvh] md:h-[100dvh] min-h-[500px] md:min-h-[600px] overflow-hidden flex flex-col items-center justify-center">
         {/* Parallax Background Image */}
         <motion.div
           className="absolute inset-0 z-0"
-          style={{ y: scrollY * 0.4 }} // subtle parallax
+          style={{ y: typeof window !== 'undefined' && window.innerWidth > 768 ? scrollY * 0.3 : 0 }}
         >
           <motion.img
             initial={{ scale: 1.1 }}
@@ -75,31 +74,31 @@ export default function Home() {
             transition={{ duration: 2.5, ease: customEase }}
             src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90"
             alt="DVL Architects"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
-          {/* Vignette Overlay for pure editorial feel */}
-          <div className="absolute inset-0 bg-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+          {/* Vignette Overlay for pure editorial feel & readability */}
+          <div className="absolute inset-0 bg-black/45" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-black/75" />
         </motion.div>
-
+ 
         {/* Centered Typography */}
-        <div className="relative z-10 text-center px-4 mt-20">
+        <div className="relative z-10 text-center px-6 mt-20 w-full max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, delay: 0.2, ease: customEase }}
             className="flex items-center justify-center gap-4 mb-6"
           >
-            <div className="w-12 h-[1px] bg-white/60" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/80">Architecture & Interiors</span>
-            <div className="w-12 h-[1px] bg-white/60" />
+            <div className="w-8 md:w-12 h-[1px] bg-white/60" />
+            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.4em] text-white/80">Architecture & Interiors</span>
+            <div className="w-8 md:w-12 h-[1px] bg-white/60" />
           </motion.div>
           
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, delay: 0.4, ease: customEase }}
-            className="font-serif text-white tracking-tight leading-[0.95] text-[clamp(4rem,10vw,9rem)]"
+            className="font-serif text-white tracking-tight leading-[1.05] md:leading-[0.95] text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl"
           >
             Designing Spaces<br />
             <span className="italic font-light">That Inspire.</span>
