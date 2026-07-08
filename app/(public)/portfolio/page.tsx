@@ -28,7 +28,7 @@ const fallbackProjects: Project[] = [
   { _id: "p6", title: "The Nordic Loft", category: "residential", description: "Minimalist Nordic design.", location: "Oslo, Norway", completionYear: 2023, client: "Private", featuredImage: "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1200&q=80", images: [], isActive: true, order: 6 },
 ];
 
-const customEase = [0.16, 1, 0.3, 1];
+const customEase = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export default function PortfolioPage() {
   const [projects, setProjects] = useState<Project[]>([]);

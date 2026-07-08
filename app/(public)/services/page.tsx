@@ -24,6 +24,22 @@ const services = [
   },
   {
     num: '03',
+    tag: 'Interior Designing',
+    title: 'Bespoke Indoors & Furniture',
+    desc: 'From space planning and material curation to custom furniture design, we create cohesive interiors that represent your personal tastes and functional requirements.',
+    features: ['Space Curation & Layouts', 'Bespoke Furniture & Fit-outs', 'Material & Paint Consulting', 'Decorative Lighting & Accents'],
+    img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=900',
+  },
+  {
+    num: '04',
+    tag: 'Hospitality',
+    title: 'Immersive Guest Experiences',
+    desc: 'We design hotels, resorts, cafés, and restaurants that foster memorable guest experiences through exceptional ambiance, clever spatial layouts, and durable luxury materials.',
+    features: ['Bespoke Restaurant & Café Layouts', 'Lobby & Reception Styling', 'Luxury Resort Masterplanning', 'Guest Room & Suite Ergonomics'],
+    img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=900',
+  },
+  {
+    num: '05',
     tag: 'Architecture & PMC',
     title: 'We Run the Site. You Rest.',
     desc: 'Acting as your eyes and ears on-site, we coordinate every contractor, enforce timelines, audit quality, and protect your investment throughout the entire build.',
@@ -31,7 +47,7 @@ const services = [
     img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=900',
   },
   {
-    num: '04',
+    num: '06',
     tag: 'Cost Estimation',
     title: 'Know Every Number. Always.',
     desc: 'No hidden costs. No budget shocks. We deliver detailed financial blueprints — material breakdowns, labour estimates, and contingency plans — so you commit with full confidence.',
@@ -41,11 +57,10 @@ const services = [
 ];
 
 const process = [
-  { num: '01', title: 'Listen', desc: 'Deep discovery — understanding your lifestyle, goals, and spatial needs.' },
-  { num: '02', title: 'Design', desc: 'Floor plans, mood boards, 3D renders — a complete visual language.' },
-  { num: '03', title: 'Approve', desc: 'You review and sign off. Nothing moves until you are satisfied.' },
-  { num: '04', title: 'Build', desc: 'We supervise every stage — materials, contractors, checkpoints.' },
-  { num: '05', title: 'Handover', desc: 'A curated reveal followed by dedicated post-handover support.' },
+  { num: '01', title: 'Listen & Discover', desc: 'We immerse ourselves in your world — your aspirations, lifestyle, and spatial needs — before a single line is drawn.' },
+  { num: '02', title: 'Design & Envision', desc: 'Detailed floor plans, mood boards, material palettes, and photorealistic 3D renders bring your vision to life on screen.' },
+  { num: '03', title: 'Build & Supervise', desc: 'Our on-site team manages every contractor, material, and timeline to ensure flawless quality at every stage.' },
+  { num: '04', title: 'Reveal & Celebrate', desc: 'A curated final walkthrough of your completed space, styled to perfection, followed by our post-handover care.' },
 ];
 
 export default function ServicesPage() {
@@ -213,10 +228,10 @@ export default function ServicesPage() {
             <div className="flex items-center gap-3">
               <div className="w-5 h-[1px] bg-stone-700" />
               <h2 className="font-serif text-white text-4xl lg:text-5xl">
-                Five Steps to Your <span className="italic font-light text-stone-500">Perfect Space.</span>
+                From Brief to <span className="italic font-light text-stone-500">Beautiful Reality.</span>
               </h2>
             </div>
-            <p className="text-stone-600 text-sm font-light max-w-xs">A transparent, proven workflow. No surprises.</p>
+            <p className="text-stone-600 text-sm font-light max-w-xs">A refined four-phase process perfected over 8 years of architectural practice.</p>
           </div>
 
           {/* Steps — horizontal with connecting line */}
@@ -224,7 +239,7 @@ export default function ServicesPage() {
             {/* Connecting line (desktop only) */}
             <div className="hidden lg:block absolute top-8 left-[40px] right-[40px] h-[1px] bg-stone-800 z-0" />
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-4 relative z-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative z-10">
               {process.map((step, i) => (
                 <motion.div
                   key={i}

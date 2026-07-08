@@ -77,7 +77,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-[#FAF9F5] font-sans selection:bg-[#1C1917] selection:text-[#FAF9F5]">
 
       {/* ── 1. HEADER (Dark Hero) ── */}
-      <section className="bg-[#1C1917] pt-28 pb-36 px-8 lg:px-16">
+      <section className="bg-[#1C1917] pt-44 pb-36 px-8 lg:px-16">
         <div className="max-w-[1700px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -90,11 +90,11 @@ export default function ContactPage() {
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
               <h1 className="font-serif text-white text-[clamp(3rem,6vw,5.5rem)] leading-[1.05] tracking-tight">
-                Start a Conversation.<br />
-                <span className="italic font-light text-stone-500">We're listening.</span>
+                Where Vision Meets<br />
+                <span className="italic font-light text-stone-500">Architecture into life.</span>
               </h1>
               <p className="text-stone-400 text-sm font-light max-w-sm leading-relaxed lg:pb-2">
-                Whether you have a clear vision or just a blank canvas — reach out and let's talk about what your space could become.
+                Great architecture starts with understanding your story. Share your ideas with us, and together we'll make spaces that are elegant, functional, and designed to stand the test of time.
               </p>
             </div>
           </motion.div>

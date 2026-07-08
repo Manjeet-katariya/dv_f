@@ -69,16 +69,13 @@ export default function AboutPage() {
       <section className="grid lg:grid-cols-2 min-h-[88vh]">
 
         {/* Left: Dark content */}
-        <div className="bg-[#1C1917] flex flex-col justify-between px-10 lg:px-16 pt-28 pb-14">
+        <div className="bg-[#1C1917] flex flex-col justify-between px-10 lg:px-16 pt-44 pb-14">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
           >
-            <div className="flex items-center gap-3 mb-10">
-              <div className="w-5 h-[1px] bg-stone-600" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">About the Studio</span>
-            </div>
+
             <h1 className="font-serif text-white text-[clamp(3rem,5vw,5rem)] leading-[1.05] tracking-tight mb-8">
               We design spaces<br />
               <span className="italic font-light text-stone-400">that outlast</span><br />
@@ -96,7 +93,7 @@ export default function AboutPage() {
             transition={{ delay: 0.7 }}
             className="grid grid-cols-2 gap-6 border-t border-stone-800 pt-8 mt-14"
           >
-            {[['500+', 'Projects Delivered'], ['15+', 'Years of Practice']].map(([val, lbl]) => (
+            {[['180+', 'Projects Delivered'], ['8+', 'Years of Practice']].map(([val, lbl]) => (
               <div key={lbl}>
                 <div className="text-4xl font-serif text-white mb-1">{val}</div>
                 <div className="text-[9px] uppercase tracking-[0.25em] text-stone-500 mt-2">{lbl}</div>
@@ -138,14 +135,14 @@ export default function AboutPage() {
                 <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Our Ethos</span>
               </div>
               <h2 className="font-serif text-4xl lg:text-5xl text-[#1C1917] leading-tight mb-3">
-                Great design is not
+                Design with Purpose.
               </h2>
               <h2 className="font-serif text-4xl lg:text-5xl italic font-light text-stone-400 leading-tight mb-10">
-                decoration. It is clarity.
+                Build with Integrity.
               </h2>
               <div className="space-y-5 text-[#57534E] text-sm font-light leading-relaxed max-w-md">
-                <p>At DVL, every project begins with a deep focus on purpose. We believe a well-designed space should not only look beautiful — it should work better, feel right, and improve the daily lives of the people who inhabit it.</p>
-                <p>We work closely with our clients, building trust through transparency and delivering on every commitment — from the first consultation to the final styling of your space.</p>
+                <p>At D.V.L Architects, we believe exceptional architecture begins with clarity of thought, not excess of form. Every project is shaped by its purpose, its context, and the people who will experience it. We create spaces that are timeless, functional, and emotionally meaningful—where beauty is a natural outcome of thoughtful design.</p>
+                <p>Our process is built on collaboration, transparency, and meticulous attention to detail. From the first conversation to the final handover, we remain committed to delivering architecture that reflects your vision while exceeding expectations.</p>
               </div>
             </motion.div>
 

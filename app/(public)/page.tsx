@@ -23,19 +23,31 @@ const services = [
   },
   {
     num: '03',
-    title: 'Architecture',
+    title: 'Interior Designing',
+    desc: 'Bespoke indoors and furniture fit-outs crafted to represent your personal tastes.',
+    img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1920',
+  },
+  {
+    num: '04',
+    title: 'Hospitality',
+    desc: 'Immersive café, hotel, and restaurant designs that foster memorable guest experiences.',
+    img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1920',
+  },
+  {
+    num: '05',
+    title: 'Architecture & PMC',
     desc: 'End-to-end project management, contractor coordination, and on-site quality supervision.',
     img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1920',
   },
   {
-    num: '04',
-    title: 'Estimation',
+    num: '06',
+    title: 'Cost Estimation',
     desc: 'Precision budgeting with transparent breakdowns. Know your numbers before the first brick is laid.',
     img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1920',
   },
 ];
 
-const customEase = [0.16, 1, 0.3, 1];
+const customEase = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export default function Home() {
   const [hoveredService, setHoveredService] = useState<number | null>(null);
@@ -89,26 +101,42 @@ export default function Home() {
             transition={{ duration: 1.5, delay: 0.4, ease: customEase }}
             className="font-serif text-white tracking-tight leading-[0.95] text-[clamp(4rem,10vw,9rem)]"
           >
-            Design That<br />
-            <span className="italic font-light">Inspires.</span>
+            Designing Spaces<br />
+            <span className="italic font-light">That Inspire.</span>
           </motion.h1>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 1.2 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10"
-        >
-          <span className="text-[9px] uppercase tracking-[0.3em] text-white/60">Discover</span>
+        {/* Hero Bottom Strip (Info & Stats) */}
+        <div className="absolute bottom-8 left-0 right-0 w-full px-8 lg:px-16 hidden md:flex items-end justify-between gap-10 z-10 text-white">
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.5, delay: 0.8 }}
+            className="max-w-xs text-left"
           >
-            <ArrowDown className="w-4 h-4 text-white/60" strokeWidth={1.5} />
+            <p className="text-[11px] font-light text-white/70 leading-relaxed">
+              We make architecture, interiors, and design that is innovative, refined, and remarkable.
+            </p>
           </motion.div>
-        </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.5, delay: 0.8 }}
+            className="flex items-center gap-8 lg:gap-12 text-right"
+          >
+            {[
+              { val: '180', label: 'Projects Delivered' },
+              { val: '8+', label: 'Years Experience' },
+              { val: '100%', label: 'Client Satisfaction' }
+            ].map((stat, i) => (
+              <div key={i}>
+                <div className="text-xl lg:text-2xl font-serif font-bold text-white leading-none">{stat.val}</div>
+                <div className="text-[8px] uppercase tracking-[0.2em] text-white/50 mt-2 font-bold">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </section>
 
       {/* ── 02 — THE ETHOS (Massive Statement) ── */}
@@ -121,7 +149,7 @@ export default function Home() {
             transition={{ duration: 1.5, ease: customEase }}
             className="font-serif text-[#1C1917] text-[clamp(2.5rem,5vw,5rem)] leading-[1.1] tracking-tight"
           >
-            We translate human aspirations into architectural realities, creating spaces that are <span className="italic font-light text-stone-400">timeless, refined, and distinctly yours.</span>
+            We translate human aspirations into architectural realities, creating spaces that <span className="italic font-light text-stone-400">inspire.</span>
           </motion.h2>
           
           <motion.div

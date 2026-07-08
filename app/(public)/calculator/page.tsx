@@ -73,7 +73,7 @@ export default function CalculatorPage() {
     <div className="min-h-screen bg-[#FAF9F5] font-sans">
 
       {/* ── PAGE HEADER ── */}
-      <div className="bg-[#1C1917] pt-28 pb-0">
+      <div className="bg-[#1C1917] pt-44 pb-0">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="flex items-center gap-3 mb-5">

@@ -25,100 +25,70 @@ export default function MissionVision() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-24"
+          className="text-center mb-20"
         >
           <div className="inline-flex items-center gap-4 mb-6">
             <div className="h-px w-10 bg-stone-400" />
-            <span className="text-[9px] font-bold uppercase tracking-[0.45em] text-[#878076]">Core Philosophy</span>
+            <span className="text-[9px] font-bold uppercase tracking-[0.45em] text-[#878076]">Core philosophy</span>
             <div className="h-px w-10 bg-stone-400" />
           </div>
-          <h2 className="text-3xl lg:text-4xl font-serif font-bold text-[#1C1917]">
-            Our Purpose &{' '}
-            <span className="text-stone-850 italic font-serif">Future Trajectory.</span>
+          <h2 className="text-3xl lg:text-5xl font-serif font-bold text-[#1C1917] tracking-tight">
+            Turning Dreams into{' '}
+            <span className="text-stone-500 italic font-light">Timeless Spaces.</span>
           </h2>
         </motion.div>
 
-        {/* Two columns separated by vertical stone line */}
-        <div className="grid lg:grid-cols-[1fr_1px_1fr] items-start gap-0">
-
-          {/* ── MISSION ── */}
+        {/* Philosophy Details */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* Left Column: Slogan/Callout */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
-            className="py-12 lg:pr-20 group"
+            className="lg:col-span-5 py-6"
           >
-            <div className="flex items-center justify-between mb-12">
-              <span className="text-8xl font-serif font-bold text-stone-300 group-hover:text-stone-400 transition-colors duration-500 leading-none">I</span>
-              <div className="text-right">
-                <p className="text-[8px] font-bold uppercase tracking-[0.45em] text-[#878076]">The Mandate</p>
-                <p className="text-[8px] font-bold uppercase tracking-[0.25em] text-stone-400 mt-1">Mission</p>
-              </div>
-            </div>
-
-            <h3 className="text-2xl lg:text-3xl font-serif font-bold text-[#1C1917] leading-tight tracking-tight mb-8">
-              Elevating the{' '}
-              <span className="text-stone-850 italic font-serif">Standard</span>{' '}
-              of Living
+            <h3 className="text-3xl lg:text-4xl font-serif font-light italic text-stone-500 leading-tight">
+              Every great space begins with a dream.
             </h3>
-
-            <p className="text-[#57534E] text-sm leading-relaxed font-light mb-12 max-w-lg">
-              We are dedicated to crafting spaces that seamlessly blend aesthetic brilliance with everyday functionality. Our mission is to transform environments into bespoke sanctuaries that perfectly reflect the unique identity of those who inhabit them.
-            </p>
-
-            <div className="grid grid-cols-3 gap-8 border-t border-stone-200 pt-10">
-              {[{ v: '500+', l: 'Spaces' }, { v: '15+', l: 'Years' }, { v: '100%', l: 'Precision' }].map((s, i) => (
-                <div key={i}>
-                  <div className="text-2xl font-bold font-serif text-[#1C1917] mb-1 group-hover:text-stone-600 transition-colors">{s.v}</div>
-                  <div className="text-[8px] uppercase tracking-[0.25em] text-[#878076]">{s.l}</div>
-                </div>
-              ))}
-            </div>
           </motion.div>
 
-          {/* Vertical divider */}
-          <div className="hidden lg:block bg-gradient-to-b from-transparent via-stone-200 to-transparent self-stretch" />
-
-          {/* ── VISION ── */}
+          {/* Right Column: Statement */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.12 }}
-            className="py-12 lg:pl-20 border-t border-stone-200 lg:border-t-0 group"
+            transition={{ duration: 0.9, delay: 0.15 }}
+            className="lg:col-span-7 space-y-6 text-[#57534E] text-base font-light leading-relaxed"
           >
-            <div className="flex items-center justify-between mb-12">
-              <span className="text-8xl font-serif font-bold text-stone-300 group-hover:text-stone-400 transition-colors duration-500 leading-none">II</span>
-              <div className="text-right">
-                <p className="text-[8px] font-bold uppercase tracking-[0.45em] text-[#878076]">The Horizon</p>
-                <p className="text-[8px] font-bold uppercase tracking-[0.25em] text-stone-400 mt-1">Vision</p>
-              </div>
-            </div>
-
-            <h3 className="text-2xl lg:text-3xl font-serif font-bold text-[#1C1917] leading-tight tracking-tight mb-8">
-              Pioneering{' '}
-              <span className="text-stone-850 italic font-serif">Architectural</span>{' '}
-              Legacy
-            </h3>
-
-            <p className="text-[#57534E] text-sm leading-relaxed font-light mb-12 max-w-lg">
-              To be the global benchmark in luxury architecture and interior design. We envision a future where our creations not only define modern elegance but stand as enduring landmarks of sustainable and innovative design.
+            <p>
+              At D.V.L Architects, we work closely with our clients to understand not just what they want to build, but how they want to live. We believe exceptional architecture is deeply personal—it should reflect your identity, enhance your daily life, and remain beautiful for generations.
             </p>
-
-            <div className="space-y-5 border-t border-stone-200 pt-10">
-              {['Global Design Influence', 'Sustainable Luxury', 'Uncompromising Quality'].map((item, i) => (
-                <div key={i} className="flex items-center gap-5">
-                  <div className="w-2 h-2 bg-[#1C1917] flex-shrink-0" />
-                  <span className="text-[#57534E] text-[11px] uppercase tracking-[0.25em] font-bold group-hover:text-[#1C1917] transition-colors">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <p className="text-[#1C1917] font-medium font-serif text-lg border-l-2 border-stone-300 pl-4">
+              Our purpose is simple: to create spaces that inspire, comfort, and leave a lasting legacy.
+            </p>
           </motion.div>
-
         </div>
+
+        {/* Stats strip below */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="grid grid-cols-3 gap-6 md:gap-12 max-w-4xl mx-auto border-t border-stone-200 pt-12 mt-16 text-center"
+        >
+          {[
+            { v: '180+', l: 'Projects Delivered' },
+            { v: '8+', l: 'Years Experience' },
+            { v: '100%', l: 'Client Satisfaction' }
+          ].map((s, i) => (
+            <div key={i}>
+              <div className="text-3xl lg:text-4xl font-serif font-bold text-[#1C1917] mb-2">{s.v}</div>
+              <div className="text-[9px] uppercase tracking-[0.25em] text-[#878076] font-bold">{s.l}</div>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

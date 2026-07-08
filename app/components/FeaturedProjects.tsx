@@ -32,7 +32,7 @@ const fallbackProjects = [
   },
 ];
 
-const customEase = [0.16, 1, 0.3, 1];
+const customEase = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export default function FeaturedProjects() {
   const [projects, setProjects] = useState<any[]>([]);

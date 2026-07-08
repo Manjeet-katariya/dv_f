@@ -117,7 +117,7 @@ const Footer = () => {
             </span>
           </Link>
           <p className="max-w-md text-[11px] md:text-[12px] font-light text-stone-400 leading-relaxed tracking-wide mb-8">
-            Crafting exceptional spaces that blend luxury, functionality, and timeless design. Transforming visions into architectural masterpieces.
+            Where Vision Meets Timeless Design. Creating Architecture That Inspires Every Generation.
           </p>
 
           {socials.length > 0 && (
