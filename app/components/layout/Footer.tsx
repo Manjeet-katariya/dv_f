@@ -210,12 +210,6 @@ const Footer = () => {
             <p className="text-[9px] uppercase tracking-[0.2em] text-stone-500 font-light text-center">
               © {year} DVL Architects. All rights reserved.
             </p>
-            <p className="text-[9px] uppercase tracking-[0.2em] text-stone-500 font-light text-center">
-              Designed & Developed by{' '}
-              <a href="#" className="text-stone-300 hover:text-white transition-colors font-medium">
-                Nine Degree
-              </a>
-            </p>
           </div>
         </div>
 

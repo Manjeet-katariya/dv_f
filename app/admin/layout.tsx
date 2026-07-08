@@ -68,7 +68,7 @@ export default function AdminLayout({
       {/* Main Content Container - Scrollable */}
       <div className="flex-1 flex flex-col min-w-0 h-screen">
         {/* Topbar - Fixed at top */}
-        <div className="shrink-0">
+        <div className="shrink-0 relative z-40">
           <AdminTopbar
             onMenuClick={() => setSidebarOpen(true)}
           />
