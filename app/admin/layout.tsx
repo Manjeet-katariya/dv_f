@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import AdminSidebar from '@/app/components/admin/layout/AdminSidebar';
 import AdminTopbar from '@/app/components/admin/layout/AdminTopbar';
+import { Toaster } from 'sonner';
 
 export default function AdminLayout({
   children,
@@ -81,6 +82,7 @@ export default function AdminLayout({
           </div>
         </main>
       </div>
+      <Toaster richColors closeButton position="top-right" />
     </div>
   );
 }

@@ -16,13 +16,23 @@ import {
   Calculator,
   X,
   Shield,
-  Share2
+  Share2,
+  Globe,
+  ExternalLink
 } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const baseMenuItems = [
+interface MenuItem {
+  href: string;
+  label: string;
+  icon: any;
+  target?: string;
+}
+
+const baseMenuItems: MenuItem[] = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/website-content', label: 'Website Content', icon: Globe },
   { href: '/admin/contact-details', label: 'Site Settings', icon: Settings },
   { href: '/admin/social-icons', label: 'Social Icons', icon: Share2 },
   { href: '/admin/founder', label: 'Founder Profile', icon: UserPlus },
@@ -32,7 +42,7 @@ const baseMenuItems = [
   { href: '/admin/estimates', label: 'Estimates', icon: Calculator },
 ];
 
-const superadminMenuItems = [
+const superadminMenuItems: MenuItem[] = [
   { href: '/admin/manage-admins', label: 'Manage Admins', icon: Shield },
 ];
 
@@ -87,6 +97,7 @@ export default function AdminSidebar({ sidebarOpen = false, setSidebarOpen }: Ad
               <Link
                 key={item.href}
                 href={item.href}
+                target={item.target}
                 title={collapsed ? item.label : ""}
                 className={`
                   flex items-center px-6 py-3.5 transition-all duration-200 group relative text-sm
@@ -173,6 +184,7 @@ export default function AdminSidebar({ sidebarOpen = false, setSidebarOpen }: Ad
                     <Link
                       key={item.href}
                       href={item.href}
+                      target={item.target}
                       onClick={() => setSidebarOpen?.(false)}
                       className={`
                         flex items-center px-4 py-3.5 rounded-none transition-all duration-200 text-sm

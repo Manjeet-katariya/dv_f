@@ -1,9 +1,33 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, ChevronRight, ChevronLeft, Home, Building, Utensils, RotateCcw, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+
+const DEFAULT_CALCULATOR = {
+  heroTag: 'Cost Estimator',
+  heroHeading: 'Know your budget\n*before you build.*',
+  heroDescription: '3 steps · 2 minutes · Instant estimate sent to your email.'
+};
+
+const renderDynamicText = (text: string, italicClass = "italic font-normal text-stone-500") => {
+  if (!text) return null;
+  return text.split('\n').map((line, lineIdx) => {
+    const parts = line.split('*');
+    const parsedLine = parts.map((part, partIdx) => {
+      if (partIdx % 2 === 1) {
+        return <span key={partIdx} className={italicClass}>{part}</span>;
+      }
+      return part;
+    });
+    return (
+      <span key={lineIdx} className="block">
+        {parsedLine}
+      </span>
+    );
+  });
+};
 
 export default function CalculatorPage() {
   const [step, setStep] = useState(1);
@@ -20,6 +44,23 @@ export default function CalculatorPage() {
   const [estimateData, setEstimateData] = useState<{
     total: number; baseRate: number; styleFactor: number; area: number;
   } | null>(null);
+  const [calculatorData, setCalculatorData] = useState(DEFAULT_CALCULATOR);
+
+  useEffect(() => {
+    const fetchCalculatorContent = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const res = await fetch(`${API_URL}/api/website-content`);
+        const data = await res.json();
+        if (data.success && data.data?.calculator) {
+          setCalculatorData(data.data.calculator);
+        }
+      } catch (err) {
+        console.error('Error fetching calculator content:', err);
+      }
+    };
+    fetchCalculatorContent();
+  }, []);
 
   const handleSelection = (name: string, value: string) =>
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -41,7 +82,7 @@ export default function CalculatorPage() {
       const totalCost = area * baseRate * styleFactor;
       await new Promise(r => setTimeout(r, 1500));
       setEstimateData({ total: totalCost, baseRate, styleFactor, area });
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
       fetch(`${API_URL}/api/estimate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -78,15 +119,14 @@ export default function CalculatorPage() {
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="flex items-center gap-3 mb-5">
               <div className="w-5 h-[1px] bg-stone-700" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-400">Cost Estimator</span>
+              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-400">{calculatorData.heroTag}</span>
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-10 border-b border-stone-800">
               <h1 className="font-serif font-bold text-white text-[clamp(2.2rem,4.5vw,3.8rem)] leading-tight">
-                Know your budget<br />
-                <span className="italic font-normal text-stone-500">before you build.</span>
+                {renderDynamicText(calculatorData.heroHeading, "italic font-normal text-stone-500")}
               </h1>
               <p className="text-stone-400 text-sm font-light max-w-xs leading-relaxed">
-                3 steps · 2 minutes · Instant estimate sent to your email.
+                {calculatorData.heroDescription}
               </p>
             </div>
 

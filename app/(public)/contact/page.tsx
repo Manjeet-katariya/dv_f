@@ -13,6 +13,30 @@ interface ContactDetails {
   businessHours?: { [key: string]: { closed?: boolean; open?: string; close?: string; } };
 }
 
+const DEFAULT_CONTACT = {
+  heroTag: 'Get In Touch',
+  heroHeading: 'Where Vision Meets\n*Architecture into life.*',
+  heroDescription: "Great architecture starts with understanding your story. Share your ideas with us, and together we'll make spaces that are elegant, functional, and designed to stand the test of time."
+};
+
+const renderDynamicText = (text: string, italicClass = "italic font-light text-stone-500") => {
+  if (!text) return null;
+  return text.split('\n').map((line, lineIdx) => {
+    const parts = line.split('*');
+    const parsedLine = parts.map((part, partIdx) => {
+      if (partIdx % 2 === 1) {
+        return <span key={partIdx} className={italicClass}>{part}</span>;
+      }
+      return part;
+    });
+    return (
+      <span key={lineIdx} className="block">
+        {parsedLine}
+      </span>
+    );
+  });
+};
+
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -22,11 +46,12 @@ export default function ContactPage() {
     name: '', email: '', phone: '', projectType: 'residential', subject: '', message: '', budget: 'not-sure'
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [contactData, setContactData] = useState(DEFAULT_CONTACT);
 
   useEffect(() => {
     const fetchContactDetails = async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
         const res = await fetch(`${API_URL}/api/contact-details`);
         if (res.ok) {
           const data = await res.json();
@@ -36,7 +61,21 @@ export default function ContactPage() {
         setLoadingContact(false);
       }
     };
-    fetchContactDetails();
+    
+    const fetchContactContent = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const res = await fetch(`${API_URL}/api/website-content`);
+        const data = await res.json();
+        if (data.success && data.data?.contact) {
+          setContactData(data.data.contact);
+        }
+      } catch (err) {
+        console.error('Error fetching contact content:', err);
+      }
+    };
+    
+    Promise.all([fetchContactDetails(), fetchContactContent()]);
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -49,7 +88,7 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setErrorMessage('');
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
       const res = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -86,15 +125,14 @@ export default function ContactPage() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-5 h-[1px] bg-stone-700" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">Get In Touch</span>
+              <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500">{contactData.heroTag}</span>
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
               <h1 className="font-serif text-white text-[clamp(3rem,6vw,5.5rem)] leading-[1.05] tracking-tight">
-                Where Vision Meets<br />
-                <span className="italic font-light text-stone-500">Architecture into life.</span>
+                {renderDynamicText(contactData.heroHeading, "italic font-light text-stone-500")}
               </h1>
               <p className="text-stone-400 text-sm font-light max-w-sm leading-relaxed lg:pb-2">
-                Great architecture starts with understanding your story. Share your ideas with us, and together we'll make spaces that are elegant, functional, and designed to stand the test of time.
+                {contactData.heroDescription}
               </p>
             </div>
           </motion.div>

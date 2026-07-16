@@ -18,6 +18,7 @@ import {
   UploadCloud
 } from 'lucide-react';
 import MediaUpload from '@/components/MediaUpload';
+import { toast } from 'sonner';
 
 interface UploadedFile {
   id: string;
@@ -177,11 +178,13 @@ export default function AddProjectPage() {
         body: JSON.stringify(projectData)
       });
 
+      toast.success('Project created successfully!');
       setSuccess(true);
       setTimeout(() => router.push('/admin/projects'), 1500);
 
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'An unknown error occurred';
+      toast.error('Failed to create project: ' + errorMsg);
       setErrors([errorMsg]);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {

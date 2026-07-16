@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Edit, Save, X, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface SocialIcons {
   _id?: string;
@@ -88,13 +89,16 @@ export default function SocialIconsManagementPage() {
         setSocialIcons(data.data);
         setIsEditing(false);
         setMessage({ type: 'success', text: 'Social icons updated successfully!' });
+        toast.success('Social icons updated successfully!');
         setTimeout(() => setMessage(null), 3000);
       } else {
         setMessage({ type: 'error', text: data.message || 'Error updating social icons' });
+        toast.error(data.message || 'Error updating social icons');
       }
     } catch (error) {
       console.error('Error saving social icons:', error);
       setMessage({ type: 'error', text: 'Error saving social icons' });
+      toast.error('Error saving social icons');
     } finally {
       setSaving(false);
     }

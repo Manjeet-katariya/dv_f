@@ -18,6 +18,7 @@ import {
   CheckCircle
 } from 'lucide-react';
 import MediaUpload from '@/components/MediaUpload';
+import { toast } from 'sonner';
 
 interface UploadedFile {
   id: string;
@@ -197,14 +198,14 @@ export default function AdminProjectDetail() {
         setNewGalleryImages([]);
         setIsEditing(false);
         setEditSuccess(true);
-        console.log('✅ Project saved successfully!');
+        toast.success('Project saved successfully!');
         setTimeout(() => {
           setEditSuccess(false);
         }, 2000);
       }
     } catch (error) {
       console.error('Error saving project:', error);
-      alert('Error saving project. Check console for details.');
+      toast.error('Error saving project.');
     } finally {
       setIsUploadingImages(false);
     }
@@ -223,9 +224,11 @@ export default function AdminProjectDetail() {
         const data = await response.json();
         setProject(data.data);
         setFormData(data.data);
+        toast.success('Project status updated successfully!');
       }
     } catch (error) {
       console.error('Error deactivating project:', error);
+      toast.error('Error deactivating project.');
     }
   };
 

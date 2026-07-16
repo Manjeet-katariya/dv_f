@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -63,8 +63,211 @@ const process = [
   { num: '04', title: 'Reveal & Celebrate', desc: 'A curated final walkthrough of your completed space, styled to perfection, followed by our post-handover care.' },
 ];
 
+const DEFAULT_SERVICES = {
+  heroHeading: 'What We\n*Create For You.*',
+  heroDescription: 'End-to-end architectural and interior design services — from the first sketch to a curated handover.',
+  heroImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920',
+  process1Title: 'Listen & Discover',
+  process1Desc: 'We immerse ourselves in your world — your aspirations, lifestyle, and spatial needs — before a single line is drawn.',
+  process2Title: 'Design & Envision',
+  process2Desc: 'Detailed floor plans, mood boards, material palettes, and photorealistic 3D renders bring your vision to life on screen.',
+  process3Title: 'Build & Supervise',
+  process3Desc: 'Our on-site team manages every contractor, material, and timeline to ensure flawless quality at every stage.',
+  process4Title: 'Reveal & Celebrate',
+  process4Desc: 'A curated final walkthrough of your completed space, styled to perfection, followed by our post-handover care.',
+  discipline1Tag: 'Residential',
+  discipline1Title: 'Homes Built Around You',
+  discipline1Desc: 'We design homes that are deeply personal — where architecture meets lifestyle. From sprawling villas to compact urban apartments, every space is planned for beauty, function, and longevity.',
+  discipline1Feature1: 'Custom Villa & Bungalow Design',
+  discipline1Feature2: 'Kitchen & Bathroom Remodels',
+  discipline1Feature3: 'Bedroom & Living Sanctuaries',
+  discipline1Feature4: 'Lighting & Material Planning',
+  discipline1Img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900',
+
+  discipline2Tag: 'Commercial',
+  discipline2Title: 'Spaces That Mean Business',
+  discipline2Desc: 'Your workspace is your brand made physical. We design offices, retail stores, and hospitality venues that communicate excellence and leave a lasting impression on every visitor.',
+  discipline2Feature1: 'Corporate Office Strategy',
+  discipline2Feature2: 'Retail & Showroom Design',
+  discipline2Feature3: 'Hospitality & Restaurant Ambience',
+  discipline2Feature4: 'Brand Identity Integration',
+  discipline2Img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=900',
+
+  discipline3Tag: 'Interior Designing',
+  discipline3Title: 'Bespoke Indoors & Furniture',
+  discipline3Desc: 'From space planning and material curation to custom furniture design, we create cohesive interiors that represent your personal tastes and functional requirements.',
+  discipline3Feature1: 'Space Curation & Layouts',
+  discipline3Feature2: 'Bespoke Furniture & Fit-outs',
+  discipline3Feature3: 'Material & Paint Consulting',
+  discipline3Feature4: 'Decorative Lighting & Accents',
+  discipline3Img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=900',
+
+  discipline4Tag: 'Hospitality',
+  discipline4Title: 'Immersive Guest Experiences',
+  discipline4Desc: 'We design hotels, resorts, cafés, and restaurants that foster memorable guest experiences through exceptional ambiance, clever spatial layouts, and durable luxury materials.',
+  discipline4Feature1: 'Bespoke Restaurant & Café Layouts',
+  discipline4Feature2: 'Lobby & Reception Styling',
+  discipline4Feature3: 'Luxury Resort Masterplanning',
+  discipline4Feature4: 'Guest Room & Suite Ergonomics',
+  discipline4Img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=900',
+
+  discipline5Tag: 'Architecture & PMC',
+  discipline5Title: 'We Run the Site. You Rest.',
+  discipline5Desc: 'Acting as your eyes and ears on-site, we coordinate every contractor, enforce timelines, audit quality, and protect your investment throughout the entire build.',
+  discipline5Feature1: 'Contractor Coordination',
+  discipline5Feature2: 'Timeline & Budget Control',
+  discipline5Feature3: 'On-Site Quality Audits',
+  discipline5Feature4: 'Risk & Compliance Management',
+  discipline5Img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=900',
+
+  discipline6Tag: 'Cost Estimation',
+  discipline6Title: 'Know Every Number. Always.',
+  discipline6Desc: 'No hidden costs. No budget shocks. We deliver detailed financial blueprints — material breakdowns, labour estimates, and contingency plans — so you commit with full confidence.',
+  discipline6Feature1: 'Detailed Material Estimates',
+  discipline6Feature2: 'Labour & Timeline Costing',
+  discipline6Feature3: 'Budget Optimisation Reports',
+  discipline6Feature4: 'Financial Feasibility Studies',
+  discipline6Img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=900',
+
+  why1Title: 'End-to-End Ownership',
+  why1Desc: "We don't just design — we manage the entire process from concept to handover, so you never have to chase contractors or worry about timelines.",
+  why2Title: 'Transparent Pricing',
+  why2Desc: 'Detailed cost estimates before work begins. No surprises, no hidden charges — just clarity at every stage of your project.',
+  why3Title: 'Post-Handover Support',
+  why3Desc: "Our relationship doesn't end at handover. We provide structural support and care for months after your space is delivered.",
+};
+
+const renderDynamicText = (text: string, italicClass = "italic font-light text-white/70") => {
+  if (!text) return null;
+  return text.split('\n').map((line, lineIdx) => {
+    const parts = line.split('*');
+    const parsedLine = parts.map((part, partIdx) => {
+      if (partIdx % 2 === 1) {
+        return <span key={partIdx} className={italicClass}>{part}</span>;
+      }
+      return part;
+    });
+    return (
+      <span key={lineIdx} className="block">
+        {parsedLine}
+      </span>
+    );
+  });
+};
+
 export default function ServicesPage() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [servicesData, setServicesData] = useState(DEFAULT_SERVICES);
+
+  const disciplinesList = [
+    {
+      num: '01',
+      tag: servicesData.discipline1Tag || 'Residential',
+      title: servicesData.discipline1Title || 'Homes Built Around You',
+      desc: servicesData.discipline1Desc || 'We design homes that are deeply personal — where architecture meets lifestyle. From sprawling villas to compact urban apartments, every space is planned for beauty, function, and longevity.',
+      features: [
+        servicesData.discipline1Feature1 || 'Custom Villa & Bungalow Design',
+        servicesData.discipline1Feature2 || 'Kitchen & Bathroom Remodels',
+        servicesData.discipline1Feature3 || 'Bedroom & Living Sanctuaries',
+        servicesData.discipline1Feature4 || 'Lighting & Material Planning'
+      ],
+      img: servicesData.discipline1Img || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=900',
+    },
+    {
+      num: '02',
+      tag: servicesData.discipline2Tag || 'Commercial',
+      title: servicesData.discipline2Title || 'Spaces That Mean Business',
+      desc: servicesData.discipline2Desc || 'Your workspace is your brand made physical. We design offices, retail stores, and hospitality venues that communicate excellence and leave a lasting impression on every visitor.',
+      features: [
+        servicesData.discipline2Feature1 || 'Corporate Office Strategy',
+        servicesData.discipline2Feature2 || 'Retail & Showroom Design',
+        servicesData.discipline2Feature3 || 'Hospitality & Restaurant Ambience',
+        servicesData.discipline2Feature4 || 'Brand Identity Integration'
+      ],
+      img: servicesData.discipline2Img || 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=900',
+    },
+    {
+      num: '03',
+      tag: servicesData.discipline3Tag || 'Interior Designing',
+      title: servicesData.discipline3Title || 'Bespoke Indoors & Furniture',
+      desc: servicesData.discipline3Desc || 'From space planning and material curation to custom furniture design, we create cohesive interiors that represent your personal tastes and functional requirements.',
+      features: [
+        servicesData.discipline3Feature1 || 'Space Curation & Layouts',
+        servicesData.discipline3Feature2 || 'Bespoke Furniture & Fit-outs',
+        servicesData.discipline3Feature3 || 'Material & Paint Consulting',
+        servicesData.discipline3Feature4 || 'Decorative Lighting & Accents'
+      ],
+      img: servicesData.discipline3Img || 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=900',
+    },
+    {
+      num: '04',
+      tag: servicesData.discipline4Tag || 'Hospitality',
+      title: servicesData.discipline4Title || 'Immersive Guest Experiences',
+      desc: servicesData.discipline4Desc || 'We design hotels, resorts, cafés, and restaurants that foster memorable guest experiences through exceptional ambiance, clever spatial layouts, and durable luxury materials.',
+      features: [
+        servicesData.discipline4Feature1 || 'Bespoke Restaurant & Café Layouts',
+        servicesData.discipline4Feature2 || 'Lobby & Reception Styling',
+        servicesData.discipline4Feature3 || 'Luxury Resort Masterplanning',
+        servicesData.discipline4Feature4 || 'Guest Room & Suite Ergonomics'
+      ],
+      img: servicesData.discipline4Img || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=900',
+    },
+    {
+      num: '05',
+      tag: servicesData.discipline5Tag || 'Architecture & PMC',
+      title: servicesData.discipline5Title || 'We Run the Site. You Rest.',
+      desc: servicesData.discipline5Desc || 'Acting as your eyes and ears on-site, we coordinate every contractor, enforce timelines, audit quality, and protect your investment throughout the entire build.',
+      features: [
+        servicesData.discipline5Feature1 || 'Contractor Coordination',
+        servicesData.discipline5Feature2 || 'Timeline & Budget Control',
+        servicesData.discipline5Feature3 || 'On-Site Quality Audits',
+        servicesData.discipline5Feature4 || 'Risk & Compliance Management'
+      ],
+      img: servicesData.discipline5Img || 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=900',
+    },
+    {
+      num: '06',
+      tag: servicesData.discipline6Tag || 'Cost Estimation',
+      title: servicesData.discipline6Title || 'Know Every Number. Always.',
+      desc: servicesData.discipline6Desc || 'No hidden costs. No budget shocks. We deliver detailed financial blueprints — material breakdowns, labour estimates, and contingency plans — so you commit with full confidence.',
+      features: [
+        servicesData.discipline6Feature1 || 'Detailed Material Estimates',
+        servicesData.discipline6Feature2 || 'Labour & Timeline Costing',
+        servicesData.discipline6Feature3 || 'Budget Optimisation Reports',
+        servicesData.discipline6Feature4 || 'Financial Feasibility Studies'
+      ],
+      img: servicesData.discipline6Img || 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=900',
+    },
+  ];
+
+  const whyChooseList = [
+    { num: 'I', title: servicesData.why1Title || 'End-to-End Ownership', desc: servicesData.why1Desc || "We don't just design — we manage the entire process from concept to handover, so you never have to chase contractors or worry about timelines." },
+    { num: 'II', title: servicesData.why2Title || 'Transparent Pricing', desc: servicesData.why2Desc || 'Detailed cost estimates before work begins. No surprises, no hidden charges — just clarity at every stage of your project.' },
+    { num: 'III', title: servicesData.why3Title || 'Post-Handover Support', desc: servicesData.why3Desc || "Our relationship doesn't end at handover. We provide structural support and care for months after your space is delivered." },
+  ];
+
+  const processSteps = [
+    { num: '01', title: servicesData.process1Title || 'Listen & Discover', desc: servicesData.process1Desc || 'We immerse ourselves in your world — your aspirations, lifestyle, and spatial needs — before a single line is drawn.' },
+    { num: '02', title: servicesData.process2Title || 'Design & Envision', desc: servicesData.process2Desc || 'Detailed floor plans, mood boards, material palettes, and photorealistic 3D renders bring your vision to life on screen.' },
+    { num: '03', title: servicesData.process3Title || 'Build & Supervise', desc: servicesData.process3Desc || 'Our on-site team manages every contractor, material, and timeline to ensure flawless quality at every stage.' },
+    { num: '04', title: servicesData.process4Title || 'Reveal & Celebrate', desc: servicesData.process4Desc || 'A curated final walkthrough of your completed space, styled to perfection, followed by our post-handover care.' },
+  ];
+
+  useEffect(() => {
+    const fetchServicesContent = async () => {
+      try {
+        const API_URL = (globalThis as any).process?.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const res = await fetch(`${API_URL}/api/website-content`);
+        const data = await res.json();
+        if (data.success && data.data?.services) {
+          setServicesData(data.data.services);
+        }
+      } catch (err) {
+        console.error('Error fetching services content:', err);
+      }
+    };
+    fetchServicesContent();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -72,7 +275,7 @@ export default function ServicesPage() {
       {/* ── HERO: Full-bleed image with centered overlay ── */}
       <section className="relative w-full h-[75vh] min-h-[520px] overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1920"
+          src={servicesData.heroImage}
           alt="DVL Services"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -89,11 +292,10 @@ export default function ServicesPage() {
             transition={{ duration: 0.9, delay: 0.2 }}
           >
             <h1 className="font-serif text-white text-[clamp(3.5rem,7vw,6.5rem)] leading-[0.95] tracking-tight">
-              What We<br />
-              <span className="italic font-light text-white/70">Create For You.</span>
+              {renderDynamicText(servicesData.heroHeading, "italic font-light text-white/70")}
             </h1>
             <p className="text-white/45 text-sm font-light mt-5 max-w-sm leading-relaxed">
-              End-to-end architectural and interior design services — from the first sketch to a curated handover.
+              {servicesData.heroDescription}
             </p>
           </motion.div>
         </div>
@@ -114,7 +316,7 @@ export default function ServicesPage() {
 
           {/* Service rows — hover reveals image */}
           <div>
-            {services.map((service, idx) => (
+            {disciplinesList.map((service, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 16 }}
@@ -197,11 +399,7 @@ export default function ServicesPage() {
         <div className="max-w-[1700px] mx-auto px-8 lg:px-16">
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-stone-200">
-            {[
-              { num: 'I', title: 'End-to-End Ownership', desc: "We don't just design — we manage the entire process from concept to handover, so you never have to chase contractors or worry about timelines." },
-              { num: 'II', title: 'Transparent Pricing', desc: 'Detailed cost estimates before work begins. No surprises, no hidden charges — just clarity at every stage of your project.' },
-              { num: 'III', title: 'Post-Handover Support', desc: "Our relationship doesn't end at handover. We provide structural support and care for months after your space is delivered." },
-            ].map((item, i) => (
+            {whyChooseList.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 16 }}
@@ -240,7 +438,7 @@ export default function ServicesPage() {
             <div className="hidden lg:block absolute top-8 left-[40px] right-[40px] h-[1px] bg-stone-800 z-0" />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative z-10">
-              {process.map((step, i) => (
+              {processSteps.map((step, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 16 }}

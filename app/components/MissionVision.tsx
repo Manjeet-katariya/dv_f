@@ -2,7 +2,40 @@
 
 import { motion } from 'framer-motion';
 
-export default function MissionVision() {
+interface MissionVisionProps {
+  data?: {
+    philosophyHeading?: string;
+    philosophySubheading?: string;
+    philosophyDescription?: string;
+    philosophyQuote?: string;
+    philosophyStat1Val?: string;
+    philosophyStat1Label?: string;
+    philosophyStat2Val?: string;
+    philosophyStat2Label?: string;
+    philosophyStat3Val?: string;
+    philosophyStat3Label?: string;
+  };
+}
+
+const renderDynamicHeading = (text: string, italicClass = "text-stone-500 italic font-light") => {
+  if (!text) return null;
+  return text.split('\n').map((line, lineIdx) => {
+    const parts = line.split('*');
+    const parsedLine = parts.map((part, partIdx) => {
+      if (partIdx % 2 === 1) {
+        return <span key={partIdx} className={italicClass}>{part}</span>;
+      }
+      return part;
+    });
+    return (
+      <span key={lineIdx} className="block">
+        {parsedLine}
+      </span>
+    );
+  });
+};
+
+export default function MissionVision({ data }: MissionVisionProps) {
   return (
     <section className="bg-white py-32 border-t border-stone-200 relative overflow-hidden">
 
@@ -33,8 +66,7 @@ export default function MissionVision() {
             <div className="h-px w-10 bg-stone-400" />
           </div>
           <h2 className="text-3xl lg:text-5xl font-serif font-bold text-[#1C1917] tracking-tight">
-            Turning Dreams into{' '}
-            <span className="text-stone-500 italic font-light">Timeless Spaces.</span>
+            {renderDynamicHeading(data?.philosophyHeading || 'Turning Dreams into\n*Timeless Spaces.*')}
           </h2>
         </motion.div>
 
@@ -49,7 +81,7 @@ export default function MissionVision() {
             className="lg:col-span-5 py-6"
           >
             <h3 className="text-3xl lg:text-4xl font-serif font-light italic text-stone-500 leading-tight">
-              Every great space begins with a dream.
+              {data?.philosophySubheading || 'Every great space begins with a dream.'}
             </h3>
           </motion.div>
 
@@ -62,10 +94,10 @@ export default function MissionVision() {
             className="lg:col-span-7 space-y-6 text-[#57534E] text-base font-light leading-relaxed"
           >
             <p>
-              At D.V.L Architects, we work closely with our clients to understand not just what they want to build, but how they want to live. We believe exceptional architecture is deeply personal—it should reflect your identity, enhance your daily life, and remain beautiful for generations.
+              {data?.philosophyDescription || 'At D.V.L Architects, we work closely with our clients to understand not just what they want to build, but how they want to live. We believe exceptional architecture is deeply personal—it should reflect your identity, enhance your daily life, and remain beautiful for generations.'}
             </p>
             <p className="text-[#1C1917] font-medium font-serif text-lg border-l-2 border-stone-300 pl-4">
-              Our purpose is simple: to create spaces that inspire, comfort, and leave a lasting legacy.
+              {data?.philosophyQuote || 'Our purpose is simple: to create spaces that inspire, comfort, and leave a lasting legacy.'}
             </p>
           </motion.div>
         </div>
@@ -79,9 +111,9 @@ export default function MissionVision() {
           className="grid grid-cols-3 gap-6 md:gap-12 max-w-4xl mx-auto border-t border-stone-200 pt-12 mt-16 text-center"
         >
           {[
-            { v: '180+', l: 'Projects Delivered' },
-            { v: '8+', l: 'Years Experience' },
-            { v: '100%', l: 'Client Satisfaction' }
+            { v: data?.philosophyStat1Val || '180+', l: data?.philosophyStat1Label || 'Projects Delivered' },
+            { v: data?.philosophyStat2Val || '8+', l: data?.philosophyStat2Label || 'Years Experience' },
+            { v: data?.philosophyStat3Val || '100%', l: data?.philosophyStat3Label || 'Client Satisfaction' }
           ].map((s, i) => (
             <div key={i}>
               <div className="text-3xl lg:text-4xl font-serif font-bold text-[#1C1917] mb-2">{s.v}</div>

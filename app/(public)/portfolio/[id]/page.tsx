@@ -39,7 +39,7 @@ export default function ProjectDetailPage() {
 
   const fetchProject = async (id: string) => {
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
       console.log('Fetching project from:', `${API_URL}/api/projects/${id}`);
       const response = await fetch(`${API_URL}/api/projects/${id}`);
       console.log('Response status:', response.status);

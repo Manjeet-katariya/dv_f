@@ -3,6 +3,7 @@
 import { useState, useEffect, type ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Save, Loader2, MapPin, Phone, Clock, Globe, CheckCircle, AlertCircle } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface ContactDetails {
   _id?: string;
@@ -110,6 +111,7 @@ export default function ContactDetailsPage() {
         const data = await response.json();
         setContactDetails(data.data);
         setStatusMessage({ type: 'success', text: 'Contact details updated successfully!' });
+        toast.success('Contact details updated successfully!');
         
         // Auto-hide success message after 4 seconds
         setTimeout(() => {
@@ -121,6 +123,7 @@ export default function ContactDetailsPage() {
     } catch (error) {
       console.error('Error saving contact details:', error);
       setStatusMessage({ type: 'error', text: 'Failed to save contact details. Please try again.' });
+      toast.error('Failed to save contact details.');
     } finally {
       setSaving(false);
     }

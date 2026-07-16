@@ -30,6 +30,30 @@ const fallbackProjects: Project[] = [
 
 const customEase = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
+const DEFAULT_PORTFOLIO = {
+  heroHeading: 'Selected\n*Works.*',
+  heroDescription: 'A curated collection of residential and commercial spaces designed to inspire and endure.',
+  heroImage: 'https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?q=80&w=1920'
+};
+
+const renderDynamicText = (text: string, italicClass = "italic font-light text-stone-400") => {
+  if (!text) return null;
+  return text.split('\n').map((line, lineIdx) => {
+    const parts = line.split('*');
+    const parsedLine = parts.map((part, partIdx) => {
+      if (partIdx % 2 === 1) {
+        return <span key={partIdx} className={italicClass}>{part}</span>;
+      }
+      return part;
+    });
+    return (
+      <span key={lineIdx} className="block">
+        {parsedLine}
+      </span>
+    );
+  });
+};
+
 export default function PortfolioPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'residential' | 'commercial'>('all');
@@ -38,14 +62,31 @@ export default function PortfolioPage() {
   const [pagination, setPagination] = useState({ currentPage: 1, totalPages: 1, totalRecords: 0, limit: 20 });
   const [hasMore, setHasMore] = useState(true);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const [portfolioData, setPortfolioData] = useState(DEFAULT_PORTFOLIO);
 
   useEffect(() => { fetchProjects(1, true); }, []);
   useEffect(() => { setProjects([]); fetchProjects(1, true); }, [selectedCategory]);
 
+  useEffect(() => {
+    const fetchPortfolioContent = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const res = await fetch(`${API_URL}/api/website-content`);
+        const data = await res.json();
+        if (data.success && data.data?.portfolio) {
+          setPortfolioData(data.data.portfolio);
+        }
+      } catch (err) {
+        console.error('Error fetching portfolio content:', err);
+      }
+    };
+    fetchPortfolioContent();
+  }, []);
+
   const fetchProjects = async (page: number, isInitial = false) => {
     if (isInitial) setLoading(true); else setLoadingMore(true);
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
       const catParam = selectedCategory !== 'all' ? `&category=${selectedCategory}` : '';
       const res = await fetch(`${API_URL}/api/projects?page=${page}&limit=20${catParam}`);
       if (!res.ok) throw new Error("Failed");
@@ -88,7 +129,7 @@ export default function PortfolioPage() {
           className="absolute inset-0 z-0"
         >
           <img
-            src="https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?q=80&w=1920"
+            src={portfolioData.heroImage}
             alt="DVL Archive"
             className="w-full h-full object-cover opacity-40 grayscale"
           />
@@ -106,8 +147,7 @@ export default function PortfolioPage() {
               <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400">Our Archive</span>
             </div>
             <h1 className="font-serif text-white tracking-tight leading-[1.0] text-[clamp(4rem,8vw,7rem)]">
-              Selected<br />
-              <span className="italic font-light text-stone-400">Works.</span>
+              {renderDynamicText(portfolioData.heroHeading, "italic font-light text-stone-400")}
             </h1>
           </motion.div>
           
@@ -117,7 +157,7 @@ export default function PortfolioPage() {
             transition={{ duration: 1, delay: 0.8 }}
             className="text-stone-400 font-light text-sm max-w-xs leading-relaxed"
           >
-            A curated collection of residential and commercial spaces designed to inspire and endure.
+            {portfolioData.heroDescription}
           </motion.p>
         </div>
       </section>
