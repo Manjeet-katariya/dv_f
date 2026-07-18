@@ -140,17 +140,17 @@ export default function AboutPage() {
     <div className="min-h-screen bg-[#FAF9F5] font-sans">
 
       {/* ── 1. HERO: Split Panel ── */}
-      <section className="grid lg:grid-cols-2 min-h-[88vh]">
+      <section className="grid grid-cols-1 lg:grid-cols-2 min-h-screen lg:min-h-[88vh]">
 
         {/* Left: Dark content */}
-        <div className="bg-[#1C1917] flex flex-col justify-between px-10 lg:px-16 pt-44 pb-14">
+        <div className="bg-[#1C1917] flex flex-col justify-between px-6 lg:px-16 pt-32 pb-12 lg:pt-44 lg:pb-14">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
           >
 
-            <h1 className="font-serif text-white text-[clamp(3rem,5vw,5rem)] leading-[1.05] tracking-tight mb-8">
+            <h1 className="font-serif text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-tight mb-6 lg:mb-8">
               {renderDynamicText(aboutData.heroHeading, "italic font-light text-stone-400")}
             </h1>
             <p className="text-stone-500 text-sm font-light leading-relaxed max-w-sm">
@@ -163,7 +163,7 @@ export default function AboutPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="grid grid-cols-2 gap-6 border-t border-stone-800 pt-8 mt-14"
+            className="grid grid-cols-2 gap-6 border-t border-stone-800 pt-8 mt-10 lg:mt-14"
           >
             {(aboutData.heroStats || []).map((stat) => (
               <div key={stat.label}>

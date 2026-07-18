@@ -51,7 +51,7 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
     setIsSubmitting(true);
 
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
 
       const response = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
@@ -119,8 +119,8 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-[550px] bg-[#FAF9F5] shadow-[0_25px_60px_rgba(28,25,23,0.12)] border border-stone-200 rounded-sm overflow-hidden p-6 sm:p-10"
-            style={{ maxHeight: 'calc(100vh - 2rem)' }}
+            className="relative w-full max-w-[550px] bg-[#FAF9F5] shadow-[0_25px_60px_rgba(28,25,23,0.12)] border border-stone-200 rounded-sm overflow-hidden p-5 sm:p-10"
+            style={{ maxHeight: 'calc(100dvh - 2rem)' }}
           >
             
             {/* Close Button */}
@@ -133,20 +133,20 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
             </button>
 
             {/* Scrollable interior */}
-            <div className="overflow-y-auto max-h-[calc(100vh-6rem)] pr-1 custom-scrollbar">
+            <div className="overflow-y-auto max-h-[calc(100dvh-6rem)] pr-1 custom-scrollbar">
               
               {/* Header */}
-              <div className="flex flex-col items-center text-center mt-2 mb-8">
+              <div className="flex flex-col items-center text-center mt-1 mb-5 sm:mb-8">
                 <img 
                   src="/logo-dvl.png" 
                   alt="DVL Architects Logo" 
-                  className="h-12 w-12 object-cover rounded-full border border-stone-200 shadow-sm mb-4"
+                  className="h-10 w-10 sm:h-12 sm:w-12 object-cover rounded-full border border-stone-200 shadow-sm mb-3 sm:mb-4"
                 />
-                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-2">Enquiry Form</span>
-                <h3 className="text-3xl font-serif text-[#1C1917] font-semibold tracking-tight">
+                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-1.5 sm:mb-2">Enquiry Form</span>
+                <h3 className="text-2xl sm:text-3xl font-serif text-[#1C1917] font-semibold tracking-tight">
                   Initiate Dialogue
                 </h3>
-                <p className="text-[#57534E] text-xs font-light mt-3 max-w-sm leading-relaxed">
+                <p className="text-[#57534E] text-[11px] sm:text-xs font-light mt-2 max-w-sm leading-relaxed">
                   Provide a few details below, and our principal architects will be in touch shortly to discuss your project.
                 </p>
               </div>
@@ -154,7 +154,7 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <div>
                       <label className="block text-[8px] uppercase tracking-[0.2em] text-[#878076] mb-1 font-bold">Full Name</label>
                       <input
