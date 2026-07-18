@@ -178,7 +178,7 @@ export default function Home() {
   return (
     <div className="bg-[#FAF9F5] text-[#1C1917] font-sans selection:bg-[#1C1917] selection:text-[#FAF9F5]">
       {/* ── 01 — HERO (Full Screen Cinematic) ── */}
-      <section className="relative w-full h-[80dvh] md:h-[100dvh] min-h-[500px] md:min-h-[600px] overflow-hidden flex flex-col items-center justify-center">
+      <section className="relative w-full h-[100dvh] min-h-[500px] md:min-h-[600px] overflow-hidden flex flex-col items-center justify-center">
         {/* Parallax Background Image */}
         <motion.div
           className="absolute inset-0 z-0"
@@ -223,13 +223,13 @@ export default function Home() {
         </div>
 
         {/* Hero Bottom Strip (Info & Stats) */}
-        <div className="absolute bottom-8 left-0 right-0 w-full px-8 lg:px-16 hidden md:flex items-end justify-between gap-10 z-10 text-white">
+        <div className="absolute bottom-10 left-0 right-0 w-full px-6 md:px-16 flex flex-col md:flex-row items-center md:items-end justify-between gap-6 md:gap-10 z-10 text-white">
           {homeData.heroDescription && (
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.5, delay: 0.8 }}
-              className="max-w-xs text-left"
+              className="max-w-xs text-left hidden md:block"
             >
               <p className="text-[11px] font-light text-white/70 leading-relaxed">
                 {homeData.heroDescription}
@@ -242,12 +242,12 @@ export default function Home() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.5, delay: 0.8 }}
-              className="flex items-center gap-8 lg:gap-12 text-right"
+              className="flex items-center justify-center md:justify-end gap-6 md:gap-12 w-full md:w-auto"
             >
               {homeData.heroStats.map((stat, i) => (
-                <div key={i}>
-                  <div className="text-xl lg:text-2xl font-serif font-bold text-white leading-none">{stat.val}</div>
-                  <div className="text-[8px] uppercase tracking-[0.2em] text-white/50 mt-2 font-bold">{stat.label}</div>
+                <div key={i} className="text-center md:text-right">
+                  <div className="text-lg md:text-2xl font-serif font-bold text-white leading-none">{stat.val}</div>
+                  <div className="text-[7px] md:text-[8px] uppercase tracking-[0.2em] text-white/50 mt-1 md:mt-2 font-bold whitespace-nowrap">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
