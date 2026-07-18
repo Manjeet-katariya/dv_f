@@ -139,42 +139,54 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#FAF9F5] font-sans">
 
-      {/* ── 1. HERO: Split Panel ── */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[100dvh] lg:min-h-[88vh]">
-
-        {/* Left: Dark content */}
-        <div className="bg-[#1C1917] flex flex-col justify-between px-6 lg:px-16 pt-28 pb-16 lg:pt-44 lg:pb-14">
+      {/* ── 1. HERO: Split Panel / Responsive Background ── */}
+      <section className="relative grid grid-cols-1 lg:grid-cols-2 min-h-[100dvh] lg:min-h-[88vh] overflow-hidden">
+        
+        {/* Background Image on Mobile (Overlay behind text) */}
+        <div className="absolute inset-0 z-0 block lg:hidden">
+          <img
+            src={aboutData.heroImage}
+            alt="DVL Studio Mobile"
+            className="w-full h-full object-cover object-center"
+          />
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/65" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/75" />
+        </div>
+ 
+        {/* Left: Dark content panel (now overlay on mobile, solid on desktop) */}
+        <div className="relative z-10 bg-transparent lg:bg-[#1C1917] flex flex-col justify-between px-6 lg:px-16 pt-28 pb-16 lg:pt-44 lg:pb-14 w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
           >
-
+ 
             <h1 className="font-serif text-white text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-tight mb-6 lg:mb-8">
               {renderDynamicText(aboutData.heroHeading, "italic font-light text-stone-400")}
             </h1>
-            <p className="text-stone-500 text-sm font-light leading-relaxed max-w-sm">
+            <p className="text-stone-300 lg:text-stone-500 text-sm font-light leading-relaxed max-w-sm">
               {aboutData.heroDescription}
             </p>
           </motion.div>
-
+ 
           {/* Stats */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="grid grid-cols-2 gap-6 border-t border-stone-800 pt-8 mt-10 lg:mt-14"
+            className="grid grid-cols-2 gap-6 border-t border-stone-700 lg:border-stone-800 pt-8 mt-10 lg:mt-14"
           >
             {(aboutData.heroStats || []).map((stat) => (
               <div key={stat.label}>
                 <div className="text-4xl font-serif text-white mb-1">{stat.val}</div>
-                <div className="text-[9px] uppercase tracking-[0.25em] text-stone-500 mt-2">{stat.label}</div>
+                <div className="text-[9px] uppercase tracking-[0.25em] text-stone-400 lg:text-stone-500 mt-2">{stat.label}</div>
               </div>
             ))}
           </motion.div>
         </div>
-
-        {/* Right: Image */}
+ 
+        {/* Right: Image (Desktop only) */}
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
