@@ -209,33 +209,36 @@ export default function Navbar() {
               </div>
 
               {/* Nav links */}
-              <nav className="flex-1 flex flex-col justify-center gap-6">
+              <nav className="flex-grow flex flex-col justify-start gap-1 py-4">
                 {allLinks.map((link, i) => (
                   <motion.div
                     key={link.name}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 + i * 0.07, duration: 0.4 }}
+                    transition={{ delay: 0.12 + i * 0.05, duration: 0.4 }}
                   >
                     <Link
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="group flex items-center justify-between py-4 border-b border-stone-800"
+                      className="group flex items-baseline gap-4 py-3 border-b border-stone-850"
                     >
-                      <span className="text-4xl font-serif text-white group-hover:text-stone-400 transition-colors leading-none tracking-tight">
+                      <span className="font-mono text-[10px] text-stone-500 tracking-wider">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span className="text-3xl font-serif text-white group-hover:text-stone-300 group-hover:translate-x-2 transition-all duration-300 leading-none tracking-tight">
                         {link.name}
                       </span>
                     </Link>
                   </motion.div>
                 ))}
               </nav>
-
+ 
               {/* Bottom row */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.65 }}
-                className="pt-10 mt-6 border-t border-stone-800 flex-shrink-0 flex justify-between items-end"
+                transition={{ delay: 0.55 }}
+                className="pt-6 mt-4 border-t border-stone-800 flex-shrink-0 flex justify-between items-end"
               >
                 {/* Social */}
                 {socials.length > 0 && (
