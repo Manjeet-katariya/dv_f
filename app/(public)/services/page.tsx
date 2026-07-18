@@ -256,7 +256,7 @@ export default function ServicesPage() {
   useEffect(() => {
     const fetchServicesContent = async () => {
       try {
-        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
+        const API_URL = (globalThis as any).process?.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
         const res = await fetch(`${API_URL}/api/website-content`);
         const data = await res.json();
         if (data.success && data.data?.services) {
