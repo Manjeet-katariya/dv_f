@@ -327,7 +327,7 @@ export default function ServicesPage() {
                 onMouseLeave={() => setHovered(null)}
                 className={`group relative border-b border-stone-100 transition-colors duration-300 ${hovered === idx ? 'bg-[#1C1917]' : 'bg-white'}`}
               >
-                <div className="grid grid-cols-[60px_1fr_auto] lg:grid-cols-[80px_1fr_320px_auto] gap-6 lg:gap-12 items-center py-8 lg:py-10 cursor-default">
+                <div className="grid grid-cols-[36px_1fr_auto] lg:grid-cols-[80px_1fr_320px_auto] gap-4 md:gap-8 lg:gap-12 items-center py-6 lg:py-10 cursor-default">
 
                   {/* Number */}
                   <span className={`text-[9px] font-mono transition-colors duration-300 ${hovered === idx ? 'text-stone-600' : 'text-stone-300'}`}>
@@ -336,10 +336,10 @@ export default function ServicesPage() {
 
                   {/* Title + tag */}
                   <div>
-                    <div className={`text-[8px] font-bold uppercase tracking-[0.3em] mb-2 transition-colors duration-300 ${hovered === idx ? 'text-stone-600' : 'text-stone-400'}`}>
+                    <div className={`text-[8px] font-bold uppercase tracking-[0.3em] mb-1.5 transition-colors duration-300 ${hovered === idx ? 'text-stone-600' : 'text-stone-400'}`}>
                       {service.tag}
                     </div>
-                    <h2 className={`font-serif text-3xl lg:text-4xl transition-colors duration-300 ${hovered === idx ? 'text-white' : 'text-[#1C1917]'}`}>
+                    <h2 className={`font-serif text-2xl sm:text-3xl lg:text-4xl transition-colors duration-300 ${hovered === idx ? 'text-white' : 'text-[#1C1917]'}`}>
                       {service.title}
                     </h2>
                   </div>
@@ -369,9 +369,9 @@ export default function ServicesPage() {
                       transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="grid lg:grid-cols-[1fr_300px] gap-8 lg:gap-16 pb-10 pl-[72px] lg:pl-[92px] pr-16">
+                      <div className="grid lg:grid-cols-[1fr_300px] gap-8 lg:gap-16 pb-10 pl-[48px] sm:pl-[72px] lg:pl-[92px] pr-6 sm:pr-16">
                         {/* Features */}
-                        <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
                           {service.features.map((f, i) => (
                             <div key={i} className="flex items-center gap-2">
                               <div className="w-1 h-1 rounded-full bg-stone-600 flex-shrink-0" />
