@@ -140,10 +140,10 @@ export default function AboutPage() {
     <div className="min-h-screen bg-[#FAF9F5] font-sans">
 
       {/* ── 1. HERO: Split Panel ── */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 min-h-screen lg:min-h-[88vh]">
+      <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[100dvh] lg:min-h-[88vh]">
 
         {/* Left: Dark content */}
-        <div className="bg-[#1C1917] flex flex-col justify-between px-6 lg:px-16 pt-32 pb-12 lg:pt-44 lg:pb-14">
+        <div className="bg-[#1C1917] flex flex-col justify-between px-6 lg:px-16 pt-28 pb-16 lg:pt-44 lg:pb-14">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
