@@ -102,10 +102,10 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#1C1917] text-white relative border-t border-stone-800">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-14 pt-24 pb-12">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-14 pt-12 md:pt-24 pb-8 md:pb-12">
 
         {/* ── CENTRAL LOGO & ETHOS ── */}
-        <div className="flex flex-col items-center justify-center text-center mb-24">
+        <div className="flex flex-col items-center justify-center text-center mb-10 md:mb-24">
           <Link href="/" className="inline-block mb-6 group">
             <img
               src="/logo-dvl.png"
@@ -140,19 +140,19 @@ const Footer = () => {
         </div>
 
         {/* ── SYMMETRICAL LINKS & CONTACT ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24 mb-16 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 lg:gap-24 mb-10 md:mb-16 text-center md:text-left">
           
           {/* Left: Quick Links */}
           <div className="flex flex-col items-center md:items-end">
-            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-6">
+            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-3 md:mb-6">
               Navigation
             </h3>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2.5 md:gap-4">
               {leftLinks.map(link => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="font-serif text-lg text-stone-300 hover:text-white transition-colors duration-300"
+                  className="font-serif text-base md:text-lg text-stone-300 hover:text-white transition-colors duration-300"
                 >
                   {link.name}
                 </Link>
@@ -161,8 +161,8 @@ const Footer = () => {
           </div>
 
           {/* Center: Contact Info */}
-          <div className="flex flex-col items-center text-center border-t border-b md:border-t-0 md:border-b-0 md:border-l md:border-r border-stone-800 py-10 md:py-0 md:px-10">
-            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-6">
+          <div className="flex flex-col items-center text-center border-t border-b md:border-t-0 md:border-b-0 md:border-l md:border-r border-stone-800 py-6 md:py-0 md:px-10">
+            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-3 md:mb-6">
               Studio
             </h3>
             <div className="space-y-4 text-[11px] font-light text-stone-300 leading-relaxed">
@@ -186,15 +186,15 @@ const Footer = () => {
 
           {/* Right: More Links / Connect */}
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-6">
+            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-3 md:mb-6">
               Explore
             </h3>
-            <div className="flex flex-col gap-4 mb-8">
+            <div className="flex flex-col gap-2.5 md:gap-4 mb-0 md:mb-8">
               {rightLinks.map(link => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="font-serif text-lg text-stone-300 hover:text-white transition-colors duration-300"
+                  className="font-serif text-base md:text-lg text-stone-300 hover:text-white transition-colors duration-300"
                 >
                   {link.name}
                 </Link>
