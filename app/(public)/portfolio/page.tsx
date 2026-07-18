@@ -241,11 +241,11 @@ export default function PortfolioPage() {
                         <img
                           src={project.featuredImage}
                           alt={project.title}
-                          className="w-full h-full object-cover transition-all duration-[2000ms] ease-out grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100"
+                          className="w-full h-full object-cover transition-all duration-[2000ms] ease-out md:grayscale md:opacity-90 lg:group-hover:grayscale-0 lg:group-hover:scale-105 lg:group-hover:opacity-100"
                         />
                         
                         {/* Elegant overlay badge */}
-                        <div className="absolute top-5 left-5 overflow-hidden">
+                        <div className="absolute top-5 left-5 overflow-hidden hidden md:block">
                           <motion.div 
                             initial={{ y: -20, opacity: 0 }}
                             whileHover={{ y: 0, opacity: 1 }}

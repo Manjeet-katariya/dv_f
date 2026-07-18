@@ -132,14 +132,14 @@ export default function FeaturedProjects() {
                       <img
                         src={projectImg}
                         alt={projectTitle}
-                        className="w-full h-full object-cover transition-all duration-[2000ms] ease-out grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100"
+                        className="w-full h-full object-cover transition-all duration-[2000ms] ease-out md:grayscale md:opacity-90 lg:group-hover:grayscale-0 lg:group-hover:scale-105 lg:group-hover:opacity-100"
                       />
                     ) : (
                       <div className="w-full h-full bg-stone-200" />
                     )}
                     
                     {/* Hover Badge */}
-                    <div className="absolute top-5 left-5 overflow-hidden">
+                    <div className="absolute top-5 left-5 overflow-hidden hidden md:block">
                       <motion.div 
                         initial={{ y: -20, opacity: 0 }}
                         whileHover={{ y: 0, opacity: 1 }}
