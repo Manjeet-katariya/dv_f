@@ -256,7 +256,7 @@ export default function ServicesPage() {
   useEffect(() => {
     const fetchServicesContent = async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
         const res = await fetch(`${API_URL}/api/website-content`);
         const data = await res.json();
         if (data.success && data.data?.services) {

@@ -51,7 +51,7 @@ export default function ContactPage() {
   useEffect(() => {
     const fetchContactDetails = async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
         const res = await fetch(`${API_URL}/api/contact-details`);
         if (res.ok) {
           const data = await res.json();
@@ -64,7 +64,7 @@ export default function ContactPage() {
     
     const fetchContactContent = async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
         const res = await fetch(`${API_URL}/api/website-content`);
         const data = await res.json();
         if (data.success && data.data?.contact) {
@@ -88,7 +88,7 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setErrorMessage('');
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+      const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
       const res = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

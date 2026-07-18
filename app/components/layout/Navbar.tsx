@@ -73,7 +73,7 @@ export default function Navbar() {
   useEffect(() => {
     const fetchSocialLinks = async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
         const res = await fetch(`${API_URL}/api/social-icons`);
         if (!res.ok) throw new Error('failed');
         const data = await res.json();
@@ -86,7 +86,7 @@ export default function Navbar() {
   }, []);
 
   const trackSocialClick = (channel: string) => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
     const payload = JSON.stringify({ channel });
     if (navigator?.sendBeacon) {
       navigator.sendBeacon(`${API_URL}/api/social/click`, new Blob([payload], { type: 'application/json' }));
