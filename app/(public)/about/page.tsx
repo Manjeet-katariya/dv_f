@@ -179,7 +179,7 @@ export default function AboutPage() {
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: 'easeOut' }}
-          className="relative overflow-hidden min-h-[50vh] lg:min-h-0"
+          className="relative overflow-hidden hidden lg:block"
         >
           <img
             src={aboutData.heroImage}
