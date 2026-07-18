@@ -178,7 +178,7 @@ export default function Home() {
   return (
     <div className="bg-[#FAF9F5] text-[#1C1917] font-sans selection:bg-[#1C1917] selection:text-[#FAF9F5]">
       {/* ── 01 — HERO (Full Screen Cinematic) ── */}
-      <section className="relative w-full h-[100dvh] min-h-[500px] md:min-h-[600px] overflow-hidden flex flex-col items-center justify-center">
+      <section className="relative w-full h-[75dvh] md:h-[100dvh] min-h-[480px] md:min-h-[600px] overflow-hidden flex flex-col items-center justify-center">
         {/* Parallax Background Image */}
         <motion.div
           className="absolute inset-0 z-0"
@@ -254,9 +254,9 @@ export default function Home() {
           )}
         </div>
       </section>
-
+ 
       {/* ── 02 — THE ETHOS (Massive Statement) ── */}
-      <section className="bg-white py-32 lg:py-48 flex items-center justify-center relative z-20">
+      <section className="bg-white py-20 md:py-32 lg:py-48 flex items-center justify-center relative z-20">
         <div className="max-w-[1200px] mx-auto px-8 lg:px-16 text-center">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
