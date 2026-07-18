@@ -140,7 +140,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-[#FAF9F5] font-sans">
 
       {/* ── 1. HERO: Split Panel / Responsive Background ── */}
-      <section className="relative grid grid-cols-1 lg:grid-cols-2 min-h-[100dvh] lg:min-h-[88vh] overflow-hidden">
+      <section className="relative grid grid-cols-1 lg:grid-cols-2 h-[75dvh] lg:min-h-[88vh] min-h-[480px] overflow-hidden">
         
         {/* Background Image on Mobile (Overlay behind text) */}
         <div className="absolute inset-0 z-0 block lg:hidden">
