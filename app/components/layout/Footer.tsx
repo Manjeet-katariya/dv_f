@@ -139,69 +139,28 @@ const Footer = () => {
           )}
         </div>
 
-        {/* ── SYMMETRICAL LINKS & CONTACT ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 lg:gap-24 mb-10 md:mb-16 text-center md:text-left">
-          
-          {/* Left: Quick Links */}
-          <div className="flex flex-col items-center md:items-end">
-            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-3 md:mb-6">
-              Navigation
-            </h3>
-            <div className="flex flex-col gap-2.5 md:gap-4">
-              {leftLinks.map(link => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="font-serif text-base md:text-lg text-stone-300 hover:text-white transition-colors duration-300"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
+        {/* ── CONTACT INFO (Studio only) ── */}
+        <div className="max-w-md mx-auto mb-10 md:mb-16 text-center">
+          <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-4 md:mb-6">
+            Studio
+          </h3>
+          <div className="space-y-4 text-[11px] font-light text-stone-300 leading-relaxed">
+            <p>
+              {contactDetails?.address?.street ? `${contactDetails.address.street}` : 'Jaike-e-Jaipur Chowpatty'}<br />
+              {contactDetails?.address?.city ? `${contactDetails.address.city}, ${contactDetails.address.state}` : 'Sirsi Road, Jaipur - 302012'}<br />
+              {contactDetails?.address?.country || 'Rajasthan, India'}
+            </p>
+            <p>
+              <a href={`tel:${contactDetails?.phone || '+918619633247'}`} className="hover:text-white transition-colors">
+                {contactDetails?.phone || '+91-8619633247'}
+              </a>
+            </p>
+            <p>
+              <a href={`mailto:${contactDetails?.email || 'sparchitects93@gmail.com'}`} className="hover:text-white transition-colors">
+                {contactDetails?.email || 'sparchitects93@gmail.com'}
+              </a>
+            </p>
           </div>
-
-          {/* Center: Contact Info */}
-          <div className="flex flex-col items-center text-center border-t border-b md:border-t-0 md:border-b-0 md:border-l md:border-r border-stone-800 py-6 md:py-0 md:px-10">
-            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-3 md:mb-6">
-              Studio
-            </h3>
-            <div className="space-y-4 text-[11px] font-light text-stone-300 leading-relaxed">
-              <p>
-                {contactDetails?.address?.street ? `${contactDetails.address.street}` : 'Jaike-e-Jaipur Chowpatty'}<br />
-                {contactDetails?.address?.city ? `${contactDetails.address.city}, ${contactDetails.address.state}` : 'Sirsi Road, Jaipur - 302012'}<br />
-                {contactDetails?.address?.country || 'Rajasthan, India'}
-              </p>
-              <p>
-                <a href={`tel:${contactDetails?.phone || '+918619633247'}`} className="hover:text-white transition-colors">
-                  {contactDetails?.phone || '+91-8619633247'}
-                </a>
-              </p>
-              <p>
-                <a href={`mailto:${contactDetails?.email || 'sparchitects93@gmail.com'}`} className="hover:text-white transition-colors">
-                  {contactDetails?.email || 'sparchitects93@gmail.com'}
-                </a>
-              </p>
-            </div>
-          </div>
-
-          {/* Right: More Links / Connect */}
-          <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-3 md:mb-6">
-              Explore
-            </h3>
-            <div className="flex flex-col gap-2.5 md:gap-4 mb-0 md:mb-8">
-              {rightLinks.map(link => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="font-serif text-base md:text-lg text-stone-300 hover:text-white transition-colors duration-300"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
         </div>
 
         {/* ── BOTTOM ROW ── */}
