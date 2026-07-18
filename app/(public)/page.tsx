@@ -199,17 +199,6 @@ export default function Home() {
  
         {/* Centered Typography */}
         <div className="relative z-10 text-center px-6 mt-20 w-full max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, delay: 0.2, ease: customEase }}
-            className="flex items-center justify-center gap-4 mb-6"
-          >
-            <div className="w-8 md:w-12 h-[1px] bg-white/60" />
-            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.4em] text-white/80">{homeData.heroSubtitle}</span>
-            <div className="w-8 md:w-12 h-[1px] bg-white/60" />
-          </motion.div>
-          
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -218,23 +207,6 @@ export default function Home() {
           >
             {renderDynamicText(homeData.heroTitle, "italic font-light")}
           </motion.h1>
-        </div>
-
-        {/* Hero Bottom Strip (Stats only) */}
-        <div className="absolute bottom-8 left-0 right-0 w-full px-8 lg:px-16 hidden md:flex items-end justify-end z-10 text-white">
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.5, delay: 0.8 }}
-            className="flex items-center gap-8 lg:gap-12 text-right"
-          >
-            {(homeData.heroStats || []).map((stat, i) => (
-              <div key={i}>
-                <div className="text-xl lg:text-2xl font-serif font-bold text-white leading-none">{stat.val}</div>
-                <div className="text-[8px] uppercase tracking-[0.2em] text-white/50 mt-2 font-bold">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
         </div>
       </section>
 

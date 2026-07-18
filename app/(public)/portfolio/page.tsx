@@ -163,7 +163,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* ── FILTER BAR (Ultra-Minimal) ── */}
-      <div className="sticky top-[72px] z-30 bg-[#FAF9F5]/90 backdrop-blur-md border-b border-stone-200">
+      <div className="sticky top-[80px] lg:top-[90px] xl:top-[110px] z-30 bg-[#FAF9F5]/90 backdrop-blur-md border-b border-stone-200">
         <div className="max-w-[1700px] mx-auto px-8 lg:px-16 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <motion.div
             initial={{ opacity: 0 }}
