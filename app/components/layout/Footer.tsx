@@ -51,7 +51,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
         const [socialRes, contactRes] = await Promise.all([
           fetch(`${API_URL}/api/social-icons`),
           fetch(`${API_URL}/api/contact-details`),
@@ -74,7 +74,7 @@ const Footer = () => {
   }, []);
 
   const trackSocialClick = (channel: string) => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
     fetch(`${API_URL}/api/social/click`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
       body: JSON.stringify({ channel })
@@ -143,7 +143,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24 mb-16 text-center md:text-left">
           
           {/* Left: Quick Links */}
-          <div className="flex flex-col md:items-end">
+          <div className="flex flex-col items-center md:items-end">
             <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-6">
               Navigation
             </h3>
@@ -185,7 +185,7 @@ const Footer = () => {
           </div>
 
           {/* Right: More Links / Connect */}
-          <div className="flex flex-col md:items-start">
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-6">
               Explore
             </h3>
