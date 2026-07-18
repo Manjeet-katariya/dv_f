@@ -49,7 +49,7 @@ export default function CalculatorPage() {
   useEffect(() => {
     const fetchCalculatorContent = async () => {
       try {
-        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
         const res = await fetch(`${API_URL}/api/website-content`);
         const data = await res.json();
         if (data.success && data.data?.calculator) {
@@ -82,7 +82,7 @@ export default function CalculatorPage() {
       const totalCost = area * baseRate * styleFactor;
       await new Promise(r => setTimeout(r, 1500));
       setEstimateData({ total: totalCost, baseRate, styleFactor, area });
-      const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+      const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
       fetch(`${API_URL}/api/estimate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

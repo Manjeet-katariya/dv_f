@@ -108,7 +108,7 @@ export default function AboutPage() {
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
         const res = await fetch(`${API_URL}/api/team`);
         const data = await res.json();
         if (data.success && data.data && data.data.length > 0) setTeamMembers(data.data);
@@ -117,7 +117,7 @@ export default function AboutPage() {
     };
     const fetchFounder = async () => {
       try {
-        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
         const res = await fetch(`${API_URL}/api/founder`);
         const data = await res.json();
         if (data.success && data.data) setFounder(data.data);
@@ -125,7 +125,7 @@ export default function AboutPage() {
     };
     const fetchWebsiteContent = async () => {
       try {
-        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
         const res = await fetch(`${API_URL}/api/website-content`);
         const data = await res.json();
         if (data.success && data.data?.about) {

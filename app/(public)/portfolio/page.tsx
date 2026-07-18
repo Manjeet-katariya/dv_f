@@ -70,7 +70,7 @@ export default function PortfolioPage() {
   useEffect(() => {
     const fetchPortfolioContent = async () => {
       try {
-        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+        const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
         const res = await fetch(`${API_URL}/api/website-content`);
         const data = await res.json();
         if (data.success && data.data?.portfolio) {
@@ -86,7 +86,7 @@ export default function PortfolioPage() {
   const fetchProjects = async (page: number, isInitial = false) => {
     if (isInitial) setLoading(true); else setLoadingMore(true);
     try {
-      const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'http://localhost:5006';
+      const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
       const catParam = selectedCategory !== 'all' ? `&category=${selectedCategory}` : '';
       const res = await fetch(`${API_URL}/api/projects?page=${page}&limit=20${catParam}`);
       if (!res.ok) throw new Error("Failed");
