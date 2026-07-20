@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Menu } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const FacebookIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -37,6 +37,18 @@ interface SocialLinks {
   linkedin?: string;
 }
 
+interface ContactDetails {
+  phone?: string;
+  email?: string;
+  address?: {
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+  };
+}
+
 const leftLinks = [
   { name: 'Home', href: '/' },
   { name: 'Portfolio', href: '/portfolio' },
@@ -55,6 +67,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [socialLinks, setSocialLinks] = useState<SocialLinks>({});
+  const [contactDetails, setContactDetails] = useState<ContactDetails | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,18 +84,29 @@ export default function Navbar() {
   }, [isOpen]);
 
   useEffect(() => {
-    const fetchSocialLinks = async () => {
+    const fetchNavbarData = async () => {
       try {
         const API_URL = process.env?.NEXT_PUBLIC_API_URL || 'https://dvlarchitects.com';
-        const res = await fetch(`${API_URL}/api/social-icons`);
-        if (!res.ok) throw new Error('failed');
-        const data = await res.json();
-        if (data.success && data.data) setSocialLinks(data.data);
+        const [socialRes, contactRes] = await Promise.all([
+          fetch(`${API_URL}/api/social-icons`),
+          fetch(`${API_URL}/api/contact-details`)
+        ]);
+
+        if (socialRes.ok) {
+          const socialData = await socialRes.json();
+          if (socialData.success && socialData.data) setSocialLinks(socialData.data);
+        }
+
+        if (contactRes.ok) {
+          const contactData = await contactRes.json();
+          if (contactData.success && contactData.data) setContactDetails(contactData.data);
+        }
       } catch {
         setSocialLinks({});
+        setContactDetails(null);
       }
     };
-    fetchSocialLinks();
+    fetchNavbarData();
   }, []);
 
   const trackSocialClick = (channel: string) => {
@@ -107,6 +131,9 @@ export default function Navbar() {
   const textClass = scrolled ? 'text-white hover:text-stone-300' : 'text-white hover:text-stone-300';
   const bgClass = scrolled ? 'bg-[#1C1917]/60 backdrop-blur-md' : 'bg-transparent';
   const hoverBgClass = scrolled ? 'hover:bg-white/5' : 'hover:bg-black/10';
+
+  const mobileBorderClass = scrolled ? 'border-white/10' : 'border-white/15';
+  const mobileBgClass = scrolled ? 'bg-[#1C1917]/90 backdrop-blur-lg' : 'bg-[#1C1917]/80 backdrop-blur-md';
 
   return (
     <>
@@ -155,24 +182,48 @@ export default function Navbar() {
       </nav>
 
       {/* ── MOBILE NAVBAR ── */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${borderClass} ${bgClass} lg:hidden`}>
-        <div className="flex items-center justify-between h-20 px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <img
-              src="/logo-dvl.png"
-              alt="DVL"
-              className="h-9 w-9 object-cover rounded-full border border-white/30"
-            />
-            <span className="font-serif text-[10px] tracking-[0.2em] uppercase text-white">DVL</span>
-          </Link>
+      <nav className={`fixed top-4 left-4 right-4 z-50 transition-all duration-500 rounded-full border ${mobileBorderClass} ${mobileBgClass} lg:hidden shadow-lg shadow-black/20`}>
+        <div className="grid grid-cols-3 items-center h-16 px-5 sm:px-6">
+          
+          {/* Left Column: Custom Menu Trigger */}
+          <div className="flex justify-start">
+            <button
+              onClick={() => setIsOpen(true)}
+              className="flex items-center gap-2 text-white hover:text-stone-300 transition-colors py-2 focus:outline-none group cursor-pointer"
+              aria-label="Open navigation"
+            >
+              <div className="flex flex-col gap-1 w-5">
+                <span className="h-[2px] w-5 bg-white rounded-full transition-all duration-300 group-hover:w-4"></span>
+                <span className="h-[2px] w-3.5 bg-white rounded-full transition-all duration-300 group-hover:w-5"></span>
+              </div>
+              <span className="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-white/90">Menu</span>
+            </button>
+          </div>
 
-          <button
-            onClick={() => setIsOpen(true)}
-            className="text-white hover:text-stone-300 transition-colors"
-            aria-label="Open navigation"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
+          {/* Center Column: Centered Logo Area */}
+          <div className="flex justify-center">
+            <Link href="/" className="flex flex-col items-center group">
+              <img
+                src="/logo-dvl.png"
+                alt="DVL Logo"
+                className="h-8 w-8 object-cover rounded-full border border-white/30 group-hover:scale-105 transition-transform duration-300"
+              />
+              <span className="mt-1 font-serif text-[8px] tracking-[0.25em] uppercase text-white/80 group-hover:text-white transition-colors">
+                DVL
+              </span>
+            </Link>
+          </div>
+
+          {/* Right Column: Contact/Enquire button */}
+          <div className="flex justify-end">
+            <Link
+              href="/contact"
+              className="px-3.5 py-1.5 rounded-full bg-white text-[#1C1917] font-sans text-[9px] font-bold tracking-[0.1em] uppercase hover:bg-stone-200 active:scale-95 transition-all duration-200 shadow-sm"
+            >
+              Enquire
+            </Link>
+          </div>
+
         </div>
       </nav>
 
@@ -192,7 +243,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-              className="relative w-full bg-[#1C1917] flex flex-col px-8 py-8 overflow-y-auto"
+              className="relative w-full bg-[#1C1917] bg-[radial-gradient(circle_at_top_right,rgba(168,162,158,0.12),transparent_45%)] flex flex-col px-8 py-8 overflow-y-auto"
             >
               {/* Top row */}
               <div className="flex items-center justify-between mb-16 flex-shrink-0">
@@ -202,7 +253,7 @@ export default function Navbar() {
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center w-10 h-10 border border-stone-700 text-white rounded-full hover:bg-white hover:text-[#1C1917] transition-all"
+                  className="flex items-center justify-center w-10 h-10 border border-stone-700 text-white rounded-full hover:bg-white hover:text-[#1C1917] transition-all cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -220,7 +271,7 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="group flex items-baseline gap-4 py-3 border-b border-stone-850"
+                      className="group flex items-baseline gap-4 py-3 border-b border-stone-800/40"
                     >
                       <span className="font-mono text-[10px] text-stone-500 tracking-wider">
                         {String(i + 1).padStart(2, '0')}
@@ -233,28 +284,65 @@ export default function Navbar() {
                 ))}
               </nav>
  
-              {/* Bottom row */}
+              {/* Bottom Info Section */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.55 }}
-                className="pt-6 mt-4 border-t border-stone-800 flex-shrink-0 flex justify-between items-end"
+                className="pt-8 mt-8 border-t border-stone-800/60 flex-shrink-0 grid grid-cols-2 gap-6"
               >
-                {/* Social */}
-                {socials.length > 0 && (
+                {/* Contact info column */}
+                <div className="space-y-4">
                   <div>
-                    <p className="text-[8px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-4">Follow Us</p>
-                    <div className="flex gap-4">
-                      {socials.map(({ key, href, Icon }) => (
-                        <a key={key} href={href} target="_blank" rel="noopener noreferrer"
-                          onClick={() => trackSocialClick(key)}
-                          className="text-stone-400 hover:text-white transition-colors">
-                          <Icon />
-                        </a>
-                      ))}
-                    </div>
+                    <p className="text-[8px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-1">Direct Line</p>
+                    <a
+                      href={`tel:${contactDetails?.phone || '+918619633247'}`}
+                      className="text-xs font-serif text-white hover:text-stone-300 transition-colors"
+                    >
+                      {contactDetails?.phone || '+91-8619633247'}
+                    </a>
                   </div>
-                )}
+                  
+                  <div>
+                    <p className="text-[8px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-1">Email Desk</p>
+                    <a
+                      href={`mailto:${contactDetails?.email || 'sparchitects93@gmail.com'}`}
+                      className="text-xs font-serif text-white hover:text-stone-300 transition-colors break-all"
+                    >
+                      {contactDetails?.email || 'sparchitects93@gmail.com'}
+                    </a>
+                  </div>
+                </div>
+
+                {/* Socials & Location Column */}
+                <div className="flex flex-col justify-between items-end">
+                  {socials.length > 0 ? (
+                    <div className="text-right">
+                      <p className="text-[8px] font-bold uppercase tracking-[0.3em] text-stone-500 mb-2">Follow Us</p>
+                      <div className="flex gap-3 justify-end">
+                        {socials.map(({ key, href, Icon }) => (
+                          <a
+                            key={key}
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => trackSocialClick(key)}
+                            className="flex items-center justify-center w-8 h-8 rounded-full border border-stone-800 text-stone-400 hover:text-white hover:border-stone-600 hover:bg-stone-800/40 transition-all cursor-pointer"
+                            aria-label={key}
+                          >
+                            <Icon />
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+
+                  <div className="text-right text-[9px] text-stone-500 tracking-wider">
+                    Jaipur, India
+                  </div>
+                </div>
               </motion.div>
             </motion.div>
           </motion.div>
